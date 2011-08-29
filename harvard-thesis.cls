@@ -72,7 +72,7 @@
 \renewcommand{\maketitle}{ 
 	\thispagestyle{empty}\sc
 	\vspace*{\fill} \begin{center}
-	\Huge \thetitle \normalsize \\ \vspace{100pt}
+	\huge \thetitle \normalsize \\ \vspace{100pt}
 	a dissertation presented \\ by\\
 	\theauthor\\ to\\ The \@department\\ 
 	\vspace{12pt}
