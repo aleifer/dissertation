@@ -28,7 +28,8 @@
 \RequirePackage[tight,nice]{units}
 \RequirePackage{verbatim}
 \RequirePackage{url}
-\usepackage{pdfsync} %do pdf synchronization
+\usepackage{pdfsync} %do pdf synchronization [andy]
+\synctex=1 % turn synctex on automatically to sync between pdf viewer [andy]
 
 
 %these can stay here
