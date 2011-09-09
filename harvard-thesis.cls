@@ -28,7 +28,11 @@
 \RequirePackage[tight,nice]{units}
 \RequirePackage{verbatim}
 \RequirePackage{url}
+
+%Andy's package additions
 \usepackage{pdfsync} %do pdf synchronization [andy]
+\usepackage[closeFloats]{fltpage}
+
 \synctex=1 % turn synctex on automatically to sync between pdf viewer [andy]
 
 
