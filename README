@@ -39,6 +39,11 @@ Then go to Bundles->Latex-> File Preferences -> Set Master file and select your 
 xelatex  thesis.tex
 
 
+For Bibtex Drag and Drop Functionality from Zotero see:
+http://forums.zotero.org/discussion/5094/drag-and-drop-bibtex-cite/
+and in particular:
+http://pastebin.com/GXmCJevn
+
 
 **** General Links ****
 Harvard Approved Binding Sites:
