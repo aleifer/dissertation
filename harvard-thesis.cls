@@ -1,9 +1,9 @@
 % -------------------------------------------------------------------
 %  @LaTeX-class-file{
 %     filename        = "harvard-thesis.cls",
-%     version         = "0.1",
+%     version         = "0.1.1",
 %     date            = "5 April 2011",
-%     createdby       = "Jordan Suchow",
+%     createdby       = "Jordan Suchow, modified by Andrew Leifer",
 %     address         = "10 Akron St. 309, Cambridge, MA 02138"
 %     telephone       = "+1 914 582 2646",
 %     email           = "suchow at fas.harvard.edu",
@@ -14,7 +14,7 @@
 % --------------------------------------------------------------------
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{harvard-thesis}[2011/04/09 v0.1 Harvard University Thesis Class]
+\ProvidesClass{harvard-thesis}[2011/09/09 v0.1.1 Harvard University Thesis Class]
 \LoadClass[11pt, oneside, letterpaper]{book}
 
 
@@ -29,12 +29,12 @@
 \RequirePackage{verbatim}
 \RequirePackage{url}
 
-%Andy's package additions
+%Begin Andy's package additions
 \usepackage{pdfsync} %do pdf synchronization [andy]
 \usepackage[closeFloats]{fltpage}
 
 \synctex=1 % turn synctex on automatically to sync between pdf viewer [andy]
-
+%End Andy's package additions
 
 %these can stay here
 \RequirePackage{lettrine}%big letter at start of chapter
@@ -136,3 +136,8 @@
    \noindent\textsc{#1}%
 }
 	
+	
+%Andys Spacing 
+%Be more forgiving, and stretch word spacing out more so that wormds don't run out into the margins..
+\emergencystretch=1.5em
+%End Andy Spacing
