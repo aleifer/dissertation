@@ -34,6 +34,10 @@
 \usepackage[closeFloats]{fltpage}
 
 \synctex=1 % turn synctex on automatically to sync between pdf viewer [andy]
+
+%   list an entire bibliography entry inline. Useful for acknowledging when my paper was previously published
+\usepackage{bibentry} 
+\nobibliography*        
 %End Andy's package additions
 
 %these can stay here
