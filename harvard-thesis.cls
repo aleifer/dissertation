@@ -63,6 +63,8 @@
 \defaultfontfeatures{Mapping=tex-text, Numbers=OldStyle}
 \setromanfont[Mapping=tex-text, Numbers=OldStyle, Ligatures={{Historic,Contextual,Rare}}]{Chaparral Pro} % Contextuals=Swash, Ligatures={{Historic,Contextual,Rare}}
 
+
+
 %Set fonts for Mac Specific (Comment out on Windows XP)
 %\setsansfont[Scale=MatchLowercase,Mapping=tex-text]{Helvetica Neue} 
 %\setmonofont[Scale=MatchLowercase]{Consolas}
