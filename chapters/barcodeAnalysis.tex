@@ -36,6 +36,15 @@ In the following sections we develop an optimal mathematical framework and softw
 To automatically detect and decode a barcode from its three-channel image, the software must systematically scan through the image, detect the location of each barcode and decide which of the 216 reference barcode species best fits the observed barcode. Assigning the best fitting reference, or model, barcode is performed by Bayesian multiple hypothesis testing. This is, in general, computational intensive for two-dimensional datasets, so we turn for guidance to a simpler problem: detecting the presence of a known one-dimensional reference signal in Gaussian noise.
 
 
+Out of $K$ total possible references, the probability $p(m_k|u)$ that the $k$th reference $m_k$ is present given the  observed signal $u$ is proportional to the probability that the difference between the signal and the reference $u-m_k$ could be entirely due to noise,
+
+
+\begin{equation}
+p(u|m_k)\sim p(u|m_k) \sim \frac{1}{  \sqrt{ (2\pi)^K \det || R_n||} } \exp\left\{ -\frac{1}{2}  (u-m_k)^T R_n^{-1} (u-m_k) \right\}
+\end{equation}
+
+where $R_n$ is the noise covariance matrix. 
+
 %%%
 % Suggestions for Notation
 % Added Monday: since we'll talk about 1D case first, let's use 'u' for 1D. 'v' is then natural for 2D data that follows.
