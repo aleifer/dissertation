@@ -33,11 +33,21 @@ In the following sections we develop an optimal mathematical framework and softw
 
 
 \section{Theory and Algorithm}
-To automatically detect and decode a barcode from its three-channel image, the software must systematically scan through the image, detect the location of each barcode and find which of the 216 reference barcode species  most likely correlates to the observed barcode. 
-
-For guidance, we turn to a much simpler problem: detecting the relative probability of potential known references signals in  known 
+To automatically detect and decode a barcode from its three-channel image, the software must systematically scan through the image, detect the location of each barcode and decide which of the 216 reference barcode species best fits the observed barcode. Assigning the best fitting reference, or model, barcode is performed by Bayesian multiple hypothesis testing. This is, in general, computational intensive for two-dimensional datasets, so we turn for guidance to a simpler problem: detecting the presence of a known one-dimensional reference signal in Gaussian noise.
 
 
+%%%
+Suggestions for Notation
+m_k = kth model, K = total # barcodes
+v(x,y) = raw observed voltage at pixel x,y. Probably don't mention the x,y coordinates for most of what we do
+c = camera offset constant
+n(x,y) = noise
+so v = a*m_k + n + c where a is ampl
+f(x) = reduced observed data (offset removed and scale flattened)
+std probability notation p(H|D) = prob. of H given D
+R_n = noise covariance matrix
+\sigma^2 = noise variance
+<.> = expectation
 
 
 
@@ -54,10 +64,10 @@ For guidance, we turn to a much simpler problem: detecting the relative probabil
 
 
 \begin{equation}
-p_{m_j}(f)=p(f-m_j) = \frac{1}{  \sqrt{ (2\pi)^H \det || R_{gh}||} } \exp\left\{ -\frac{1}{2}  (f-m_j)^T R_{nn}^{-1} (f-m_j) \right\}
+p(f|m_k)\sim p(f-m_k) = \frac{1}{  \sqrt{ (2\pi)^K \det || R_n||} } \exp\left\{ -\frac{1}{2}  (f-m_k)^T R_n^{-1} (f-m_k) \right\}
 \end{equation}
 
-Where $R_{nn}$ is the covariance matrix of the noise.
+Where $R_{n}$ is the covariance matrix of the noise.
 
 %bold non-ital uppercase for matrices
 %bold non-ital lowercase for vectors
