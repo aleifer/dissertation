@@ -20,16 +20,22 @@ We chose to image DNA origami nanorod barcodes [cite chenxiang]. These nanorods 
 
 We chose to work with this particular form of fluorescently encoded barcodes as opposed to others because this form offer the largest published number of distinct barcode species to date, has the advantage of being massively self-assembled in parallel, and creates barcodes of suitably small  size so as to be useful for future microarray applications. 
 
-The barcodes are in fact, so small that the distance between fluorescing sites is in some cases smaller than a wavelength of light. As a result, when the barcodes are imaged on a flat surface, the distinct flourescent sites appear to blend into one another. This becomes one of the primary challenges facing a computer vision barcode identify, namely to  decode the barcode even when the individual difraction-limited fluorescent spots overlap. 
+The barcodes are, in fact, so small that the distance between fluorescing sites is often smaller than a wavelength of light. As a result, when the barcodes are imaged on a flat surface, the distinct flourescent sites appear to blend into one another. This becomes one of the primary challenges facing any computer vision barcode identification software, namely to  decode the barcode even when the individual difraction-limited fluorescent spots overlap. 
 
 \subsection{Imaging}
-Barcodes were imaged on a glass cover slide on a BLAH BLAH microscope,  under total internal reflection fluorescence (TIRF). The red, green and blue channel images of the barcodes were taken on a glass coverslip, with purple (XXXnm), green (XXXnm) or blue (XXXnm) laser light at YYY mW, ZZZ mW and XXXX mW incident power, respectively. A BLAH BLAH EMCCD camera was used with an exposure time of BLAH ms.
+Barcodes were imaged on a glass cover slide on a BLAH BLAH microscope,  under total internal reflection fluorescence (TIRF). 
+The red, green and blue channel images of the barcodes were taken on a glass coverslip, with purple (XXXnm), green (XXXnm) or blue (XXXnm) laser light at YYY mW, ZZZ mW and XXXX mW incident power, respectively. A BLAH BLAH EMCCD camera was used with an exposure time of BLAH ms.
  
 \subsection{Task at Hand}
-To be useful for microarray or other diagnostic applications, it is important for computer vision software to be able to automatically detect and decode large quantities of barcodes robustly and accurately with little or no user input. Here we restrict ourselves to immobilized barcodes laying flat on a glass slide, but we demand that our software solution tolerate  likely real-world complexities including the presence of inhomogeneous spatial illumination, background fluorescence and minor defects in barcode folding.  In the following sections we develop an optimal mathematical framework and software implementation for identifying the location and orientation of the barcode and then decoding it.
+To be useful for microarray or other diagnostic applications, it is important for any computer vision software to be able to automatically detect and decode large quantities of barcodes robustly and accurately with little or no user input. 
+Here we restrict ourselves to immobilized barcodes laying flat on a glass slide, but we demand that our software solution tolerate  likely real-world complexities including the presence of inhomogeneous spatial illumination, background fluorescence and minor defects in barcode folding.  
+In the following sections we develop an optimal mathematical framework and software implementation for identifying the location and orientation of the barcode and then decoding it.
 
 
 \section{Theory and Algorithm}
+To automatically detect and decode a barcode from its three-channel image, the software must systematically scan through the image, detect the location of each barcode and find which of the 216 reference barcode species  most likely correlates to the observed barcode. 
+
+For guidance, we turn to a much simpler problem: detecting the relative probability of potential known references signals in  known 
 
 
 
@@ -38,12 +44,9 @@ To be useful for microarray or other diagnostic applications, it is important fo
 
 
 
-
-Consequently, traditional particle centroid finding methods, are no longer sufficient to identify independent fluorescent sites. 
-
-
-
-
+%%%%
+%%%% Only got this far.......
+%%%%
 
 
 
