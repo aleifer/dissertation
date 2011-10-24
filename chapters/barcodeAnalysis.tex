@@ -38,12 +38,13 @@ To automatically detect and decode a barcode from its three-channel image, the s
 
 %%%
 % Suggestions for Notation
+% Monday: since we'll talk about 1D case first, let's use 'u' for 1D then 'v' is natural for 2D data
 % m_k = kth model, K = total # barcodes
 % v(x,y) = raw observed voltage at pixel x,y. Probably don't mention the x,y coordinates for most of what we do
 % c = camera offset constant
 % n(x,y) = noise
 % so v = a*m_k + n + c where a is ampl
-% f(x) = reduced observed data (offset removed and scale flattened)
+% u(x) = 1D case, and also reduced observed data (offset removed and scale flattened)
 % std probability notation p(H|D) = prob. of H given D
 % R_n = noise covariance matrix
 % \sigma^2 = noise variance
@@ -57,14 +58,25 @@ To automatically detect and decode a barcode from its three-channel image, the s
 %%%%
 %%%% Only got this far.......
 %%%%
-
-
-
+% Bayesian hypothesis testing: select model with largest inverse probability of correspondence to data u
+\begin{equation}
+p(m_k|u) = p(u|m_k)p(m_k)/p(u)
+\end{equation}
+While testing K models for a given image, the denominator is constant and independent of k. Mmaximizing p(m_k|u) is equivalent to searching for the maximum of 
+\begin{equation}
+\Lambda_k = p(u|m_k)p(m_k)
+\end{equation}
+In the present case where all barcodes are equally probable,
+ p(m_k)=1/K, 
+and the search simplifies to finding the maximum likelihood 
+\begin{equation}
+\Lambda_k = p(u|m_k).
+\end{equation}
 
 
 
 \begin{equation}
-p(f|m_k)\sim p(f-m_k) = \frac{1}{  \sqrt{ (2\pi)^K \det || R_n||} } \exp\left\{ -\frac{1}{2}  (f-m_k)^T R_n^{-1} (f-m_k) \right\}
+p(u|m_k)\sim p(u-m_k) = \frac{1}{  \sqrt{ (2\pi)^K \det || R_n||} } \exp\left\{ -\frac{1}{2}  (f-m_k)^T R_n^{-1} (f-m_k) \right\}
 \end{equation}
 
 Where $R_{n}$ is the covariance matrix of the noise.
