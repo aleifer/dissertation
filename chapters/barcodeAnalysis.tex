@@ -69,12 +69,13 @@ where $R_n$ is the noise covariance matrix.
 p(m_k|u) = p(u|m_k)p(m_k)/p(u).
 % Define likelihood, prior, and normalization in this eqn.
 \end{equation}
-While testing a given image against all models, the denominator is constant and independent of k. Maximizing p(m_k|u) is therefore equivalent to searching for the maximum of the product
+
+While testing a given image against all models, the denominator is constant and independent of $k$. Maximizing $p(m_k|u)$ is therefore equivalent to searching for the maximum of the product
 \begin{equation}
 \Lambda_k = p(u|m_k)p(m_k)
 \end{equation}
 In the present case where all barcodes are equally probable so that
-p(m_k)=1/K, 
+$p(m_k)=1/K,$ 
 the search simplifies to finding the maximum likelihood 
 \begin{equation}
 \Lambda_k = p(u|m_k).
