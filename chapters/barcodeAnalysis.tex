@@ -112,6 +112,9 @@ We note that $\sigma$ and $N$ are indpenednet of $k$, and that the exponential i
 \begin{equation}
 \max_k   \big\{ p(m_k|u) \big\} =  \min_k  \left\{ (u-m_k)^T(u-m_k) \right\}. 
 \end{equation}
+For real values of  $u$ and $m_k$, this reduces to,
+
+
 
 This is reassuring, because it suggests that for zero mean, additive IID gaussian noise, the most likely reference corresponds to minimizing the mean square error between the observation and reference. 
 
@@ -134,7 +137,11 @@ You can convince yourself that these are independent because you can concatanate
 
 Blah blah blah.
 
-Now you can see that the 
+Now you can see that maximum likelihood model $k$ for $\Lambda_k$ correspond to,
+\begin{equation}
+\max_k   \big\{ p(m_k|u) \big\} =  \min_k  \left\{ (u_1-m_{k1})^T(u_1-m_{k1}) +  (u_2-m_{k2})^T(u_2-m_{k2}) +(u_3-m_{k3})^T(u_3-m_{k3}) \right\}. 
+\end{equation}
+
 
 
 
