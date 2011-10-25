@@ -36,17 +36,10 @@ In the following sections we develop an optimal mathematical framework and softw
 
 
 \section{Theory and Algorithm}
-To automatically detect and decode a barcode from its three-channel image, the software must systematically scan through the image, detect the location of each barcode and decide which of the 216 reference barcode species best fits the observed barcode. Assigning the best fitting reference, or model, barcode is performed by Bayesian multiple hypothesis testing. This is, in general, computational intensive for two-dimensional datasets, so we turn for guidance to a simpler problem: detecting the presence of a known one-dimensional reference signal in Gaussian noise.
-
-
-Out of $K$ total possible references, the probability $p(m_k|u)$ that the $k$th reference $m_k$ is present given the  observed signal $u$ is proportional to the probability that the difference between the signal and the reference $u-m_k$ could be entirely due to noise,
-
-
+To automatically detect and decode a barcode from its three-channel image, the software must systematically scan through the image, detect the location of each barcode and decide which of the 216 reference barcode species best fits the observed barcode. Assigning the best fitting reference, or model, barcode is performed by Bayesian multiple hypothesis testing. This is generally computational intensive for two-dimensional datasets, so we turn for guidance to a simpler problem: detecting the presence of a known one-dimensional reference signal $m_k% in additive zero-mean Gaussian noise n. In vector notation, the data sequence being tested u is 
 \begin{equation}
-p(u|m_k)\sim p(u|m_k) \sim \frac{1}{  \sqrt{ (2\pi)^K \det || R_n||} } \exp\left\{ -\frac{1}{2}  (u-m_k)^T R_n^{-1} (u-m_k) \right\}
+u=m_k + n.
 \end{equation}
-
-where $R_n$ is the noise covariance matrix. 
 
 %%%
 % Suggestions for Notation
@@ -67,15 +60,16 @@ where $R_n$ is the noise covariance matrix.
 
 
 
-% Bayesian hypothesis testing: evaluate inverse probability for all models, select model with largest probability of correspondence to data u
+Bayesian testing of multiple hypotheses consists of evaluating the inverse probability for all models, and declaring the model with the largest probability of correspondence to the data u as the best guess of the signal identity. Bayes' theorem gives the inverse probability that $m_k$ is present in the data %u%
 \begin{equation}
-p(m_k|u) = p(u|m_k)p(m_k)/p(u).
-% Define likelihood, prior, and normalization in this eqn.
+p(m_k|u) = \frac{p(u|m_k)p(m_k)}{p(u)},
 \end{equation}
+where $p(u|m_k)$ is the forward probability or likelihood of seeing data u given the presence of model $m_k$, $p(m_k) is the prior probability that model $m_k$ is present, and $p(u)$ is a normalization constant.
+% That's as far as I got...
 
-While testing a given image against all models, the denominator is constant and independent of $k$. Maximizing $p(m_k|u)$ is therefore equivalent to searching for the maximum of the product
+While testing a given image against all models, the denominator is constant and independent of $k$. Maximizing $p(m_k|u)$ is therefore equivalent to finding the model k that maximizes the product
 \begin{equation}
-\Lambda_k = p(u|m_k)p(m_k)
+\Lambda_k = p(u|m_k)p(m_k).
 \end{equation}
 In the present case where all barcodes are equally probable so that
 $p(m_k)=1/K,$ 
@@ -85,6 +79,16 @@ the search simplifies to finding the maximum likelihood
 \end{equation}
 
 
+
+The quantity $u - m_k$ will be noise if u contains the sequence m_k, or will be large and deterministic if u instead contains a different sequence m_i. The probability $p(m_k|u)$ that the $k$th reference $m_k$ is present given the observed signal $u$ is proportional to the probability that the difference between the signal and the reference $u-m_k$ could be entirely due to noise,
+
+
+
+\begin{equation}
+p(u|m_k)\sim p(u|m_k) \sim \frac{1}{  \sqrt{ (2\pi)^K \det || R_n||} } \exp\left\{ -\frac{1}{2}  (u-m_k)^T R_n^{-1} (u-m_k) \right\}
+\end{equation}
+
+where $R_n$ is the noise covariance matrix. 
 
 \begin{equation}
 p(u|m_k)\sim p(u|m_k) \sim \frac{1}{  \sqrt{ (2\pi)^K \det || R_n||} } \exp\left\{ -\frac{1}{2}  (u-m_k)^T R_n^{-1} (u-m_k) \right\}
