@@ -177,9 +177,19 @@ V_{\text{processed}}(\mathbf{r})= \frac{ c \cdot \big( f(\mathbf{r})  +b(\mathbf
 \end{equation}
 Note that we assume $\langle V_0(\mathbf{r}) \rangle = V_0(\mathbf{r})$ and $\langle \gamma_{\text{ex}}(\mathbf{r}) \rangle  = \gamma_{\text{ex}}(\mathbf{r})$ because both processes are slowly spatially varying. Substituting further, 
 \begin{equation}
-V_{\text{processed}}(\mathbf{r})= \frac{ c \cdot \big(       \gamma_{\text{ex}}(\mathbf{r}) ( q_{\text{fluor}}(\mathbf{r}) + n_{\text{fluor}} )      +   n_{\text{back}} - \langle n_{\text{back}}  \rangle  \big) + n_{\text{therm}} - \langle n_{\text{therm}}  \rangle }{     c \big( \gamma_{\text{ex}}(\mathbf{r}) ( q_{\text{back}} +  \langle n_{\text{back}} \rangle) \big) }
+V_{\text{processed}}(\mathbf{r})= \frac{ c \cdot \gamma_{\text{ex}}(\mathbf{r}) \big(  q_{\text{fluor}}(\mathbf{r}) + n_{\text{fluor}}       +   n_{\text{back}} - \langle n_{\text{back}}  \rangle  \big) + n_{\text{therm}} - \langle n_{\text{therm}}  \rangle }{     c \big( \gamma_{\text{ex}}(\mathbf{r}) ( q_{\text{back}} +  \langle n_{\text{back}} \rangle) \big) }
 \end{equation}
+I think we can set the smoothed noise terms to zero. Originally when we defined the noise terms, we were clever because when we defined the contribution from the blank camear we said it had as lowly varying part and a very rapidly varyign part. the thing i was calling thermal noise is the rapidly varying part, and it has zero mean so when we smooth i it bomes zer.
 We say that the smoothed noise terms for thermal noise and background are zero, because any noise offset has been absorbed by their respective dc offset terms.  [Maybe I need to relabel those guys as delta n ?]
+\begin{equation}
+V_{\text{processed}}(\mathbf{r})= \frac{ c \cdot \gamma_{\text{ex}}(\mathbf{r}) \big(  q_{\text{fluor}}(\mathbf{r}) + n_{\text{fluor}}       +   n_{\text{back}}   \big) + n_{\text{therm}}  }{     c \gamma_{\text{ex}}(\mathbf{r})  q_{\text{back}} }
+\end{equation}
+\begin{equation}
+V_{\text{processed}}(\mathbf{r})= \frac{ q_{\text{fluor}}(\mathbf{r}) }{ q_{\text{back}}} + \frac{n_{\text{fluor}}   +   n_{\text{back}} } {q_{\text{back}}}  + \frac{ n_{\text{therm}} }{   c \gamma_{\text{ex}}(\mathbf{r}) q_{\text{back}}} 
+\end{equation}
+We observe that the thermal noise $n_{\text{therm}}$ is much much smaller compared to fluorescent background (easy to measure, just the fluctuations of the blank image ~100 vs the background ~ 10,000).
+
+Now as long as $n_{\text{fluor}}$ and $n_{\text{back}}$ have zero mean, we should have zero mean. We can measure them directly and show that they are gaussian and IID. Also now  the height of the barcodes are the same, they simply need to be measured, but the qback has no spatial variation, and qfluor is the same for all barcodes. So now we are in good shape!
 
 
 
