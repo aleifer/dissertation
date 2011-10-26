@@ -57,7 +57,15 @@
 
 \parindent 12pt
 \RequirePackage{mathspec}
+
+
+
+% Instead of using default latex for math fonts, we can be fancy and try to adapt Chaparral Pro..
 \setmathsfont(Digits,Latin,Greek)[Numbers={OldStyle,Proportional}]{Chaparral Pro}
+\setmathrm{Chaparral Pro}  %I added this to handle \mathbf
+
+%Use this if you want math fonts that are slightly better than default Latex
+%\setmathfont{Cambria Math}
 
 \RequirePackage{fontspec,xltxtra,xunicode}
 \defaultfontfeatures{Mapping=tex-text, Numbers=OldStyle}
@@ -66,7 +74,7 @@
 
 
 %Set fonts for Mac Specific (Comment out on Windows XP)
-%\setsansfont[Scale=MatchLowercase,Mapping=tex-text]{Helvetica Neue} 
+\setsansfont[Scale=MatchLowercase,Mapping=tex-text]{Helvetica Neue} 
 %\setmonofont[Scale=MatchLowercase]{Consolas}
 
 % some definitions
