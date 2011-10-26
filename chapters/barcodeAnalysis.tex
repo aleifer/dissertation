@@ -139,15 +139,24 @@ As before, we can factor out and ignore terms that have no $k$ dependence. Thus 
 
 
 \subsection{2D Multi-Channel Image}
-We would like to use the simple model described above to identify the barcodes in our two-dimensional images. Before we can do so, we must address the following discrepencies between assumptions in the simple model, and the realities of our barcode dataset:
-
+We would like to use the simple model described above to identify the barcodes in our two-dimensional images. Before we can do so, we must reconcile the following discrepencies between assumptions in the simple model, and the realities of our barcode dataset:
 	\begin{enumerate} %Why is this datest different from all other datasets?
-	\item The simple model assumes that the noise is Gaussian, additive, zero-mean, and IID. But our images exhibit a slowly varying offset, and therefore exhibit noise that is neither zero-mean nor IID.
+	\item The simple model assumes that the noise is Gaussian, additive, zero-mean, and IID. But our images exhibit a slowly varying offset, and therefore exhibit noise that is neither zero-mean nor IID. \label{item:noise}
 	\item The simple model assumes that the observation $\mathbf{u}$ contains exactly one reference at a known location, but our images contain an unknown number of barcodes at unknown locations. 
 	\item The simple model assumes that the reference $\mathbf{m_k}$ and observation $\mathbf{u}$ waveforms have the same known height, but in our images the height is \textit{a priori} unknown and may vary within an image.  
 	\item The simple model assumes a one-dimensional image, but our images are two dimensional.
 	\end{enumerate} 
 We will address  the discrepancies listed above by employing image processing techniques to transform our raw images into a dataset that can be analyzed using the simple one-dimensional multi-channel model described in Section \ref{sec:simpleModel}. 
+
+To reconcile item (\ref{item:noise}), we need to fully account for the various contributions to the signal recorded at our detector. At every pixel location $\mathbf{r}$, our detector records a voltage $v(\mathbf{r})$  that is proportional to the integrated number of photons detected at a pixel on the camera $\gamma_{\text{detected}}(\mathbf{r})$, plus a deterministic DC voltage offset $v_0(\mathbf{r})$ that varies from pixel to pixel, plus thermal noise from the detector itself $n_{\text{therm}}$,
+\begin{equation}
+v(\mathbf{r})=v_0(\mathbf{r})+c\gamma_{\text{det}}(\mathbf{r}) +n_{\text{therm}}.
+\end{equation}
+Recall that in our system, a laser source provides excitation light $\gamma_{\text{ex}}(\mathbf{r})$, but only light that is re-emmited at the appropriate wavelength can reach the detector.  For the case of our barcodes, the re-emitted photons that are detected $\gamma_{\text{det}}(\mathbf{r})$ come from two sources, either from the fluorophores on our barcodes which re-emit photos at rate $q_{\text{fluor}}(\mathbf{r})$  or from the background fluorescence of the slide and media which re-emit photons at a constant rate $q_{\text{back}}$,
+\begin{equation}
+\gamma_{\text{det}}(\mathbf{r})=  \gamma_{\text{ex}}(\mathbf{r}) \left( q_{\text{fluor}}(\mathbf{r}) +q_{\text{back}}\right)
+\end{equation}
+We also assume that the nature of fluorescence itself is noisy, and since we assume the integration time of our detector is long, and thus each pixel will contain many many photons, we assume that the by the central limit theorem the noise from fluorescence should be Gaussian.
 
 
 \subsection{Garbage	} 

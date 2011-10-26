@@ -74,7 +74,7 @@
 
 
 %Set fonts for Mac Specific (Comment out on Windows XP)
-\setsansfont[Scale=MatchLowercase,Mapping=tex-text]{Helvetica Neue} 
+%\setsansfont[Scale=MatchLowercase,Mapping=tex-text]{Helvetica Neue} 
 %\setmonofont[Scale=MatchLowercase]{Consolas}
 
 % some definitions
