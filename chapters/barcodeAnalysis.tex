@@ -116,7 +116,7 @@ We rewrite this in terms of a sum,
 It is noteworthy that the Bayesian hypothesis test is equivalent in this case to minimizing the mean squared error between observation and reference.
 
 
-\subsection{One dimension, multi-channel}
+\subsection{One dimension, multi-channel}\label{sec:simpleModel}
 We now consider a system where each reference $\mathbf{m}_k$ consists of three one-dimensional vectors of length $N$, $\mathbf{m}_{k1}$, $\mathbf{m}_{k2}$ and $\mathbf{m}_{k3}$ each in its own channel. Consequently, the signal $\mathbf{u}$ now consists of three one dimensional observation $\mathbf{u}_1$, $\mathbf{u}_2$ and $\mathbf{u}_3$, in each channel. As before, we assume that there are $K$ references and that each channel has zero-mean additive IID Gaussian noise, with variances $\sigma_1^2$, $\sigma_2^2$ and $\sigma_3^2$ respectively. As we will see later, these channels can be thought of as color channels in a one-dimensional composite red, green and blue image. 
 
 Because the three channels are independent,  the likelihood that  signal $\mathbf{u}$ is observed when $\mathbf{m}_k$ is present is simply the likelihood that  $\mathbf{u}_1$ is observed when $\mathbf{m}_{k1}$ is present times the likelihood that  $\mathbf{u}_2$ is observed when $\mathbf{m}_{k2}$ is present times the likelihood that  $\mathbf{u}_3$ is observed when $\mathbf{m}_{k3}$ is present [CITE ELEMENTARY PROBABILITY],
@@ -138,7 +138,22 @@ As before, we can factor out and ignore terms that have no $k$ dependence. Thus 
 
 
 
-\subsection{2D Image}
+\subsection{2D Multi-Channel Image}
+We would like to use the simple model described above to identify the barcodes in our two-dimensional images. Before we can do so, we must address the following discrepencies between assumptions in the simple model, and the realities of our barcode dataset:
+
+	\begin{enumerate} %Why is this datest different from all other datasets?
+	\item The simple model assumes that the noise is Gaussian, additive, zero-mean, and IID. But our images exhibit a slowly varying offset, and therefore exhibit noise that is neither zero-mean nor IID.
+	\item The simple model assumes that the observation $\mathbf{u}$ contains exactly one reference at a known location, but our images contain an unknown number of barcodes at unknown locations. 
+	\item The simple model assumes that the reference $\mathbf{m_k}$ and observation $\mathbf{u}$ waveforms have the same known height, but in our images the height is \textit{a priori} unknown and may vary within an image.  
+	\item The simple model assumes a one-dimensional image, but our images are two dimensional.
+	\end{enumerate} 
+We will address  the discrepancies listed above by employing image processing techniques to transform our raw images into a dataset that can be analyzed using the simple one-dimensional multi-channel model described in Section \ref{sec:simpleModel}. 
+
+
+\subsection{Garbage	} 
+
+
+
 Before we can use the formalisms described above, we must first ensure that our data matches the assumptions: gaussian, IID, mean zero, one-dimensional. 
 
 Without processing, the noise in the two-dimension, three-channel nanorod barcode images are non-gaussian, non-identicially distributed, they lack a zero offset and they are two dimensional.
@@ -155,7 +170,7 @@ Now we seek to reduce our three-channel two-dimensional barcode images into thre
 
 %Walk through
 
-\subsection{Garbage	} 
+
 
 ASSUMPTION: The camera is just a photon counter. The noise we see comes overwhelmingly from "background fluorescence". We assume it is additive, thus we assume that our signal is merely superposed on top of the mean background. 
 
