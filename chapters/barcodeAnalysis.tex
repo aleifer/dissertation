@@ -99,9 +99,9 @@ The exponent is simply the energy contained in the sequence $u-m_k$ divided by t
 theoretical energy that a sequence of length $N$ would have were it pure noise with variance $\sigma^2$. We recognize parallels to the Maxwell-Boltzmann distribution of statistical
 mechnanics [CITE REIF].  
 
-We find the $m_k$ of that maximizes equation \ref{eq:iidEnergy}.
+We find the $m_k$ that maximizes equation \ref{eq:iidEnergy},
 \begin{equation}
-\max_k   \big\{ p(m_k|u) \big\} =  \max_k  \left\{ \frac{1}{  \sqrt{ (2\pi)^N} \sigma^N  } \exp\left\{ -\frac{(u-m_k)^T(u-m_k)} {2 N \sigma^2 } \right\} \right\}. 
+\max_k   \big\{ p(u|m_k) \big\} =  \max_k  \left\{ \frac{1}{  \sqrt{ (2\pi)^N} \sigma^N  } \exp\left[ -\frac{(u-m_k)^T(u-m_k)} {2 N \sigma^2 } \right] \right\}. 
 \end{equation}
 We note that $\sigma$ and $N$ are independent of $k$, and that the exponential is a monotonically increasing function, thus we must only minimize across $k$ the energy of the difference between the observation and the reference,
 
@@ -111,21 +111,27 @@ We note that $\sigma$ and $N$ are independent of $k$, and that the exponential i
 
 When rewritting in the form of a sum,
 % (u_n - m_{k,n}).^2 
-it is noteworthy that the bayesian hypothesis test is equivalent in this case is equivalent to minimizing the mean squared error between the observation and the references.
+it is noteworthy that the Bayesian hypothesis test is equivalent in this case to minimizing the mean squared error between the observation and the references.
 
 
 \subsection{One dimension, multi-channel}
-We now consider a system where each of the reference $m_k$ consists of three one-dimensional vectors of length $N$, $m_{k1}$, $m_{k2}$ and $m_{k3}$ each in its own channel. Consequently, the signal $u$ now consists of a one dimensional observation $u_1$, $u_2$ and $u_3$ in each channel. As before, we assume $K$ references and that each channel has zero-mean additive IID Gaussian noise, with variance $\sigma_1^2$,$\sigma_2^2$ and $\sigma_3^2$ respectively. As we will see later, these channels can be thought of as color channels in a hypothetical one dimensional composite red, green and blue image. 
+We now consider a system where each of the reference $m_k$ consists of three one-dimensional vectors of length $N$, $m_{k1}$, $m_{k2}$ and $m_{k3}$ each in its own channel. Consequently, the signal $u$ now consists of three one dimensional observation $u_1$, $u_2$ and $u_3$, in each channel. As before, we assume that there are $K$ references and that each channel has zero-mean additive IID Gaussian noise, with variances $\sigma_1^2$,$\sigma_2^2$ and $\sigma_3^2$ respectively. As we will see later, these channels can be thought of as color channels in a one dimensional composite red, green and blue image. 
 
-We assert that three channels act independently, and thus the inverse probability that the observed signal $u$ is composed of the $k$th reference signal $m_k$ is simply the probability that $u_1$ is composed of $m_{k1}$ times the probability that $u_2$ is composed of $m_{k2}$ and similary for $u_3$ and $m_{k3}$
+Because the three channels are independent,  the likelihood that the signal $u$ is observed when $m_k$ is present is simply the likelihood  that BLAH times the likelihood that blah times blah CITE REFERENCE.
+%% ANDY EXPAND THIS SHORTHAND
+
+%$m_k$ is simply the probability that $u_1$ is composed of $m_{k1}$ times the probability that $u_2$ is composed of $m_{k2}$ times the probability that $u_3$ is composed of  $m_{k3}$
+
+
 \begin{equation}
-p(m_k|u)\sim p(u|m_k) = p(u_1|m_{k1})p(u_2|m_{k2})p(u_3|m_{k3})
+p(u|m_k) = p(u_1|m_{k1})p(u_2|m_{k2})p(u_3|m_{k3})
 \end{equation}
 
-Substiting in from Eq.~\ref{eq:iidEnergy},
+Substituting in from Eq.~\ref{eq:iidEnergy},
 
+%Fix that it doesn't 
 \begin{equation}
-= \frac{1}{  \sqrt{ (2\pi)^{3N}} \sigma_1^N\sigma_2^N\sigma_3^N  } \exp\left\{ -\frac{(u-m_{k1})^T(u-m_{k1})} {2 N \sigma_1^2 }   - \frac{(u-m_{k2})^T(u-m_{k2})} {2 N \sigma_2^2 } -\frac{(u-m_{k3})^T(u-m_{k3})} {2 N \sigma_3^2 }    \right\}.
+p(u|m_k) = \frac{1}{  \sqrt{ (2\pi)^{3N}} \sigma_1^N\sigma_2^N\sigma_3^N  } \exp\left\{ -\frac{(u-m_{k1})^T(u-m_{k1})} {2 N \sigma_1^2 }   - \frac{(u-m_{k2})^T(u-m_{k2})} {2 N \sigma_2^2 } -\frac{(u-m_{k3})^T(u-m_{k3})} {2 N \sigma_3^2 }    \right\}.
 \end{equation}
 
 You can convince yourself that these are independent because you can concatanate the three one-dimensional signals to create a vector of length $3N$. In that case..... Blah blah blah
