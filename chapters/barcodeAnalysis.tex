@@ -148,18 +148,47 @@ We would like to use the simple model described above to identify the barcodes i
 	\end{enumerate} 
 We will address  the discrepancies listed above by employing image processing techniques to transform our raw images into a dataset that can be analyzed using the simple one-dimensional multi-channel model described in Section \ref{sec:simpleModel}. 
 
-To reconcile item (\ref{item:noise}), we need to fully account for the various contributions to the signal recorded at our detector. At every pixel location $\mathbf{r}$, our detector records a voltage $v(\mathbf{r})$  that is proportional to the integrated number of photons detected at a pixel on the camera $\gamma_{\text{detected}}(\mathbf{r})$, plus a deterministic DC voltage offset $v_0(\mathbf{r})$ that varies from pixel to pixel, plus thermal noise from the detector itself $n_{\text{therm}}$,
+To reconcile item (\ref{item:noise}), we need to fully account for the various contributions to the signal recorded at our detector. The voltage $V(\mathbf{r})$ at a pixel $\mathbf{r}$ of our detector is the sum of a term that is proportional to the number of inicident photons, plus a DC offset $V_0(\mathbf{r})$ that can slowly vary from pixel to pixel, plus thermal noise $n_{\text{therm}}$,
 \begin{equation}
-v(\mathbf{r})=v_0(\mathbf{r})+c\gamma_{\text{det}}(\mathbf{r}) +n_{\text{therm}}.
+V(\mathbf{r})=V_0(\mathbf{r})+c \cdot \text{Photons}(\mathbf{r}) +n_{\text{therm}}.
 \end{equation}
-Recall that in our system, a laser source provides excitation light $\gamma_{\text{ex}}(\mathbf{r})$, but only light that is re-emmited at the appropriate wavelength can reach the detector.  For the case of our barcodes, the re-emitted photons that are detected $\gamma_{\text{det}}(\mathbf{r})$ come from two sources, either from the fluorophores on our barcodes which re-emit photos at rate $q_{\text{fluor}}(\mathbf{r})$  or from the background fluorescence of the slide and media which re-emit photons at a constant rate $q_{\text{back}}$,
+Recall that in our system, laser light is incident on the sample, but only photons that have been re-emitted at a particular wavelength are capable of reaching our detector.  Photons that reach the detector must have been re-emitted from either the fluorophores on the barcodes themselves $f$ or from the background media $b$, which consists of a glass slide and buffer.  In both cases, we model the photons that are re-emitted as proportional to the number of incident photons plus some noise term,
+\begin{eqnarray}
+f(\mathbf{r})&=&\gamma_{\text{ex}}(\mathbf{r}) ( q_{\text{fluor}}(\mathbf{r}) + n_{\text{fluor}} )\\
+b(\mathbf{r})&=&\gamma_{\text{ex}}(\mathbf{r}) ( q_{\text{back}} + n_{\text{back}} ).
+\end{eqnarray}
+Where  $\gamma_{\text{ex}}(\mathbf{r})$ is the slowly varying position-dependent intensity of the excitation laser,  $q_{\text{fluor}}(\mathbf{r})$ describes the position-dependent fluorescent efficiencty of the barcodes independent of illumination, and $q_{\text{background}}$ is the background fluorescent efficiency of the media which we assume is independent of position and illumination. 
+
+Thus by recoding images when barcodes or the media or both are present, we can record the  images with our detector,
+\begin{eqnarray}
+V_{\text{fluor}}(\mathbf{r})&=&V_0(\mathbf{r})+c \cdot \big( f(\mathbf{r}) + b(\mathbf{r})\big)  +n_{\text{therm}}\\
+V_{\text{back}}(\mathbf{r})&=&V_0(\mathbf{r})+c \cdot  b(\mathbf{r})  +n_{\text{therm}}\\
+V_{\text{empty}}(\mathbf{r})&=&V_0(\mathbf{r})+n_{\text{therm}}
+\end{eqnarray}
+which contain barcodes+media, media only, or neither barcodes nor media, respectively. See Fig BLAH BLAH. 
+
+We seek to construct an image that contains our underlying signal $q_{\text{fluor}}(\mathbf{r})$ and has zero-mean, IID noise. We subtract off the smoothed background and divide off spatially varying illumination,
 \begin{equation}
-\gamma_{\text{det}}(\mathbf{r})=  \gamma_{\text{ex}}(\mathbf{r}) \left( q_{\text{fluor}}(\mathbf{r}) +q_{\text{back}}\right)
+V_{\text{processed}}(\mathbf{r})= \frac{ V_{\text{fluor}}(\mathbf{r}) - \langle V_{\text{back}}(\mathbf{r}) \rangle }{ \langle V_{\text{back}}(\mathbf{r}) \rangle - \langle V_{\text{empty}}(\mathbf{r}) \rangle}
 \end{equation}
-We also assume that the nature of fluorescence itself is noisy, and since we assume the integration time of our detector is long, and thus each pixel will contain many many photons, we assume that the by the central limit theorem the noise from fluorescence should be Gaussian.
+where the expectation value here denotes local smoothing in the image. Substituting,
+\begin{equation}
+V_{\text{processed}}(\mathbf{r})= \frac{ c \cdot \big( f(\mathbf{r})  +b(\mathbf{r}) -\langle b(\mathbf{r}) \rangle \big)+ n_{\text{therm}} - \langle n_{\text{therm}}  \rangle }{   c \cdot \langle b(\mathbf{r}) \rangle }
+\end{equation}
+Note that we assume $\langle V_0(\mathbf{r}) \rangle = V_0(\mathbf{r})$ and $\langle \gamma_{\text{ex}}(\mathbf{r}) \rangle  = \gamma_{\text{ex}}(\mathbf{r})$ because both processes are slowly spatially varying. Substituting further, 
+\begin{equation}
+V_{\text{processed}}(\mathbf{r})= \frac{ c \cdot \big(       \gamma_{\text{ex}}(\mathbf{r}) ( q_{\text{fluor}}(\mathbf{r}) + n_{\text{fluor}} )      +   n_{\text{back}} - \langle n_{\text{back}}  \rangle  \big) + n_{\text{therm}} - \langle n_{\text{therm}}  \rangle }{     c \big( \gamma_{\text{ex}}(\mathbf{r}) ( q_{\text{back}} +  \langle n_{\text{back}} \rangle) \big) }
+\end{equation}
+We say that the smoothed noise terms for thermal noise and background are zero, because any noise offset has been absorbed by their respective dc offset terms.  [Maybe I need to relabel those guys as delta n ?]
+
 
 
 \subsection{Garbage	} 
+
+We also assume that the nature of fluorescence itself is noisy, and since we assume the integration time of our detector is long, and thus each pixel will contain many many photons, we assume that the by the central limit theorem the noise from fluorescence should be Gaussian.
+
+
+
 
 
 
