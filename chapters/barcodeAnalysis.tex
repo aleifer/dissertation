@@ -179,7 +179,7 @@ V_{\text{fluor}}(\mathbf{r})&=&V_0(\mathbf{r})+c \cdot \big( f(\mathbf{r}) + b(\
 \end{eqnarray}
 See Fig BLAH BLAH. 
 
-We seek to construct an image that contains the underlying signal $q_f(\mathbf{r})$ but has zero-mean, Gaussian, IID noise. We smooth the dark and background images and subtract and divide them to remove the DC offset and compensate for the spatially varying illumination, respectively,
+We smooth the dark and background images and subtract and divide them to remove the DC offset and compensate for the spatially varying illumination, respectively,
 \begin{equation}
 V_{\text{processed}}(\mathbf{r})= \frac{ V_{\text{fluor}}(\mathbf{r}) - \langle V_{\text{back}}(\mathbf{r}) \rangle }{ \langle V_{\text{back}}(\mathbf{r}) \rangle - \langle V_{\text{empty}}(\mathbf{r}) \rangle}
 \end{equation}
@@ -196,7 +196,11 @@ V_{\text{processed}}(\mathbf{r})= \frac{ q_f(\mathbf{r}) }{ q_b} + \frac{n_{\tex
 \end{equation}
 We observe that the thermal noise $n_{\text{therm}}$ is much much smaller compared to fluorescent background (easy to measure, just the fluctuations of the blank image ~100 vs the background ~ 10,000).
 
-Now as long as $n_{\text{fluor}}$ and $n_{\text{back}}$ have zero mean, we should have zero mean. We can measure them directly and show that they are gaussian and IID. Also now  the height of the barcodes are the same, they simply need to be measured, but the qback has no spatial variation, and qfluor is the same for all barcodes. So now we are in good shape!
+Now we can measure the sum of  $n_{\text{fluor}}$ and $n_{\text{back}}$ and show that they are  zero mean, Gaussian and IID. 
+
+
+Also now  the height of the barcodes are the same, they simply need to be measured, but the qback has no spatial variation, and qfluor is the same for all barcodes. So now we are in good shape!
+
 
 
 
