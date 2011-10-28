@@ -19,7 +19,7 @@ Programmatically identifying images of these fluorescently encoded barcodes, how
 \section{System and Methods}
 
 \subsection{DNA origami nanorod barcodes}
-We chose to image DNA origami nanorod barcodes [cite chenxiang]. These nanorods consist of mechanically rigid six-helix bundles of DNA with radius 5 nm and length XY \textmu m decorated with  up to two spectrally distinct fluorophores at three distinct locations along the rod, as illustrated in Fig.~\ref{nanoAnalysis}. The three fluorescing locations are unevenly spaced, such that there is a larger gap of \textasciitilde 450 \textmu m and a smaller gap of \textasciitilde 270 \textmu m  between the fluorophores on each rod, giving the barcodes a visible anisotropy. When using combinations of red, green and blue fluorophores, (Cy5, Cy3 and Alexa Fluor 488, respectively) this allows for a dictionary of six fluorescing symbols at each of the three barcode locations: \{Red, Green, Blue, RedGreen, RedBlue, GreenBlue\}, for a total of $6^{3}=216$  unambiguous species of barcode.
+We chose to image DNA origami nanorod barcodes [cite chenxiang]. These nanorods consist of mechanically rigid six-helix bundles of DNA with radius 5 nm and length XY \textmu m decorated with  up to two spectrally distinct fluorophores at three distinct locations along the rod, as illustrated in Fig.~\ref{nanoAnalysis}. The three fluorescing locations are unevenly spaced, with a large gap of \textasciitilde 450 \textmu m and a small gap of \textasciitilde 270 \textmu m  between the fluorophores on each rod, giving the barcodes a visible anisotropy. When using combinations of red, green and blue fluorophores, (Cy5, Cy3 and Alexa Fluor 488, respectively) this allows for a dictionary of six fluorescing symbols at each of the three barcode locations: \{Red, Green, Blue, RedGreen, RedBlue, GreenBlue\}, for a total of $6^{3}=216$  unambiguous species of barcode.
 
 We chose to work with this particular form of fluorescently encoded barcodes as opposed to others because this form offer the largest published number of distinct barcode species to date, has the advantage of being massively self-assembled in parallel, and creates barcodes of suitably small  size so as to be useful for future microarray applications. 
 
@@ -31,7 +31,7 @@ The red, green and blue channel images of the barcodes were taken on a glass cov
  
 \subsection{Task at Hand}
 To be useful for microarray or other diagnostic applications, it is important for any computer vision software to be able to automatically detect and decode large quantities of barcodes robustly and accurately with little or no user input. 
-Here we restrict ourselves to immobilized barcodes laying flat on a glass slide, but we demand that our software solution tolerate  likely real-world complexities including the presence of inhomogeneous spatial illumination, background fluorescence and minor defects in barcode folding.  
+Here we restrict ourselves to immobilized barcodes laying flat on a glass slide, but we demand that our software solution tolerate likely real-world complexities including the presence of inhomogeneous spatial illumination, background fluorescence and minor defects in barcode folding.  
 In the following sections we develop an optimal mathematical framework and software implementation for identifying the location and orientation of the barcode and then decoding it.
 
 
@@ -40,11 +40,11 @@ To automatically detect and decode a barcode from its three-channel image, the s
 
 
 \subsection{One dimension, single-channel}
-In the one dimensional problem we assume we have $K$ possible one-dimensional reference signals in a system with zero-mean additive Gaussian noise $n$, such that for any reference $m$, the observed signal $\mathbf{u}$ is, in vector notation,
+In the one dimensional problem we assume there are $K$ possible one-dimensional reference signals in a system with zero-mean additive Gaussian noise $n$, such that for any reference $m$, the observed signal $\mathbf{u}$ is
 \begin{equation}
-\mathbf{u}=\mathbf{m} + \mathbf{n}.
+\mathbf{u}=\mathbf{m} + \mathbf{n},
 \end{equation}
-Given a noisy observation $\mathbf{u}$, we seek the most likely corresponding reference. 
+vector notation. Given a noisy observation $\mathbf{u}$, we seek the most likely corresponding reference or model signal. 
 
 %%%
 % Suggestions for Notation
@@ -62,59 +62,55 @@ Given a noisy observation $\mathbf{u}$, we seek the most likely corresponding re
 % <.> = expectation (or use overbar)
 
 
-The probablity that the observed signal $\mathbf{u}$ is composed of the $k$th reference signal $\mathbf{m}_k$ is given by Bayes' theorem,
+The probablity that the $k$th reference signal $\mathbf{m}_k$ is present when the data vector $\mathbf{u}$ is observed is given by Bayes' theorem,
 \begin{equation}\label{eq:Bayes}
-p(\mathbf{m}_k|\mathbf{u}) = \frac{p(\mathbf{u}|\mathbf{m}_k)p(\mathbf{m}_k)} {p(\mathbf{u})}.
+p(\mathbf{m}_k|\mathbf{u}) = \frac{p(\mathbf{u}|\mathbf{m}_k)p(\mathbf{m}_k)} {p(\mathbf{u})},
 \end{equation}
 where $p(\mathbf{m}_k|\mathbf{u})$ is the inverse probability, $p(\mathbf{u}|\mathbf{m}_k)$ is the forward probability or likelihood of seeing data $\mathbf{u}$ given the presence of model $\mathbf{m}_k$, $p(\mathbf{m}_k)$ is the prior probability that model $\mathbf{m}_k$ is present, and $p(\mathbf{u})$ is a normalization constant.
 
-We seek to compare the relative  probability for each possible reference, $\mathbf{m}_k$ for $k=1,2,3 \ldots K$ and select the most likely.  
+We seek to compute the probability for each possible reference $\mathbf{m}_k$, $k=1,2,3 \ldots K$, and select the largest, which is the one most likely to fit the observed data. This is termed the maximum likelihood solution.
 
-While testing a given observed signal $\mathbf{u}$ against all models, the denominator is constant and independent of $k$. Maximizing $p(\mathbf{m}_k|\mathbf{u})$ is therefore equivalent to finding the model $k$ that maximizes the product  $p(\mathbf{u}|\mathbf{m}_k)p(\mathbf{m}_k)$.
+While testing a particular observed signal $\mathbf{u}$ against all models, the denominator is constant and independent of $k$. Maximizing $p(\mathbf{m}_k|\mathbf{u})$ is therefore equivalent to finding the model $k$ that maximizes the product  $p(\mathbf{u}|\mathbf{m}_k)p(\mathbf{m}_k)$.
 In the present case where all barcodes are equally probable so that
 $p(\mathbf{m}_k)=1/K,$ 
 the search simplifies to finding the maximum likelihood 
 \begin{equation}
-\Lambda_k = p(\mathbf{u}|\mathbf{m}_k).
+L_k = p(\mathbf{u}|\mathbf{m}_k).
 \end{equation}
 
 
 
-The probability $p(\mathbf{u}|\mathbf{m}_k)$ of observing $\mathbf{u}$ given the reference $\mathbf{m}_k$  is simply the probability that the difference $\mathbf{u}-\mathbf{m}_k$ between the signal and the reference is generated by noise.
+The probability $p(\mathbf{u}|\mathbf{m}_k)$ of observing $\mathbf{u}$ given the reference $\mathbf{m}_k$ is simply the probability that the difference $\mathbf{u}-\mathbf{m}_k$ between the signal and the reference is generated by noise. This is given by the multivariate probability density function for the random Gaussian variable $(\mathbf{u}-\mathbf{m}_k)$, 
 \begin{equation}\label{eq:Main}
-\Lambda_k = p(\mathbf{u}|\mathbf{m}_k) = \frac{1}{  \sqrt{ (2\pi)^N \det || \mathbf{R}_n||} } \exp\left[ -\frac{1}{2}  (\mathbf{u}-\mathbf{m}_k)^T \mathbf{R}_n^{-1} (\mathbf{u}-\mathbf{m}_k) \right]
+L_k = p(\mathbf{u}|\mathbf{m}_k) = \frac{1}{  \sqrt{ (2\pi)^N \det || \mathbf{R}_n||} } \exp\left[ -\frac{1}{2}  (\mathbf{u}-\mathbf{m}_k)^T \mathbf{R}_n^{-1} (\mathbf{u}-\mathbf{m}_k) \right]
 \end{equation}
-where $N$ is the length of vector $\mathbf{u}$ and $\mathbf{R}_n$ is the noise covariance matrix. This is the multivariate probability density function for a random Gaussian variable,  $(\mathbf{u}-\mathbf{m}_k)$ [REFERENCE].
-
+where $N$ is the length of vector $\mathbf{u}$, $\mathbf{R}_n$ is the noise covariance matrix, $\ital{T}$ denotes the transpose operation, and det||.|| is the matrix determinant [REFERENCE].
+ 
 For the case of identical independently distributed (IID) Gaussian noise, 
 \begin{equation}
 \mathbf{R}_n=\sigma^2 \mathbf{I}
 \end{equation}
 where $\mathbf{I}$ is the identity matrix and $\sigma^2$ is the variance of the noise. The probability thus reduces further to
 \begin{equation}\label{eq:iidEnergy}
-\Lambda_k = p(\mathbf{u}|\mathbf{m}_k) = \frac{1}{  \sigma^N \sqrt{ (2\pi)^N}   } \exp\left[ -\frac{(\mathbf{u}-\mathbf{m}_k)^T(\mathbf{u}-\mathbf{m}_k)} {2 N \sigma^2 } \right].
+L_k = p(\mathbf{u}|\mathbf{m}_k) = \frac{1}{  \sigma^N \sqrt{ (2\pi)^N}   } \exp\left[ -\frac{(\mathbf{u}-\mathbf{m}_k)^T(\mathbf{u}-\mathbf{m}_k)} {2 N \sigma^2 } \right].
 \end{equation}
 
 The exponent is simply the energy contained in the sequence $\mathbf{u}-\mathbf{m}_k$ divided by the
-theoretical energy that a sequence of length $N$ would have were it pure noise with variance $\sigma^2$. We recognize parallels to the Maxwell-Boltzmann distribution of statistical
-mechnanics [CITE REIF].  
+energy of a sequence of sequence of noise of length $N$ and variance $\sigma^2$. We recognize parallels to the Maxwell-Boltzmann distribution of statistical mechanics [CITE REIF].  
 
-We find the $\mathbf{m}_k$ that maximizes equation \ref{eq:iidEnergy},
+As mentioned, we find the $\mathbf{m}_k$ that produces the maximum likelihood in equation \ref{eq:iidEnergy},
 \begin{equation}
-\max_k   \left\{ p(\mathbf{u}|\mathbf{m}_k) \right\} =  \max_k  \left\{ \frac{1}{  \sqrt{ (2\pi)^N} \sigma^N  } \exp\left[ -\frac{(\mathbf{u}-\mathbf{m}_k)^T(\mathbf{u}-\mathbf{m}_k)} {2 N \sigma^2 } \right] \right\}. 
+\max_k   \left\{ p(\mathbf{u}|\mathbf{m}_k) \right\} =  \max_k  \left\{ \frac{1}{   \sigma^N\sqrt{ (2\pi)^N}  } \exp\left[ -\frac{(\mathbf{u}-\mathbf{m}_k)^T(\mathbf{u}-\mathbf{m}_k)} {2 N \sigma^2 } \right] \right\}. 
 \end{equation}
-We note that $\sigma$ and $N$ are independent of $k$, and that the exponential is a monotonically increasing function, thus we must only minimize across $k$ the energy of the difference between the observation and the reference,
+Note that $\sigma$ and $N$ are independent of $k$ and that the exponential is a monotonically increasing function, so maximizing the likelihood is equivalent to minimizing across $k$ the energy of the difference between the observation and the reference
 
 \begin{equation}
-\max_k   \left\{ p(\mathbf{m}_k|\mathbf{u}) \right\} =  \min_k  \left\{ (\mathbf{u}-\mathbf{m}_k)^T(\mathbf{u}-\mathbf{m}_k) \right\}. 
+\max_k   \left\{ p(\mathbf{m}_k|\mathbf{u}) \right\} \sim \min_k  \left\{ (\mathbf{u}-\mathbf{m}_k)^T(\mathbf{u}-\mathbf{m}_k) \right\}. 
 \end{equation}
-
-We rewrite this in terms of a sum,
+It is noteworthy that the Bayesian hypothesis test is equivalent in this case to minimizing the mean squared error between observation and reference. This is clear by rewriting this expression explicitly in terms of a sum,
 \begin{equation}
 \max_k   \left\{ p(\mathbf{m}_k|\mathbf{u}) \right\} =  \min_k  \left\{ \sum_{i=1}^N  (u_i-m_{k,i})^2   \right\}. 
 \end{equation}
-It is noteworthy that the Bayesian hypothesis test is equivalent in this case to minimizing the mean squared error between observation and reference.
-
 
 \subsection{One dimension, multi-channel}\label{sec:simpleModel}
 We now consider a system where each reference $\mathbf{m}_k$ consists of three one-dimensional vectors of length $N$, $\mathbf{m}_{k1}$, $\mathbf{m}_{k2}$ and $\mathbf{m}_{k3}$ each in its own channel. Consequently, the signal $\mathbf{u}$ now consists of three one dimensional observation $\mathbf{u}_1$, $\mathbf{u}_2$ and $\mathbf{u}_3$, in each channel. As before, we assume that there are $K$ references and that each channel has zero-mean additive IID Gaussian noise, with variances $\sigma_1^2$, $\sigma_2^2$ and $\sigma_3^2$ respectively. As we will see later, these channels can be thought of as color channels in a one-dimensional composite red, green and blue image. 
