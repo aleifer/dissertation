@@ -39,7 +39,7 @@ In the following sections we develop an optimal mathematical framework and softw
 To automatically detect and decode a barcode from its three-channel image, the software must systematically scan through the image, detect the location of each barcode and decide which of the 216 reference barcode species best fits the observed barcode. Assigning the best fitting reference, or model, barcode is performed by Bayesian multiple hypothesis testing. This is, in general, computational intensive for two-dimensional datasets, so we first turn for guidance to a one-dimensional problem.
 
 
-\subsection{One dimension, single-channel}
+\subsection{One dimension, single channel}
 In the one dimensional problem we assume there are $K$ possible one-dimensional reference signals in a system with zero-mean additive Gaussian noise $n$, such that for any reference $m$, the observed signal $\mathbf{u}$ is
 \begin{equation}
 \mathbf{u}=\mathbf{m} + \mathbf{n},
@@ -84,7 +84,7 @@ The probability $p(\mathbf{u}|\mathbf{m}_k)$ of observing $\mathbf{u}$ given the
 \begin{equation}\label{eq:Main}
 L_k = p(\mathbf{u}|\mathbf{m}_k) = \frac{1}{  \sqrt{ (2\pi)^N \det || \mathbf{R}_n||} } \exp\left[ -\frac{1}{2}  (\mathbf{u}-\mathbf{m}_k)^T \mathbf{R}_n^{-1} (\mathbf{u}-\mathbf{m}_k) \right]
 \end{equation}
-where $N$ is the length of vector $\mathbf{u}$, $\mathbf{R}_n$ is the noise covariance matrix, $\ital{T}$ denotes the transpose operation, and det||.|| is the matrix determinant [REFERENCE].
+where $N$ is the length of vector $\mathbf{u}$, $\mathbf{R}_n$ is the noise covariance matrix, det||.|| is the matrix determinant, and $T$ denotes the transpose operation [REFERENCE].
  
 For the case of identical independently distributed (IID) Gaussian noise, 
 \begin{equation}
@@ -102,30 +102,30 @@ As mentioned, we find the $\mathbf{m}_k$ that produces the maximum likelihood in
 \begin{equation}
 \max_k   \left\{ p(\mathbf{u}|\mathbf{m}_k) \right\} =  \max_k  \left\{ \frac{1}{   \sigma^N\sqrt{ (2\pi)^N}  } \exp\left[ -\frac{(\mathbf{u}-\mathbf{m}_k)^T(\mathbf{u}-\mathbf{m}_k)} {2 N \sigma^2 } \right] \right\}. 
 \end{equation}
-Note that $\sigma$ and $N$ are independent of $k$ and that the exponential is a monotonically increasing function, so maximizing the likelihood is equivalent to minimizing across $k$ the energy of the difference between the observation and the reference
+Since $\sigma$ and $N$ are independent of $k$ and the exponential is a monotonically increasing function of its argument, maximizing the likelihood across $k$ is equivalent to minimizing the energy of the difference between the observation and the reference across $k$ 
 
 \begin{equation}
 \max_k   \left\{ p(\mathbf{m}_k|\mathbf{u}) \right\} \sim \min_k  \left\{ (\mathbf{u}-\mathbf{m}_k)^T(\mathbf{u}-\mathbf{m}_k) \right\}. 
 \end{equation}
-It is noteworthy that the Bayesian hypothesis test is equivalent in this case to minimizing the mean squared error between observation and reference. This is clear by rewriting this expression explicitly in terms of a sum,
+It is noteworthy that the Bayesian hypothesis test is equivalent in this case to finding the $k$ that minimizes the mean squared error between observation and reference. This is clear by rewriting this expression explicitly in terms of a sum,
 \begin{equation}
 \max_k   \left\{ p(\mathbf{m}_k|\mathbf{u}) \right\} =  \min_k  \left\{ \sum_{i=1}^N  (u_i-m_{k,i})^2   \right\}. 
 \end{equation}
 
-\subsection{One dimension, multi-channel}\label{sec:simpleModel}
-We now consider a system where each reference $\mathbf{m}_k$ consists of three one-dimensional vectors of length $N$, $\mathbf{m}_{k1}$, $\mathbf{m}_{k2}$ and $\mathbf{m}_{k3}$ each in its own channel. Consequently, the signal $\mathbf{u}$ now consists of three one dimensional observation $\mathbf{u}_1$, $\mathbf{u}_2$ and $\mathbf{u}_3$, in each channel. As before, we assume that there are $K$ references and that each channel has zero-mean additive IID Gaussian noise, with variances $\sigma_1^2$, $\sigma_2^2$ and $\sigma_3^2$ respectively. As we will see later, these channels can be thought of as color channels in a one-dimensional composite red, green and blue image. 
+\subsection{One dimension, multiple channels}\label{sec:simpleModel}
+We now consider a system where each reference $\mathbf{m}_k$ consists of three one-dimensional vectors $\mathbf{m}_{k1}$, $\mathbf{m}_{k2}$ and $\mathbf{m}_{k3}$ of length $N$. Each will correspond to the portion of the reference contained in a different channel, but there are still $K$ references. Analogously, the signal $\mathbf{u}$ also consists of three one-dimensional observations $\mathbf{u}_1$, $\mathbf{u}_2$ and $\mathbf{u}_3$, each in its own channel, and each channel has zero-mean additive IID Gaussian noise with variances $\sigma_1^2$, $\sigma_2^2$ and $\sigma_3^2$, respectively. As we will see later, these channels can be thought of as the red, green and blue channels in a one-dimensional composite color image. 
 
-Because the three channels are independent,  the likelihood that  signal $\mathbf{u}$ is observed when $\mathbf{m}_k$ is present is simply the likelihood that  $\mathbf{u}_1$ is observed when $\mathbf{m}_{k1}$ is present times the likelihood that  $\mathbf{u}_2$ is observed when $\mathbf{m}_{k2}$ is present times the likelihood that  $\mathbf{u}_3$ is observed when $\mathbf{m}_{k3}$ is present [CITE ELEMENTARY PROBABILITY],
+Because the three channels are independent, the likelihood that signal $\mathbf{u}$ is observed when $\mathbf{m}_k$ is present simply factors into the product of the individual likelihoods, that is, the likelihood that $\mathbf{u}_1$ is observed when $\mathbf{m}_{k1}$ is present times the likelihood that $\mathbf{u}_2$ is observed when $\mathbf{m}_{k2}$ is present times the likelihood that $\mathbf{u}_3$ is observed when $\mathbf{m}_{k3}$ is present [CITE ELEMENTARY PROBABILITY],
 \begin{equation}
 p(\mathbf{u}|\mathbf{m}_k) = p(\mathbf{u}_1|\mathbf{m}_{k1})p(\mathbf{u}_2|\mathbf{m}_{k2})p(\mathbf{u}_3|\mathbf{m}_{k3}).
 \end{equation}
 
-Substituting in from Eq.~\ref{eq:iidEnergy},
+Substituting Eq.~\ref{eq:iidEnergy} gives
 \begin{multline}
-\Lambda_k=p(\mathbf{u}|\mathbf{m}_k) =\frac{1}{ (\sigma_1\sigma_2\sigma_3)^N  \sqrt{ (2\pi)^{3N}}  }  \exp\Bigg[ \frac{-(\mathbf{u}-\mathbf{m}_{k1})^T(\mathbf{u}-\mathbf{m}_{k1})} {2 N \sigma_1^2 }   + \\ \frac{-(\mathbf{u}-\mathbf{m}_{k2})^T(\mathbf{u}-\mathbf{m}_{k2})} {2 N \sigma_2^2 } +\frac{-(\mathbf{u}-\mathbf{m}_{k3})^T(\mathbf{u}-\mathbf{m}_{k3})} {2 N \sigma_3^2 }    \Bigg].
+\Lambda_k=p(\mathbf{u}|\mathbf{m}_k) =\frac{1}{ (\sigma_1\sigma_2\sigma_3)^N  \sqrt{ (2\pi)^{3N}}  }  \exp\Bigg[ -\frac{(\mathbf{u}-\mathbf{m}_{k1})^T(\mathbf{u}-\mathbf{m}_{k1})} {2 N \sigma_1^2 }   - \\ \frac{(\mathbf{u}-\mathbf{m}_{k2})^T(\mathbf{u}-\mathbf{m}_{k2})} {2 N \sigma_2^2 } -\frac{(\mathbf{u}-\mathbf{m}_{k3})^T(\mathbf{u}-\mathbf{m}_{k3})} {2 N \sigma_3^2 }    \Bigg].
 \end{multline}
 
-As before, we can factor out and ignore terms that have no $k$ dependence. Thus the maximum likelihood model $k$ correspond to,
+As before, we can factor out and ignore terms that have no $k$ dependence. Thus the maximum likelihood model $k$ correspond to finding $k$ that minimizes the quantity below:
 \begin{multline}
 \max_k   \big\{ p(\mathbf{m}_k|\mathbf{u}) \big\} =  \min_k  \Bigg\{  \frac{(u_1-\mathbf{m}_{k1})^T(u_1-\mathbf{m}_{k1})}{\sigma_1^2} +\\  
 \frac{(u_2-\mathbf{m}_{k2})^T(u_2-\mathbf{m}_{k2})}{\sigma_2^2} + \frac{(u_3-\mathbf{m}_{k3})^T(u_3-\mathbf{m}_{k3})}{\sigma_3^2} \Bigg\}. 
@@ -135,39 +135,40 @@ As before, we can factor out and ignore terms that have no $k$ dependence. Thus 
 
 
 \subsection{2D Multi-Channel Image}
-We would like to use the simple model described above to identify the barcodes in our two-dimensional images. Before we can do so, we must reconcile the following discrepencies between assumptions in the simple model, and the realities of our barcode dataset:
+We would like to apply the simple model described above to the problem of identifying the barcodes in our two-dimensional images. Before we can do so, we must reconcile the following discrepencies between assumptions in the simple model and the realities of our barcode dataset:
 	\begin{enumerate} %Why is this datest different from all other datasets?
-	\item The simple model assumes that the noise is Gaussian, additive, zero-mean, and IID. But our images exhibit a slowly varying offset, and therefore exhibit noise that is neither zero-mean nor IID. \label{item:noise}
+	\item The simple model assumes that the noise is additive, zero-mean, and IID. The images exhibit a slowly varying offset, and therefore exhibit noise that is neither zero-mean nor IID. \label{item:noise}
 	\item The simple model assumes that the observation $\mathbf{u}$ contains exactly one reference at a known location, but our images contain an unknown number of barcodes at unknown locations. 
 	\item The simple model assumes that the reference $\mathbf{m_k}$ and observation $\mathbf{u}$ waveforms have the same known height, but in our images the height is \textit{a priori} unknown and may vary within an image.  
 	\item The simple model assumes a one-dimensional image, but our images are two dimensional.
 	\end{enumerate} 
-We will address  the discrepancies listed above by employing image processing techniques to transform our raw images into a dataset that can be analyzed using the simple one-dimensional multi-channel model described in Section \ref{sec:simpleModel}. 
+We will address the discrepancies listed above by employing image processing techniques to transform our raw images into a dataset that can be analyzed using the simple one-dimensional multi-channel model described in Section \ref{sec:simpleModel}. 
 
 To reconcile item (\ref{item:noise}), we need to fully account for the various contributions to the signal recorded at our detector. The voltage $V(\mathbf{r})$ at a pixel $\mathbf{r}$ of our detector is the sum of a term that is proportional to the number of inicident photons, plus a DC offset $V_0(\mathbf{r})$ that can slowly vary from pixel to pixel, plus thermal noise $n_{\text{therm}}$,
 \begin{equation}
 V(\mathbf{r})=V_0(\mathbf{r})+c \cdot \text{Photons}(\mathbf{r}) +n_{\text{therm}}.
 \end{equation}
-Recall that in our system, laser light is incident on the sample, but only photons that have been re-emitted at a particular wavelength are capable of reaching our detector.  Photons that reach the detector must have been re-emitted from either the fluorophores on the barcodes themselves $f$ or from the background media $b$, which consists of a glass slide and buffer.  In both cases, we model the photons that are re-emitted as proportional to the number of incident photons plus some noise term,
+Recall that in our system, laser light at one wavelength is incident on the sample and stimulates the emission from a fluorophore of photons at another wavelength that is capable of reaching the detector. Photons that reach the detector must have been re-emitted from fluorophores located either in the barcodes themselves $f$ or in the background media $b$, which consists of a glass slide and buffer.  In both cases, we model the number of photons that are re-emitted as proportional to the number of incident photons plus some noise term,
+%%SUGGEST YOU REPLACE BACK WITH B AND FLUOR WITH F TO CORRESPOND TO THE VARIABLES IN THE EQUATION THAT FOLLOWS
 \begin{eqnarray}
 f(\mathbf{r})&=&\gamma_{\text{ex}}(\mathbf{r}) ( q_{\text{fluor}}(\mathbf{r}) + n_{\text{fluor}} )\\
 b(\mathbf{r})&=&\gamma_{\text{ex}}(\mathbf{r}) ( q_{\text{back}} + n_{\text{back}} ).
 \end{eqnarray}
 Where  $\gamma_{\text{ex}}(\mathbf{r})$ is the slowly varying position-dependent intensity of the excitation laser,  $q_{\text{fluor}}(\mathbf{r})$ describes the position-dependent fluorescent efficiencty of the barcodes independent of illumination, and $q_{\text{background}}$ is the background fluorescent efficiency of the media which we assume is independent of position and illumination. 
 
-Thus by recoding images when barcodes or the media or both are present, we can record the  images with our detector,
+The contributions of these terms can be evaluated by recording auxiliary images. The offset and thermal noise are present in a dark image taken when the laser is off, for example, while the background noise and spatially varying illumination become visible in an image taken with the laser on but with empty media present. The final image, of course, adds DNA barcodes to the media. The voltages recorded in these cases are
 \begin{eqnarray}
-V_{\text{fluor}}(\mathbf{r})&=&V_0(\mathbf{r})+c \cdot \big( f(\mathbf{r}) + b(\mathbf{r})\big)  +n_{\text{therm}}\\
-V_{\text{back}}(\mathbf{r})&=&V_0(\mathbf{r})+c \cdot  b(\mathbf{r})  +n_{\text{therm}}\\
 V_{\text{empty}}(\mathbf{r})&=&V_0(\mathbf{r})+n_{\text{therm}}
+V_{\text{back}}(\mathbf{r})&=&V_0(\mathbf{r})+c \cdot  b(\mathbf{r})  +n_{\text{therm}}\\
+V_{\text{fluor}}(\mathbf{r})&=&V_0(\mathbf{r})+c \cdot \big( f(\mathbf{r}) + b(\mathbf{r})\big)  +n_{\text{therm}}\\
 \end{eqnarray}
-which contain barcodes+media, media only, or neither barcodes nor media, respectively. See Fig BLAH BLAH. 
+See Fig BLAH BLAH. 
 
-We seek to construct an image that contains our underlying signal $q_{\text{fluor}}(\mathbf{r})$ and has zero-mean, IID noise. We subtract off the smoothed background and divide off spatially varying illumination,
+We seek to construct an image that contains the underlying signal $q_{\text{fluor}}(\mathbf{r})$ but has zero-mean, IID noise. We smooth the dark and background images and subtract and divide them to remove the DC offset and compensate for the spatially varying illumination, respectively,
 \begin{equation}
 V_{\text{processed}}(\mathbf{r})= \frac{ V_{\text{fluor}}(\mathbf{r}) - \langle V_{\text{back}}(\mathbf{r}) \rangle }{ \langle V_{\text{back}}(\mathbf{r}) \rangle - \langle V_{\text{empty}}(\mathbf{r}) \rangle}
 \end{equation}
-where the expectation value here denotes local smoothing in the image. Substituting,
+where <> denotes the expectation value. Substituting Eq. XXX gives
 \begin{equation}
 V_{\text{processed}}(\mathbf{r})= \frac{ c \cdot \big( f(\mathbf{r})  +b(\mathbf{r}) -\langle b(\mathbf{r}) \rangle \big)+ n_{\text{therm}} - \langle n_{\text{therm}}  \rangle }{   c \cdot \langle b(\mathbf{r}) \rangle }
 \end{equation}
