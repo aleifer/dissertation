@@ -158,12 +158,21 @@ We would like to apply the simple model described above to the problem of identi
 %We will address the discrepancies listed above by employing image processing techniques to transform our raw images into a dataset that can be analyzed using the simple one-dimensional multi-channel model described in Section \ref{sec:simpleModel}. 
 . 
 
-The voltage $V(\mathbf{r})$ at a pixel $\mathbf{r}$ of our detector is the sum of a term that is proportional to the number of incident photons, a DC offset $V_0(\mathbf{r})$ that can slowly vary from pixel to pixel, and thermal noise $n_{\text{therm}}$ that we assume is Gaussian and zero-mean,
+The voltage $V(\mathbf{r})$ at a pixel $\mathbf{r}$ of our detector is the sum of a term that is proportional to the number of incident photons, a DC offset $V_0(\mathbf{r})$ that can slowly vary from pixel to pixel, and thermal noise $v_t$ that we assume is Gaussian and zero-mean,
 \begin{equation}
-V(\mathbf{r})=V_0(\mathbf{r})+c \cdot \text{Photons}(\mathbf{r}) +n_{\text{therm}}.
+V(\mathbf{r})=V_0(\mathbf{r})+c \cdot \text{Photons}(\mathbf{r}) +v_t,
 \end{equation}
-%% Is there a reason you say photons are "re-emitted" instead of "emitted"? ML
-Recall that, in our system, laser light at one wavelength is incident on the sample and stimulates a fluorophore to emit photons at another wavelength that is capable of reaching the detector. Photons that reach the detector must have been emitted from fluorophores located either in the barcodes themselves $f$ or in the background media $b$, which consists of a glass slide and buffer.  In both cases, we model the number of photons that are re-emitted as proportional to the number of incident photons plus some noise term, which we assume is Gaussian and zero-mean, 
+where $c$ is a constant that converts photons into voltage. 
+
+
+Recall that, in our system, laser light at one wavelength is incident on the sample and stimulates a fluorophore to emit photons at another wavelength that is capable of reaching the detector. Photons that reach the detector must have been emitted either from fluorophores located  in the barcodes themselves $f$ or from contaminants or impurities in the background media $b$, which consists of a glass slide and buffer.  In both cases, we model the number of photons that are emitted as proportional to the number of incident photons plus some noise term that characterizes statistical fluctuations in fluorescence, which we assume is Gaussian and zero-mean, 
+
+%Make an equation for th epoint spread function
+\begin{equation}
+q_f(\mathbf{r})=
+\end{equation}
+%Explain the noise terms more fully.. what are they.. where are they coming from...
+
 \begin{eqnarray}
 f(\mathbf{r})&=&\gamma_{\text{ex}}(\mathbf{r}) ( q_f(\mathbf{r}) + n_f )\\
 b(\mathbf{r})&=&\gamma_{\text{ex}}(\mathbf{r}) ( q_b + n_b ).
@@ -172,30 +181,53 @@ Here $\gamma_{\text{ex}}(\mathbf{r})$ is the slowly varying position-dependent i
 
 The contributions of these terms can be evaluated by acquiring auxiliary images. The offset and thermal detector noise are present in a dark image taken when the laser is off, for example, while the background media noise and spatially varying illumination become visible in an image taken with the laser on but with empty media present. The final image, of course, has DNA barcodes embedded in the media. The voltages recorded in these cases are
 \begin{eqnarray}
-V_{\text{empty}}(\mathbf{r})&=&V_0(\mathbf{r})+n_{\text{therm}}\\
-V_{\text{back}}(\mathbf{r})&=&V_0(\mathbf{r})+c \cdot  b(\mathbf{r})  +n_{\text{therm}}\\
-V_{\text{fluor}}(\mathbf{r})&=&V_0(\mathbf{r})+c \cdot \big( f(\mathbf{r}) + b(\mathbf{r})\big)  +n_{\text{therm}}
+V_{\text{dark}}(\mathbf{r})&=&V_0(\mathbf{r})+v_t\\
+V_{\text{back}}(\mathbf{r})&=&V_0(\mathbf{r})+c \cdot  b(\mathbf{r})  +v_t\\
+V_{\text{fluor}}(\mathbf{r})&=&V_0(\mathbf{r})+c \cdot \big( f(\mathbf{r}) + b(\mathbf{r})\big)  +v_t
 \end{eqnarray}
 See Fig BLAH BLAH. 
 
 We smooth the dark and background images, and subtract and divide them to remove the DC offset and compensate for the spatially varying illumination, respectively,
+
+%ANDY switch vprocessed to U
 \begin{equation}
-V_{\text{processed}}(\mathbf{r})= \frac{ V_{\text{fluor}}(\mathbf{r}) - \langle V_{\text{back}}(\mathbf{r}) \rangle }{ \langle V_{\text{back}}(\mathbf{r}) \rangle - \langle V_{\text{empty}}(\mathbf{r}) \rangle}
+U(\mathbf{r})= \frac{ V_{\text{fluor}}(\mathbf{r}) - \langle V_{\text{back}}(\mathbf{r}) \rangle }{ \langle V_{\text{back}}(\mathbf{r}) \rangle - \langle V_{\text{dark}}(\mathbf{r}) \rangle}
 \end{equation}
-where $\langle~\rangle$ denotes the expectation value. Substituting Eq. XXX gives
+where $\langle~\rangle$ denotes the expectation value. 
+%ANDY: Add in sentance that the nouse terms are all zero mean, so n squigles are zero
+Substituting Eq. XXX gives
 \begin{equation}
-V_{\text{processed}}(\mathbf{r})= \frac{ c \cdot \big( f(\mathbf{r})  +b(\mathbf{r}) -\langle b(\mathbf{r}) \rangle \big)+ n_{\text{therm}} - \langle n_{\text{therm}}  \rangle }{   c \cdot \langle b(\mathbf{r}) \rangle }
+U(\mathbf{r})= \frac{ c \cdot \big( f(\mathbf{r})  +b(\mathbf{r}) -\langle b(\mathbf{r}) \rangle \big)+ v_t  }{   c \cdot \langle b(\mathbf{r}) \rangle }
 \end{equation}
 Note that we assume $\langle V_0(\mathbf{r}) \rangle = V_0(\mathbf{r})$ and $\langle \gamma_{\text{ex}}(\mathbf{r}) \rangle  = \gamma_{\text{ex}}(\mathbf{r})$ because both are modeled as deterministic processes. Substituting further, and recalling that the mean of the noise terms are zero,
 \begin{equation}
-V_{\text{processed}}(\mathbf{r})= \frac{ c \cdot \gamma_{\text{ex}}(\mathbf{r}) \big(  q_f(\mathbf{r}) + n_{\text{fluor}}       +   n_{\text{back}}   \big) + n_{\text{therm}}  }{     c \gamma_{\text{ex}}(\mathbf{r})  q_b }
+U(\mathbf{r})= \frac{ c \cdot \gamma_{\text{ex}}(\mathbf{r}) \big(  q_f(\mathbf{r}) + n_f       +   n_b   \big) + v_t  }{     c \gamma_{\text{ex}}(\mathbf{r})  q_b }
 \end{equation}
-\begin{equation}
-V_{\text{processed}}(\mathbf{r})= \frac{ q_f(\mathbf{r}) }{ q_b} + \frac{n_{\text{fluor}}   +   n_{\text{back}} } {q_b}  + \frac{ n_{\text{therm}} }{   c \gamma_{\text{ex}}(\mathbf{r}) q_b} 
+\begin{equation}\label{eq:realDeal}
+U(\mathbf{r})= \frac{ q_f(\mathbf{r}) }{ q_b} + \frac{n_f   +   n_b } {q_b}  + \frac{ v_t }{   c \gamma_{\text{ex}}(\mathbf{r}) q_b} 
 \end{equation}
-We observe that the thermal noise $n_{\text{therm}}$ is much much smaller compared to fluorescent background (easy to measure, just the fluctuations of the blank image ~100 vs the background ~ 10,000).
 
-Now we can measure the sum of  $n_{\text{fluor}}$ and $n_{\text{back}}$ and show that they are  zero mean, Gaussian and IID. 
+
+The first term is the signal of interest  (qb is constant), the second term  captures the noise that characterizes statistical fluctuations in fluorescence, and the third term is the thermal noise normalized by the illumination which we will show varies over the length scale of the image, but is constant over a barcode.
+
+
+We turn to the actual images to verify that after applying Eq.~\ref{eq:realDeal} the background noise is Gaussian, IID, and zero-mean.
+
+To characterize the noise, we first find the location of the barcodes and exclude them. 
+Set a threshold. Dilate and excluded the region from analysis. Measure the background.
+
+
+
+
+\subsection{Characterizing Noise}  
+We implement 
+\subsection{Finding the barcodes}
+\subsection{Projecting them down}
+
+
+We can measure the 
+
+Now we can measure the sum of  $n_f$ and $n_b$ and show that they are  zero mean, Gaussian and IID. 
 
 
 Also now  the height of the barcodes are the same, they simply need to be measured, but the qback has no spatial variation, and qfluor is the same for all barcodes. So now we are in good shape!
