@@ -135,13 +135,11 @@ As before, we can factor out and ignore terms that have no $k$ dependence. Thus 
 
 
 \subsection{2D Multi-Channel Image}
-We would like to apply the simple model described above to the problem of identifying the barcodes in our two-dimensional images. Before we can do so, we must perform image processing on our two dimensional images to bring them in line with the assumptions of our one-dimensional model.
-
-%Added in an explanation of noise in our image
-We assume that the contributions to noise in our barcode images are Gaussian, zero-mean and additive. We will show this experimentally later. It is clear from inspection, however, that the background of the barcode images do not have zero mean and also have a slowly varying spatial inhomogeneity. To remove this slowly-varying non-zero-mean background we must fully account for the various contributions to the signal recorded at our detector
+% I reworked this a bit. ML
+We would like to apply the simple model described above to the problem of identifying the barcodes in two-dimensional images. To do so, we perform image processing on the two-dimensional images that transforms them into a one-dimensional form appropriate for the analysis described above. The analysis assumes, as well, that noise in the barcode images is additive, zero-mean and Gaussian. We will show later that the experimentally-observed noise is Gaussian to good approximation. It is clear from inspection, however, that the background of the barcode images does not have zero mean and also has a slowly varying spatial inhomogeneity. To remove this slowly-varying non-zero-mean background, we must account for all of the contributions to the signal recorded by the detector.
 
 
-
+% Why is this commented out? ML
 %neither of which are  taken into account in the model. Additionally, the images contain an unknown number of %barcodes at  unknown locations, while the model assumes exactly one barcode at a known location. The simple %model also assumes that the reference and observation waveforms have the same known height, and of course the %model is designed for one dimension. 
 
 %Here we address each one of these issues.
@@ -160,18 +158,19 @@ We assume that the contributions to noise in our barcode images are Gaussian, ze
 %We will address the discrepancies listed above by employing image processing techniques to transform our raw images into a dataset that can be analyzed using the simple one-dimensional multi-channel model described in Section \ref{sec:simpleModel}. 
 . 
 
-The voltage $V(\mathbf{r})$ at a pixel $\mathbf{r}$ of our detector is the sum of a term that is proportional to the number of incident photons, plus a DC offset $V_0(\mathbf{r})$ that can slowly vary from pixel to pixel, plus thermal noise $n_{\text{therm}}$ which we assume is Gaussian and zero-mean,
+The voltage $V(\mathbf{r})$ at a pixel $\mathbf{r}$ of our detector is the sum of a term that is proportional to the number of incident photons, a DC offset $V_0(\mathbf{r})$ that can slowly vary from pixel to pixel, and thermal noise $n_{\text{therm}}$ that we assume is Gaussian and zero-mean,
 \begin{equation}
 V(\mathbf{r})=V_0(\mathbf{r})+c \cdot \text{Photons}(\mathbf{r}) +n_{\text{therm}}.
 \end{equation}
-Recall that in our system, laser light at one wavelength is incident on the sample and stimulates the emission from a fluorophore of photons at another wavelength that is capable of reaching the detector. Photons that reach the detector must have been re-emitted from fluorophores located either in the barcodes themselves $f$ or in the background media $b$, which consists of a glass slide and buffer.  In both cases, we model the number of photons that are re-emitted as proportional to the number of incident photons plus some noise term, which we assume is Gaussian and zero-mean, 
+%% Is there a reason you say photons are "re-emitted" instead of "emitted"? ML
+Recall that, in our system, laser light at one wavelength is incident on the sample and stimulates a fluorophore to emit photons at another wavelength that is capable of reaching the detector. Photons that reach the detector must have been emitted from fluorophores located either in the barcodes themselves $f$ or in the background media $b$, which consists of a glass slide and buffer.  In both cases, we model the number of photons that are re-emitted as proportional to the number of incident photons plus some noise term, which we assume is Gaussian and zero-mean, 
 \begin{eqnarray}
 f(\mathbf{r})&=&\gamma_{\text{ex}}(\mathbf{r}) ( q_f(\mathbf{r}) + n_f )\\
 b(\mathbf{r})&=&\gamma_{\text{ex}}(\mathbf{r}) ( q_b + n_b ).
 \end{eqnarray}
-Where  $\gamma_{\text{ex}}(\mathbf{r})$ is the slowly varying position-dependent intensity of the excitation laser,  $q_f(\mathbf{r})$ describes the position-dependent fluorescent efficiency of the barcodes independent of illumination, and $q_b$ is the background fluorescent efficiency of the media which we assume is independent of position and illumination. 
+Here $\gamma_{\text{ex}}(\mathbf{r})$ is the slowly varying position-dependent intensity of the excitation laser,  $q_f(\mathbf{r})$ describes the position-dependent fluorescent efficiency of the barcodes independent of illumination, and $q_b$ is the background fluorescent efficiency of the media which is assumed to be independent of position and illumination. 
 
-The contributions of these terms can be evaluated by recording auxiliary images. The offset and thermal noise are present in a dark image taken when the laser is off, for example, while the background noise and spatially varying illumination become visible in an image taken with the laser on but with empty media present. The final image, of course, adds DNA barcodes to the media. The voltages recorded in these cases are
+The contributions of these terms can be evaluated by acquiring auxiliary images. The offset and thermal detector noise are present in a dark image taken when the laser is off, for example, while the background media noise and spatially varying illumination become visible in an image taken with the laser on but with empty media present. The final image, of course, has DNA barcodes embedded in the media. The voltages recorded in these cases are
 \begin{eqnarray}
 V_{\text{empty}}(\mathbf{r})&=&V_0(\mathbf{r})+n_{\text{therm}}\\
 V_{\text{back}}(\mathbf{r})&=&V_0(\mathbf{r})+c \cdot  b(\mathbf{r})  +n_{\text{therm}}\\
@@ -179,7 +178,7 @@ V_{\text{fluor}}(\mathbf{r})&=&V_0(\mathbf{r})+c \cdot \big( f(\mathbf{r}) + b(\
 \end{eqnarray}
 See Fig BLAH BLAH. 
 
-We smooth the dark and background images and subtract and divide them to remove the DC offset and compensate for the spatially varying illumination, respectively,
+We smooth the dark and background images, and subtract and divide them to remove the DC offset and compensate for the spatially varying illumination, respectively,
 \begin{equation}
 V_{\text{processed}}(\mathbf{r})= \frac{ V_{\text{fluor}}(\mathbf{r}) - \langle V_{\text{back}}(\mathbf{r}) \rangle }{ \langle V_{\text{back}}(\mathbf{r}) \rangle - \langle V_{\text{empty}}(\mathbf{r}) \rangle}
 \end{equation}
