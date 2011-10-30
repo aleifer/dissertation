@@ -169,8 +169,10 @@ Recall that, in our system, laser light at one wavelength is incident on the sam
 
 %Make an equation for th epoint spread function
 \begin{equation}
-q_f(\mathbf{r})=
+q_f(\mathbf{r})=a \sum_i\delta(\mathbf{r}-\mathbf{r}_i) * h(\mathbf{r})
 \end{equation}
+where \mathbf{r}_i is the set of locations for fluorophores in the image.
+
 %Explain the noise terms more fully.. what are they.. where are they coming from...
 
 \begin{eqnarray}
@@ -189,7 +191,6 @@ See Fig BLAH BLAH.
 
 We smooth the dark and background images, and subtract and divide them to remove the DC offset and compensate for the spatially varying illumination, respectively,
 
-%ANDY switch vprocessed to U
 \begin{equation}
 U(\mathbf{r})= \frac{ V_{\text{fluor}}(\mathbf{r}) - \langle V_{\text{back}}(\mathbf{r}) \rangle }{ \langle V_{\text{back}}(\mathbf{r}) \rangle - \langle V_{\text{dark}}(\mathbf{r}) \rangle}
 \end{equation}
