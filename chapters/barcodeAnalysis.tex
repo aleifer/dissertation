@@ -56,18 +56,17 @@ Recall that, in our system, laser light at one wavelength is incident on the sam
 %Explain the noise terms more fully.. what are they.. where are they coming from...
 
 \begin{eqnarray}
-f(\mathbf{r})&=&\gamma_{\text{ex}}(\mathbf{r}) ( q_f(\mathbf{r}) + n_f )\\
-b(\mathbf{r})&=&\gamma_{\text{ex}}(\mathbf{r}) ( q_b + n_b ).
+f(\mathbf{r})&=&\gamma_{\text{ex}}(\mathbf{r}) q_f(\mathbf{r})\\
+b(\mathbf{r})&=&\gamma_{\text{ex}}(\mathbf{r}) q_b.
 \end{eqnarray}
 Here $\gamma_{\text{ex}}(\mathbf{r})$ is the slowly varying position-dependent intensity of the excitation laser,  $q_f(\mathbf{r})$ describes the position-dependent fluorescent efficiency of the barcodes independent of illumination, and $q_b$ is the background fluorescent efficiency of the media which is assumed to be independent of position and illumination. The term $q_f$ is itself composed of light from the fluorophores, modulated by the point spread function (PSF) of the optical system
 %Make an equation for th epoint spread function
 \begin{equation}
 q_f(\mathbf{r})=a \sum_i\delta(\mathbf{r}-\mathbf{r}_i) * h(\mathbf{r}).
 \end{equation}
-Here \mathbf{r}_i is the set of locations for fluorophores in the image, $h$ is the PSF, and the star denotes the convolution operation.
+Here $\mathbf{r}_i$ is the set of locations for fluorophores in the image, $h$ is the PSF, and the star denotes the convolution operation.
 
-
-The contributions of these terms can be evaluated by acquiring auxiliary images. The offset and thermal detector noise are present in a dark image taken when the laser is off, for example, while the background media noise and spatially varying illumination become visible in an image taken with the laser on but with empty media present. The final image, of course, has DNA barcodes embedded in the media. The voltages recorded in these cases are
+The contributions of the terms can be evaluated by acquiring auxiliary images. The offset and thermal detector noise are present in a dark image taken when the laser is off, for example, while the background media noise and spatially varying illumination become visible in an image taken with the laser on but with empty media present. The final image, of course, has DNA barcodes embedded in the media. The voltages recorded in these cases are
 \begin{eqnarray}
 V_{\text{dark}}(\mathbf{r})&=&V_0(\mathbf{r})+v_t\\
 V_{\text{back}}(\mathbf{r})&=&V_0(\mathbf{r})+c \cdot  b(\mathbf{r})  +v_t\\
