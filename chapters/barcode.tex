@@ -241,7 +241,7 @@ barcode counts from left to right (see Tables S6 and S7 for the numeric counting
 A computer-generated reference barcode image is placed underneath the corresponding 
 bar. (\textbf{d}) A table containing one representative TIRF image (1.4×0.7 \textmu m$^2$) for each of the 
 216 dual-labeled-zone barcode species. 
-\label{fig:dna4}}
+\label{fig:dna3}}
 \end{FPfigure}
 
 
@@ -287,7 +287,190 @@ false positive rate increases is consistent with the increased information entro
 %I am omitting a paragraph from the original text here --AML
 
 
+We further tested the dual-labeled-zone barcoding system by imaging a mixture 
+containing 72 barcode species that were individually assembled and co-purified (Figure 
+\ref{fig:dna_s9}). Custom MATLAB scripts were used to assist the decoding process (Figure 
+\ref{fig:dna_s10}) in 
+two steps. In step one, a three-channel (red, green, blue) TIRF image containing barcodes 
+was pre-processed to remove background and thresholded so that only pixels containing 
+qualified barcodes remained. The resulting three-channel binary image was merged to 
+generate a single-channel binary image. Next, the software identified the location and 
+orientation of geometrically legitimate barcodes based on their shape in the binary image. 
+In step two, for each barcode located in step one, the corresponding region of the three- 
+channel image was compared against a library of all possible reference barcodes. The 
+observed barcode was assigned the identity of the reference barcode with the highest 
+correlation. The fully automated decoding process (unsupervised mode) ended after the 
+above two steps. In an optional supervised mode, the software presented the user with the 
+observed barcode and its most likely identity for approval. Comparison between 
+supervised and unsupervised decoding results confirmed >80\% agreement between the 
+computer and the user (Methods and Figure 
+\ref{fig:dna_s11}). The computer-aided 
+(supervised mode) analysis of thirty-six 64× 
+64 
+ \textmu m$^2$ three-channel images registered 
+\textasciitilde2,600 qualified barcodes that belonged to 116 different species (Table \ref{fig:dna_s6} and Figure \ref{fig:dna3}c, 
+top panel). The expected 72 species constituted \textasciitilde98\% of the total barcode population 
+with an average barcode count of 36 per species and a standard deviation of 8. In 
+contrast, the unexpected species averaged only \textasciitilde1.4 barcodes per species (maximum 4 
+counts). Finally, we analyzed a mixture containing all the 216 members of the dual- 
+labeled-zone barcode (Figure 
+\ref{fig:dna_s12}). Sixty 64× 
+64 
+ \textmu m$^2$
+images of this mixture were 
+processed by the decoding software in the unsupervised mode. The fully automated 
+analysis registered a mean barcode count of \textasciitilde34 per species (\textasciitilde7,200 barcodes total) with 
+a standard deviation of 17 (Table \ref{fig:dna_s7} and Figure \ref{fig:dna3}c, bottom panel). Our study demonstrates that 216 
+barcode species were successfully constructed and resolved (Figure \ref{fig:dna3}d). 
 
+
+\section{DNA origami barcode system requiring super-resolution microscopy}
+Increasing the number of spatially differentiable fluorescently labeled zones on 
+the origami nanotube is another way to enhance the multiplexing capability of the 
+barcoding system. A straightforward solution that keeps the inter-zone distances larger 
+than the diffraction limit would require longer (e.g., a few micrometer long) nanotubes, 
+which would likely result in lower assembly yield and decreased mechanical rigidity. 
+Alternatively, one can add more fluorescently 
+labeled zones on the ~800 nm tube and image the barcode using super-resolution 
+fluorescence microscopy. As a feasibility demonstration of the latter approach, we 
+applied DNA-PAINT \citep{jungmann_single-molecule_2010}, a recently developed super-resolution fluorescence technique, to 
+image the barcodes. 
+
+\subsection{Introduction to super-resolution microscopy techniques}
+Over the last years, several techniques have been developed that 
+allow imaging beyond the diffraction limit using far-field fluorescence microscopy \citep{hell_far-field_2007,hell_microscopy_2009,huang_breaking_2010,vogelsang_make_2010,walter_-it-yourself_2008}. 
+In most super-resolution implementations, fluorophores are switched between 
+fluorescence ON- and OFF-states, so that individual molecules can be localized 
+consecutively. In methods relying on targeted readout schemes such as in Stimulated 
+Emission Depletion Microscopy  (STED) \citep{hell_breaking_1994} or other Reversible Saturable Optical 
+Fluorescence Transitions  (RESOLFT) techniques \citep{hell_far-field_2007}, fluorescence emission is actively 
+confined to an area below the diffraction limit. The switching of fluorescent molecules 
+can also be carried out stochastically such as in (direct) Stochastic Optical Reconstruction 
+Microscopy \citep{heilemann_subdiffraction-resolution_2008,rust_sub-diffraction-limit_2006} (STORM, dSTORM), Photoactivated Localization Microscopy \citep{betzig_imaging_2006}
+(PALM) and Blink Microscopy (BM) \citep{steinhauer_superresolution_2008}, where most fluorescent molecules are 
+“prepared” in a dark state and only stochastically switched on to emit fluorescence. In 
+Point Accumulation for Imaging in Nanoscale Topography (PAINT) \citep{sharonov_wide-field_2006}, fluorescence 
+switching is obtained by targeting a surface with fluorescent molecules. In all stochastic 
+approaches, fluorescence from single molecules is localized  in a diffraction-limited 
+area to yield super-resolved images \citep{yildiz_myosin_2003,yildiz_kinesin_2004}.
+
+DNA-PAINT uses transient binding of fluorescently labeled oligonucleotides 
+(imager strands) to complementary “docking” strands on DNA nanostructures to obtain 
+switching between a fluorescence ON- and OFF-state, which is necessary for 
+localization-based super-resolution microscopy (SEE Figure \ref{fig:dna4}a). By adjusting the length of 
+the imager/docking strand duplex and the concentration of imager strands in solution, 
+fluorescence ON- and OFF-times can be tuned independently.
+
+\subsection{DNA-PAINT-based DNA origami barcodes}
+\begin{figure} %4
+\includegraphics[width=\textwidth]{figures/dna4}
+\caption[Super-resolution fluorescent barcodes.]{Super-resolution fluorescent barcodes.
+ (\textbf{a}) Scheme of DNA-PAINT used for 
+super-resolution barcode imaging. The 400 nm nanotube consists of 4 binding zones 
+spaced by \textasciitilde114 nm. Each zone can be decorated with the desired combination of 
+“docking” sequences for red, green or blue imager strands. The orthogonal imager strands 
+bind transiently to their respective “docking” sites on the nanotube, creating the 
+necessary “blinking” for super-resolution reconstruction (\textbf{b}) Top: segment diagram 
+(similar to the one used in Figure \ref{fig:dna1}) of the DNA nanotube monomers used for creating 
+five barcodes for super-resolution imaging. Bottom: super-resolution images of the five 
+barcodes shown in each channel separately and as an overlay of all channels. Scale bar: 
+100 nm. (\textbf{c}) Super-resolution image showing all five barcodes in one mixture. The inset 
+shows the diffraction-limited image of one of the barcodes. Scale bar: 250 nm.
+\label{fig:dna4}}
+\end{figure}
+
+
+For this study, we extended the DNA-PAINT technique to three-color imaging 
+using orthogonal imager strand sequences coupled to three spectrally distinct dyes 
+(Atto488 for blue, Cy3b for green and Atto655 for red excitation). To demonstrate the 
+feasibility of the three-color super-resolution barcode system, we designed a DNA 
+nanotube monomer with 4 binding zones in a symmetric arrangement. The neighboring 
+zones were separated by \textasciitilde114 nm (i.e. well below the diffraction limit). Each binding 
+zone consists of 18 staple strands, which can be extended to display three groups of 
+orthogonal sequences (six per group) for the red, green or blue imager strands to bind. As 
+a proof-of-principle experiment, we designed five different barcodes (Figure \ref{fig:dna4}a and top 
+panel of b). The bottom panel of Figure \ref{fig:dna4}b shows the super-resolution reconstruction of 
+the five barcodes for each channel separately as well as an overlay of all channels. Figure 
+ \ref{fig:dna4}c shows a larger area containing all five barcodes. The unique pattern of the barcodes in 
+all three channels can be resolved. Some of the barcodes can move during the sequential 
+imaging (100 s acquisition time per channel) of all three color channels (see overview 
+image in Figure \ref{fig:dna_s14}). Image conditions could still be improved by alternating excitation 
+and faster image acquisition to prevent this effect. The transient, repetitive binding of 
+imager strands to docking sequences on the nanotube not only creates the necessary 
+"blinking" behavior for localization but also makes the imaging protocol more robust, as 
+DNA-PAINT is not prone to photo-bleaching or incorrectly labeled strands (Figure \ref{fig:dna_s13}). 
+With the microscope setup we used, DNA-PAINT provides a resolution of \textasciitilde27 nm 
+(FWHM of a Gaussian fit to the reconstructed PSF) in the red, \textasciitilde22 nm in the green and 
+\textasciitilde23 nm in the blue channel. The obtainable resolution and imaging specificity suggests 
+that 6 positions on one nanotube monomer could be robustly resolved while keeping the 
+geometrical asymmetry of the barcode, which would lead to $7^6=117,649$ different 
+possible barcodes. Furthermore the modularity of the nanotube design enables the 
+customized reengineering of barcodes with inter-zone distances tailored to the resolving 
+power of the used microscope, thus making it applicable for a wide range of microscope 
+setups.
+
+\section{More Complex Geometries}
+DNA nanostructures with non-linear geometry could be assembled to generate 
+more sophisticated barcodes. Figure 5 shows an example where three \textasciitilde400 nm DNA 
+tubes were linked to the outer edge of a \textasciitilde60 nm DNA ring through hybridization between 
+the staple extensions (Figure \ref{fig:dna5}a, inset). Fluorescently labeling the ring and the far end of 
+the nanotubes generated a three-point-star-like structure clearly resolvable under 
+fluorescence microscopy. TIRF microscopy and TEM studies (Figure \ref{fig:dna5}b, Figure \ref{fig:dna_s15} and Figure \ref{fig:dna_s16}z) revealed that about 50\% of successfully folded barcodes featured three nanotubes 
+surrounding the ring with a roughly 120\textdegree angle between each other as designed, while 
+many other barcodes had significantly biased angles between neighboring nanotubes due 
+to the semi-flexible double-stranded DNA linker between the ring and the nanotubes. It is 
+conceivable that using similar design to connect three identical "satellite" linear barcodes 
+to a central hub (here the three satellite barcodes may share the hub as a common 
+fluorescently labeled zone), one can construct barcodes with triplicated encoding 
+redundancy that feature outstanding reliability. In addition, more rigid linkers between 
+the ring and the protrusions (e.g., multi-helix DNA with strand crossovers) could be 
+employed to enforce better-defined barcode geometry. 
+
+
+\begin{figure} %5
+\includegraphics[width=\textwidth]{figures/dna5}
+\caption[Fluorescent barcode with non-linear geometry.]{Fluorescent barcode with non-linear geometry. (\textbf{a}) Schematic. Three identical 
+\textasciitilde400-nm long DNA nanotubes are linked to the outer edge of a DNA ring with diameter 
+of \textasciitilde60 nm through the hybridization between staple extensions. The ring and the end of 
+the tube are labeled by Cy3 (green) and Cy5 (red), respectively. (\textbf{b}) A representative 
+TIRF microscope image of the barcode shown in (\textbf{a}). Scale bar: 5 \textmu m. 
+\label{fig:dna5}}
+\end{figure}
+
+
+
+\subsection{DNA-PAINT-based DNA origami barcodes}
+
+\section{DNA Barcodes attached to cells}
+Modifying the barcodes with functional ligands such as antibodies and aptamers 
+would allow the barcodes to tag specific biological samples and serve as multiplexed in 
+situ imaging probes. In a proof-of-principle experiment, the GRG barcode was used to 
+tag wild-type \textit{Candida albicans} yeast. The yeast cells were first mixed with a biotinylated 
+polyclonal antibody specific to \textit{C. albicans}, then coated with a layer of streptavidin, and 
+finally incubated with biotinylated GRG barcodes (Figure \ref{fig:dna6}a). TIRF microscopy revealed 
+the barcodes attached to the bottom surface of the yeast cells (Figure  \ref{fig:dna6}b, top panel and 
+Figure  \ref{fig:dna6_s17}). While some of the nanotubes landed awkwardly on the uneven cell walls of 
+the yeast cells, a number of GRG barcodes can be clearly visualized. In contrast, no 
+barcode tagging was observed when non-biotinylated antibodies or barcodes were used to 
+treat the yeasts (Figure  \ref{fig:dna6}b, bottom panel and Figure  \ref{fig:dna6_s17}), suggesting that little to no non- 
+specific interaction existed between the barcode and the cell surface. 
+
+\begin{figure} %6
+\includegraphics[width=\textwidth]{figures/dna6}
+\caption[Tagging yeast cells with the GRG barcodes as in situ imaging probes.]{Tagging yeast cells with the GRG barcodes as in situ imaging probes. (\textbf{a}) 
+Cartoon illustrating the tagging mechanism. The biotinylated barcodes are anchored on 
+the yeast cell through streptavidin molecules bound to biotinylated polyclonal antibodies 
+coated on the yeast surface. Only two of the ten biotinylated staples on the barcode are 
+shown here for clarity. (\textbf{b}) Overlaid microscope images (acquired in bright field and 
+TIRF) of the yeast cells treated with the barcodes. Top: yeast cells treated as illustrated in 
+(\textbf{a}). Bottom: negative control: yeast cells treated with non-biotinylated barcodes. Scale 
+bars: 5 \textmu m.
+\label{fig:dna6}}
+\end{figure}
+
+
+
+\section{Discussion}
 
 
 
