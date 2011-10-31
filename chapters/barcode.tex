@@ -106,7 +106,7 @@ hybridizing the Cy3 (shown the glowing green spheres at the 3'-ends) modified st
 the staple extensions.\label{fig:dna1}}
 \end{figure}
 
-
+\subsection{Construction of Simple Barcode}
 We assembled the DNA-origami nanotubes following the protocol in \citep{douglas_dna-nanotube-induced_2007} with slight experimental modifications (See Materials and Methods in SI). 
 Briefly, two structurally identical but chemically distinct nanotube monomers (\textasciitilde400 nm 
 each) were assembled in two separate test tubes by slowly cooling a mixture of 7.3-kb 
@@ -143,6 +143,91 @@ types are expected. As a result the bars and pie representing the qualified barc
 are shown in blue. Scale bars: 5 \textmu m.\label{fig:dna2}}
 \end{figure}
 	
+
+\begin{FPfigure} %3
+\includegraphics[width=\textwidth]{figures/dna3}
+\caption[Dual-labeled-zone fluorescent barcodes.]{Dual-labeled-zone fluorescent barcodes. (\textbf{a}) Typical TIRF microscopy images 
+of five selected barcode species, shown both in separate channels and after 
+superimposing. Scale bar: 5 \textmu m. (\textbf{b}) Statistics obtained by analyzing two 50×50 \textmu m$^2$ 
+images of each barcode species (\textasciitilde85 barcodes, the exact sample size N is noted beside 
+the corresponding bar-graph). The barcode types are noted under the x-axis of the 
+diagram. Color scheme (unrelated to the pseudo-colors of the fluorophores): blue, correct 
+barcodes (correct geometry and color identity); green, incorrect barcodes (correct 
+geometry but incorrect color identity); red, monomer nanotubes (one spot or two 
+connecting spots); and purple, barcodes with wrong geometry (i.e., bending angle <120°, 
+see methods in SI). (\textbf{c}) Computer-aided barcode counting results of the 72-barcode pool 
+(N=2,617) and the 216-barcode pool (N=7,243) plotted as bar-graphs with descending 
+barcode counts from left to right (see Tables S6 and S7 for the numeric counting results). 
+A computer-generated reference barcode image is placed underneath the corresponding 
+bar. (\textbf{d}) A table containing one representative TIRF image (1.4×0.7 \textmu m$^2$) for each of the 
+216 dual-labeled-zone barcode species. 
+\label{fig:dna4}}
+\end{FPfigure}
+	
+\subsection{Inspecting the simple barcodes}
+In order to validate our system, we randomly chose five distinct barcodes from the
+%Note to Chenxiang: What does it mean to "validate" the system? what specifically are you doing this section?
+% Aren't you really just inspecting the barcodes and confrimng that they look as expected?
+27 members in the barcode family for quality control experiments. The barcodes were 
+assembled and purified separately and imaged under the same experimental conditions. 
+Two distinct features of the barcode were clearly visible from the TIRF images (Figure 
+\ref{fig:dna2}a, top panel and Figure \ref{fig:dna_s3}): first, each fluorescently labeled zone on a barcode was 
+resolved as a single-color spot and each complete barcode consisted of three of such 
+spots; second, two of the neighboring spots were separated by a small gap while the other 
+two neighbors sat closely together. Therefore one can visually recognize and decode 
+those geometrically encoded barcodes based on the color identity of the spots and their 
+relative spatial positions, even without the aid of any specialized decoding software. 
+Using a custom-written software that localizes the center of each spot on the BRG 
+barcodes (Figure \ref{fig:dna_s4}), we measured the average center-to-center distance between the 
+neighboring spots to be 433$\pm$53 nm (mean$\pm$s.d., N=70; larger distance) and 264$\pm$52 nm 
+(mean $\pm$ s.d., N=70; smaller distance), confirming the correct formation of the barcodes. 
+These experimentally measured distances were slightly smaller than the designed values 
+(478 nm and 298 nm). We attribute this discrepancy to random thermal bending of the 
+nanotubes (persistence length of \textasciitilde1–2 \textmu m), which has been observed previously by 
+others \citep{rothemund_folding_2006, han_folding_2010} and confirmed by us (Figure \ref{fig:dna_s5}) using transmission electron microscopy 
+(TEM). It is important to note that unlike some other geometrically encoded barcoding 
+systems (e.g., NanoString nCounter \citep{geiss_direct_2008}), there was no molecular combing step involved in
+%Note to Chenxiang: is this the best place to put hthe nanostring comparison? It disrupts the rest of the already long paragraph.
+the sample preparation. The separation between the fluorescent spots was exclusively 
+created by the inherently rigid structure of the six-helix bundle nanotube. It is also 
+notable that the spot intensities were not perfectly uniform across the whole image, which 
+can be explained by factors such as the uneven illumination of the sample stage and 
+differences in labeling efficiency. Nevertheless, the TIRF images proved that the 
+barcodes were successfully assembled and can be resolved unambiguously.
+
+\subsection{Quantification of the yield of the simple barcodes}
+We then %I added a paragraph break here -AML
+manually investigated TIRF images with an area of 50×50 \textmu m$^2$ for the five selected 
+barcodes (Figure \ref{fig:dna2}a, bottom panel). The objects found within the images were first sorted 
+into qualified (i.e., three single-color spots arranged in a nearly linear and asymmetric 
+fashion as designed) and unqualified (i.e., all other objects) barcodes. The qualified 
+barcodes were further categorized into correct and incorrect (false-positive) barcodes 
+based on the fluorescent signatures of the composing spots to reflect whether the barcode 
+was the expected type. The unqualified barcodes were further sorted into (1) monomer 
+nanotubes (single spot or two “kissing” spots), (2) barcodes with “wrong” geometry (i.e., 
+extreme bending), and (3) barcodes containing at least one spot with multiple colors. Our 
+statistics revealed that more than 70\% of the visible objects were qualified barcodes, 
+which we further determined to be exclusively the expected type (i.e., zero false-positive 
+out of 188 qualified barcodes observed). The unqualified barcodes likely arose from 
+folding defects, sample damage during handling and overlapping nanotubes on the 
+surface, which can be largely reduced by optimizing the sample preparation and imaging 
+protocol. 
+
+%strike "real-life" added "useful" --AML
+To be useful for multiplexed imaging system, a number of different barcode species must
+coexist in one pool. Thus it is important to examine the robustness of our system by 
+mixing different types of barcode together. In an initial test, we synthesized BRG and 
+RGB barcodes separately, mixed them together at equal molar ratio and co-purified them 
+via gel electrophoresis. The TIRF analysis of the purified mixture (Figure \ref{fig:dna_s6}) confirmed 
+the 1:1 stoichiometry of the two barcodes and the overall assembly success rate (qualified 
+barcode/all objects) of \textasciitilde80\%, suggesting that both barcodes maintained their integrity in 
+the mixing and co-purification process. In addition, over 98\% of the qualified barcodes 
+fell into one of the two expected types (BRG and RGB). The 2\% false-positive rate was 
+due to an unexpected barcode, namely BGB (Figure \ref{fig:dna_s6}), which could be attributed to a 
+rare occasion in which the front monomer of the BRG barcode lay in proximity to the 
+rear monomer of the RGB barcode. We believe this could be eliminated in the future if a 
+more stringent purification condition is applied to minimize the amount of leftover 
+monomers.  
 
 
 
