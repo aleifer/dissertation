@@ -48,7 +48,7 @@ The voltage $V(\mathbf{r})$ at a pixel $\mathbf{r}$ in the detector is the sum o
 \begin{equation}
 V(\mathbf{r})=V_0(\mathbf{r})+c \cdot \text{Photons}(\mathbf{r}) +v_t,
 \end{equation}
-where $c$ is the conversion constant that relates number of photons to voltage. 
+where $c$ is the conversion constant that relates the number of photons to voltage. 
 
 
 Recall that, in our system, laser light at one wavelength is incident on the sample and stimulates a fluorophore to emit photons at another wavelength that is capable of reaching the detector. Photons that reach the detector must have been emitted either from fluorophores located  in the barcodes themselves $f$ or from contaminants or impurities in the background media $b$, which consists of a glass slide and buffer.  In both cases, we model the number of photons that are emitted as proportional to the number of incident photons, 
@@ -59,12 +59,12 @@ Recall that, in our system, laser light at one wavelength is incident on the sam
 f(\mathbf{r})&=&\gamma_{\text{ex}}(\mathbf{r}) ( q_f(\mathbf{r}) + n_f )\\
 b(\mathbf{r})&=&\gamma_{\text{ex}}(\mathbf{r}) ( q_b + n_b ).
 \end{eqnarray}
-Here $\gamma_{\text{ex}}(\mathbf{r})$ is the slowly varying position-dependent intensity of the excitation laser,  $q_f(\mathbf{r})$ describes the position-dependent fluorescent efficiency of the barcodes independent of illumination, and $q_b$ is the background fluorescent efficiency of the media which is assumed to be independent of position and illumination. The term $q_f$ is itself composed of light from the fluorophores, modulated by the point-
+Here $\gamma_{\text{ex}}(\mathbf{r})$ is the slowly varying position-dependent intensity of the excitation laser,  $q_f(\mathbf{r})$ describes the position-dependent fluorescent efficiency of the barcodes independent of illumination, and $q_b$ is the background fluorescent efficiency of the media which is assumed to be independent of position and illumination. The term $q_f$ is itself composed of light from the fluorophores, modulated by the point spread function (PSF) of the optical system
 %Make an equation for th epoint spread function
 \begin{equation}
-q_f(\mathbf{r})=a \sum_i\delta(\mathbf{r}-\mathbf{r}_i) * h(\mathbf{r})
+q_f(\mathbf{r})=a \sum_i\delta(\mathbf{r}-\mathbf{r}_i) * h(\mathbf{r}).
 \end{equation}
-where \mathbf{r}_i is the set of locations for fluorophores in the image, $h$ is the point spread function of the optical system, and the star denotes the convolution operation.
+Here \mathbf{r}_i is the set of locations for fluorophores in the image, $h$ is the PSF, and the star denotes the convolution operation.
 
 
 The contributions of these terms can be evaluated by acquiring auxiliary images. The offset and thermal detector noise are present in a dark image taken when the laser is off, for example, while the background media noise and spatially varying illumination become visible in an image taken with the laser on but with empty media present. The final image, of course, has DNA barcodes embedded in the media. The voltages recorded in these cases are
