@@ -36,7 +36,72 @@ In the following sections we develop an optimal mathematical framework and softw
 
 
 \section{Theory and Algorithm}
-To automatically detect and decode a barcode from its three-channel image, the software must systematically scan through the image, detect the location of each barcode and decide which of the 216 reference barcode species best fits the observed barcode. Assigning the best fitting reference, or model, barcode is performed by Bayesian multiple hypothesis testing. This is, in general, computational intensive for two-dimensional datasets, so we first turn for guidance to a one-dimensional problem.
+To automatically detect and decode a barcode from its three-channel image, the software must systematically scan through the image, detect the location of each barcode and decide which of the 216 reference barcode species best fits the observed barcode. Assigning the best fitting reference, or model, barcode is performed by Bayesian multiple hypothesis testing to be described shortly. First, the raw image data must be conditioned, to remove DC offsets and scaling introduced by the optical system and by the camera's charge-coupled-device (CCD) detector.
+
+
+\subsection{Conditioning the Raw Image}
+The first step in processing the image is removing the offsets and correcting the scaling, both of which vary across the image as a consequence of the illumination and optical system properties. We begin by describing the signals and their sources.
+
+%We would like to apply the simple model described above to the problem of identifying the barcodes in two-dimensional images. To do so, we perform image processing on the two-dimensional images that transforms them into a one-dimensional form appropriate for the analysis described above. The analysis assumes, as well, that noise in the barcode images is additive, zero-mean and Gaussian. We will show later that the experimentally-observed noise is Gaussian to good approximation. It is clear from inspection, however, that the background of the barcode images does not have zero mean and also has a slowly varying spatial inhomogeneity. To remove this slowly-varying non-zero-mean background, we must account for all of the contributions to the signal recorded by the detector.
+
+The voltage $V(\mathbf{r})$ at a pixel $\mathbf{r}$ in the detector is the sum of a term that is proportional to the number of incident photons, a DC offset $V_0(\mathbf{r})$ that can slowly vary from pixel to pixel, and thermal noise $v_t$ that we assume is Gaussian and zero-mean,
+\begin{equation}
+V(\mathbf{r})=V_0(\mathbf{r})+c \cdot \text{Photons}(\mathbf{r}) +v_t,
+\end{equation}
+where $c$ is the conversion constant that relates number of photons to voltage. 
+
+
+Recall that, in our system, laser light at one wavelength is incident on the sample and stimulates a fluorophore to emit photons at another wavelength that is capable of reaching the detector. Photons that reach the detector must have been emitted either from fluorophores located  in the barcodes themselves $f$ or from contaminants or impurities in the background media $b$, which consists of a glass slide and buffer.  In both cases, we model the number of photons that are emitted as proportional to the number of incident photons, 
+
+%Explain the noise terms more fully.. what are they.. where are they coming from...
+
+\begin{eqnarray}
+f(\mathbf{r})&=&\gamma_{\text{ex}}(\mathbf{r}) ( q_f(\mathbf{r}) + n_f )\\
+b(\mathbf{r})&=&\gamma_{\text{ex}}(\mathbf{r}) ( q_b + n_b ).
+\end{eqnarray}
+Here $\gamma_{\text{ex}}(\mathbf{r})$ is the slowly varying position-dependent intensity of the excitation laser,  $q_f(\mathbf{r})$ describes the position-dependent fluorescent efficiency of the barcodes independent of illumination, and $q_b$ is the background fluorescent efficiency of the media which is assumed to be independent of position and illumination. The term $q_f$ is itself composed of light from the fluorophores, modulated by the point-
+%Make an equation for th epoint spread function
+\begin{equation}
+q_f(\mathbf{r})=a \sum_i\delta(\mathbf{r}-\mathbf{r}_i) * h(\mathbf{r})
+\end{equation}
+where \mathbf{r}_i is the set of locations for fluorophores in the image, $h$ is the point spread function of the optical system, and the star denotes the convolution operation.
+
+
+The contributions of these terms can be evaluated by acquiring auxiliary images. The offset and thermal detector noise are present in a dark image taken when the laser is off, for example, while the background media noise and spatially varying illumination become visible in an image taken with the laser on but with empty media present. The final image, of course, has DNA barcodes embedded in the media. The voltages recorded in these cases are
+\begin{eqnarray}
+V_{\text{dark}}(\mathbf{r})&=&V_0(\mathbf{r})+v_t\\
+V_{\text{back}}(\mathbf{r})&=&V_0(\mathbf{r})+c \cdot  b(\mathbf{r})  +v_t\\
+V_{\text{fluor}}(\mathbf{r})&=&V_0(\mathbf{r})+c \cdot \big( f(\mathbf{r}) + b(\mathbf{r})\big)  +v_t
+\end{eqnarray}
+See Fig BLAH BLAH. 
+
+We smooth the dark and background images, and subtract and divide them to remove the DC offset and compensate for the spatially varying illumination, respectively,
+
+\begin{equation}
+U(\mathbf{r})= \frac{ V_{\text{fluor}}(\mathbf{r}) - \langle V_{\text{back}}(\mathbf{r}) \rangle }{ \langle V_{\text{back}}(\mathbf{r}) \rangle - \langle V_{\text{dark}}(\mathbf{r}) \rangle}
+\end{equation}
+where $\langle~\rangle$ denotes the expectation value. 
+%ANDY: Add in sentance that the nouse terms are all zero mean, so n squigles are zero
+Substituting Eq. XXX gives
+\begin{equation}
+U(\mathbf{r})= \frac{ c \cdot \big( f(\mathbf{r})  +b(\mathbf{r}) -\langle b(\mathbf{r}) \rangle \big)+ v_t  }{   c \cdot \langle b(\mathbf{r}) \rangle }
+\end{equation}
+Note that we assume $\langle V_0(\mathbf{r}) \rangle = V_0(\mathbf{r})$ and $\langle \gamma_{\text{ex}}(\mathbf{r}) \rangle  = \gamma_{\text{ex}}(\mathbf{r})$ because both are modeled as deterministic processes. Substituting further, and recalling that the mean of the noise terms are zero,
+\begin{equation}
+U(\mathbf{r})= \frac{ c \cdot \gamma_{\text{ex}}(\mathbf{r}) \big(  q_f(\mathbf{r}) + n_f       +   n_b   \big) + v_t  }{     c \gamma_{\text{ex}}(\mathbf{r})  q_b }
+\end{equation}
+\begin{equation}\label{eq:realDeal}
+U(\mathbf{r})= \frac{ q_f(\mathbf{r}) }{ q_b} + \frac{n_f   +   n_b } {q_b}  + \frac{ v_t }{   c \gamma_{\text{ex}}(\mathbf{r}) q_b} 
+\end{equation}
+
+
+The first term is the signal of interest  (qb is constant), the second term  captures the noise that characterizes statistical fluctuations in fluorescence, and the third term is the thermal noise normalized by the illumination which we will show varies over the length scale of the image, but is constant over a barcode.
+
+
+We turn to the actual images to verify that after applying Eq.~\ref{eq:realDeal} the background noise is Gaussian, IID, and zero-mean.
+
+To characterize the noise, we first find the location of the barcodes and exclude them. 
+Set a threshold. Dilate and excluded the region from analysis. Measure the background.
 
 
 \subsection{One dimension, single channel}
@@ -133,89 +198,6 @@ As before, we can factor out and ignore terms that have no $k$ dependence. Thus 
 
 
 
-
-\subsection{2D Multi-Channel Image}
-% I reworked this a bit. ML
-We would like to apply the simple model described above to the problem of identifying the barcodes in two-dimensional images. To do so, we perform image processing on the two-dimensional images that transforms them into a one-dimensional form appropriate for the analysis described above. The analysis assumes, as well, that noise in the barcode images is additive, zero-mean and Gaussian. We will show later that the experimentally-observed noise is Gaussian to good approximation. It is clear from inspection, however, that the background of the barcode images does not have zero mean and also has a slowly varying spatial inhomogeneity. To remove this slowly-varying non-zero-mean background, we must account for all of the contributions to the signal recorded by the detector.
-
-
-% Why is this commented out? ML
-%neither of which are  taken into account in the model. Additionally, the images contain an unknown number of %barcodes at  unknown locations, while the model assumes exactly one barcode at a known location. The simple %model also assumes that the reference and observation waveforms have the same known height, and of course the %model is designed for one dimension. 
-
-%Here we address each one of these issues.
-
-
-
-%Moreover, the model assumes than in an observation  $\mathbf{u}$ there is exactly one reference at a known location, but our images contain an unknown number of barcodes at unknown locations. 
-
-
-%	\begin{enumerate} %Why is this datest different from all other datasets?
-%	\item The simple model assumes that the noise is additive, zero-mean, and IID. The images exhibit a slowly varying offset, and therefore exhibit noise that is neither zero-mean nor IID. \label{item:noise}
-%	\item The simple model assumes that the observation $\mathbf{u}$ contains exactly one reference at a known location, but our images contain an unknown number of barcodes at unknown locations. 
-%	\item The simple model assumes that the reference $\mathbf{m_k}$ and observation $\mathbf{u}$ waveforms have the same known height, but in our images the height is \textit{a priori} unknown and may vary within an image.  
-%	\item The simple model assumes a one-dimensional image, but our images are two dimensional.
-%	\end{enumerate} 
-%We will address the discrepancies listed above by employing image processing techniques to transform our raw images into a dataset that can be analyzed using the simple one-dimensional multi-channel model described in Section \ref{sec:simpleModel}. 
-. 
-
-The voltage $V(\mathbf{r})$ at a pixel $\mathbf{r}$ of our detector is the sum of a term that is proportional to the number of incident photons, a DC offset $V_0(\mathbf{r})$ that can slowly vary from pixel to pixel, and thermal noise $v_t$ that we assume is Gaussian and zero-mean,
-\begin{equation}
-V(\mathbf{r})=V_0(\mathbf{r})+c \cdot \text{Photons}(\mathbf{r}) +v_t,
-\end{equation}
-where $c$ is a constant that converts photons into voltage. 
-
-
-Recall that, in our system, laser light at one wavelength is incident on the sample and stimulates a fluorophore to emit photons at another wavelength that is capable of reaching the detector. Photons that reach the detector must have been emitted either from fluorophores located  in the barcodes themselves $f$ or from contaminants or impurities in the background media $b$, which consists of a glass slide and buffer.  In both cases, we model the number of photons that are emitted as proportional to the number of incident photons plus some noise term that characterizes statistical fluctuations in fluorescence, which we assume is Gaussian and zero-mean, 
-
-%Make an equation for th epoint spread function
-\begin{equation}
-q_f(\mathbf{r})=a \sum_i\delta(\mathbf{r}-\mathbf{r}_i) * h(\mathbf{r})
-\end{equation}
-where \mathbf{r}_i is the set of locations for fluorophores in the image.
-
-%Explain the noise terms more fully.. what are they.. where are they coming from...
-
-\begin{eqnarray}
-f(\mathbf{r})&=&\gamma_{\text{ex}}(\mathbf{r}) ( q_f(\mathbf{r}) + n_f )\\
-b(\mathbf{r})&=&\gamma_{\text{ex}}(\mathbf{r}) ( q_b + n_b ).
-\end{eqnarray}
-Here $\gamma_{\text{ex}}(\mathbf{r})$ is the slowly varying position-dependent intensity of the excitation laser,  $q_f(\mathbf{r})$ describes the position-dependent fluorescent efficiency of the barcodes independent of illumination, and $q_b$ is the background fluorescent efficiency of the media which is assumed to be independent of position and illumination. 
-
-The contributions of these terms can be evaluated by acquiring auxiliary images. The offset and thermal detector noise are present in a dark image taken when the laser is off, for example, while the background media noise and spatially varying illumination become visible in an image taken with the laser on but with empty media present. The final image, of course, has DNA barcodes embedded in the media. The voltages recorded in these cases are
-\begin{eqnarray}
-V_{\text{dark}}(\mathbf{r})&=&V_0(\mathbf{r})+v_t\\
-V_{\text{back}}(\mathbf{r})&=&V_0(\mathbf{r})+c \cdot  b(\mathbf{r})  +v_t\\
-V_{\text{fluor}}(\mathbf{r})&=&V_0(\mathbf{r})+c \cdot \big( f(\mathbf{r}) + b(\mathbf{r})\big)  +v_t
-\end{eqnarray}
-See Fig BLAH BLAH. 
-
-We smooth the dark and background images, and subtract and divide them to remove the DC offset and compensate for the spatially varying illumination, respectively,
-
-\begin{equation}
-U(\mathbf{r})= \frac{ V_{\text{fluor}}(\mathbf{r}) - \langle V_{\text{back}}(\mathbf{r}) \rangle }{ \langle V_{\text{back}}(\mathbf{r}) \rangle - \langle V_{\text{dark}}(\mathbf{r}) \rangle}
-\end{equation}
-where $\langle~\rangle$ denotes the expectation value. 
-%ANDY: Add in sentance that the nouse terms are all zero mean, so n squigles are zero
-Substituting Eq. XXX gives
-\begin{equation}
-U(\mathbf{r})= \frac{ c \cdot \big( f(\mathbf{r})  +b(\mathbf{r}) -\langle b(\mathbf{r}) \rangle \big)+ v_t  }{   c \cdot \langle b(\mathbf{r}) \rangle }
-\end{equation}
-Note that we assume $\langle V_0(\mathbf{r}) \rangle = V_0(\mathbf{r})$ and $\langle \gamma_{\text{ex}}(\mathbf{r}) \rangle  = \gamma_{\text{ex}}(\mathbf{r})$ because both are modeled as deterministic processes. Substituting further, and recalling that the mean of the noise terms are zero,
-\begin{equation}
-U(\mathbf{r})= \frac{ c \cdot \gamma_{\text{ex}}(\mathbf{r}) \big(  q_f(\mathbf{r}) + n_f       +   n_b   \big) + v_t  }{     c \gamma_{\text{ex}}(\mathbf{r})  q_b }
-\end{equation}
-\begin{equation}\label{eq:realDeal}
-U(\mathbf{r})= \frac{ q_f(\mathbf{r}) }{ q_b} + \frac{n_f   +   n_b } {q_b}  + \frac{ v_t }{   c \gamma_{\text{ex}}(\mathbf{r}) q_b} 
-\end{equation}
-
-
-The first term is the signal of interest  (qb is constant), the second term  captures the noise that characterizes statistical fluctuations in fluorescence, and the third term is the thermal noise normalized by the illumination which we will show varies over the length scale of the image, but is constant over a barcode.
-
-
-We turn to the actual images to verify that after applying Eq.~\ref{eq:realDeal} the background noise is Gaussian, IID, and zero-mean.
-
-To characterize the noise, we first find the location of the barcodes and exclude them. 
-Set a threshold. Dilate and excluded the region from analysis. Measure the background.
 
 
 
