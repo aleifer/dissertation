@@ -37,7 +37,7 @@ Here we restrict ourselves to immobilized barcodes laying flat on a glass slide,
 In the following sections we develop an optimal mathematical framework and software implementation for identifying the location and orientation of the barcode and then decoding it.
 
 
-\section{Theory and Algorithm}
+\section{Theory}
 To automatically detect and decode a barcode from its three-channel image, the software must systematically scan through the image, detect the location of each barcode and decide which of the 216 reference barcode species best fits the observed barcode. Assigning the best fitting reference, or model, barcode is performed by Bayesian multiple hypothesis testing to be described shortly. First, the raw image data must be conditioned, to remove DC offsets and scaling introduced by the optical system and by the camera's charge-coupled-device (CCD) detector.
 
 
@@ -96,18 +96,9 @@ U(\mathbf{r})= \frac{ q_f(\mathbf{r}) }{ q_b}   + \frac{ v_t }{   c \gamma_{\tex
 \end{equation}
 
 
-The first term is the signal of interest  (qb is constant), the second term  captures the noise that characterizes statistical fluctuations in fluorescence, and the third term is the thermal noise normalized by the illumination which we will show varies over the length scale of the image, but is constant over a barcode.
+The first term is the signal of interest  (qb is constant) and the second term is the thermal noise normalized by the illumination which we will show varies over the length scale of the image, but is constant over a barcode. Later we will show that the background of $U(\mathbf{r})$ is zero-mean, gaussian, and IID.
 
-
-We turn to the actual images to verify that after applying Eq.~\ref{eq:realDeal} the background noise is Gaussian, IID, and zero-mean.
-
-To characterize the noise, we first find the location of the barcodes and exclude them. 
-Set a threshold. Dilate and excluded the region from analysis. Measure the background.
-
-At the very end we will show that the background noise is zero-mean, gaussian, and IID.
-
-Transition to one dimensional problem. 
-
+Now that the spatially varying offset and illumination has been removed, we turn for guidance to a simple one-dimensional anlalogy of our two-dimensional barcode decoding problem. 
 
 \subsection{One dimension, single channel}
 In the one dimensional problem we assume there are $K$ possible one-dimensional reference signals in a system with zero-mean additive Gaussian noise $n$, such that for any reference $m$, the observed signal $\mathbf{u}$ is
@@ -132,7 +123,7 @@ vector notation. Given a noisy observation $\mathbf{u}$, we seek the most likely
 % <.> = expectation (or use overbar)
 
 
-The probablity that the $k$th reference signal $\mathbf{m}_k$ is present when the data vector $\mathbf{u}$ is observed is given by Bayes' theorem,
+The probability that the $k$th reference signal $\mathbf{m}_k$ is present when the data vector $\mathbf{u}$ is observed is given by Bayes' theorem,
 \begin{equation}\label{eq:Bayes}
 p(\mathbf{m}_k|\mathbf{u}) = \frac{p(\mathbf{u}|\mathbf{m}_k)p(\mathbf{m}_k)} {p(\mathbf{u})},
 \end{equation}
@@ -154,7 +145,7 @@ The probability $p(\mathbf{u}|\mathbf{m}_k)$ of observing $\mathbf{u}$ given the
 \begin{equation}\label{eq:Main}
 L_k = p(\mathbf{u}|\mathbf{m}_k) = \frac{1}{  \sqrt{ (2\pi)^N \det || \mathbf{R}_n||} } \exp\left[ -\frac{1}{2}  (\mathbf{u}-\mathbf{m}_k)^T \mathbf{R}_n^{-1} (\mathbf{u}-\mathbf{m}_k) \right]
 \end{equation}
-where $N$ is the length of vector $\mathbf{u}$, $\mathbf{R}_n$ is the noise covariance matrix, det||.|| is the matrix determinant, and $T$ denotes the transpose operation [REFERENCE].
+where $N$ is the length of vector $\mathbf{u}$, $\mathbf{R}_n$ is the noise covariance matrix, $\det||{~}||$ is the matrix determinant, and $T$ denotes the transpose operation [REFERENCE].
  
 For the case of identical independently distributed (IID) Gaussian noise, 
 \begin{equation}
@@ -205,9 +196,11 @@ As before, we can factor out and ignore terms that have no $k$ dependence. Thus 
 \section{Implementation}
 Transition to talk about real data.
 
-How we take the real data, process it, threshold, find the barcodes.  
+How we take the real data, process it, threshold ( so that the big gaps don't touch). look to find the barcodes.  
 
-Once barcodes are found, we can also find the mean peak height
+Dilate to group contiguous blobs. Apply morphological criteria to look at shape and size.
+
+Calculate the mean peak height
 Could talk about gaussian neoise here.
 
 Talk about how we are ignoring $a$.
@@ -215,21 +208,11 @@ Talk about how we are ignoring $a$.
 Project  down to one dimension.  THen run the thing.
 
 
-\subsection{Finding the barcodes}
-\subsection{Projecting them down}
+\section{Software}
+Uses Matlab version BLAH. requires BLAH toolkits. Released as GPL. 
+\section{Results}
 
-
-We can measure the 
-
-Now we can measure the sum of  $n_f$ and $n_b$ and show that they are  zero mean, Gaussian and IID. 
-
-
-Also now  the height of the barcodes are the same, they simply need to be measured, but the qback has no spatial variation, and qfluor is the same for all barcodes. So now we are in good shape!
-
-
-
-
-\subsection{Garbage	} 
+\section{Discussion}
 
 
 \section{Manuscript Information}
@@ -239,5 +222,5 @@ A version of this chapter has been submitted for publication in the journal \tex
 %\bibentry{leifer_optogenetic_2011}
 
 \subsection{The Author's Contribution}
-Andrew M.~Leifer wrote all of the software, generated all figures, developed portions of the mathematical framework, and wrote the majority of the manuscript. Mark C.~Leifer developed portions of the mathematical framework and wrote selected passages of the manuscript. Chenxiang Lin created the DNA origami barcodes and conducted all microscopy work. 
+Andrew M.~Leifer wrote all of the software, generated all figures, developed portions of the mathematical framework, and wrote the majority of the manuscript. Mark C.~Leifer developed portions of the mathematical framework and wrote portions of the manuscript. Chenxiang Lin created the DNA origami barcodes and conducted all microscopy work. 
  
