@@ -205,9 +205,14 @@ As before, we can factor out and ignore terms that have no $k$ dependence. Thus 
 \section{Implementation}
 Transition to talk about real data.
 
-How we take the real data, process it, threshold, find the barcodes.  Could talk about gaussian neoise here
+How we take the real data, process it, threshold, find the barcodes.  
 
-Project it to one dimension. THen run the thing.
+Once barcodes are found, we can also find the mean peak height
+Could talk about gaussian neoise here.
+
+Talk about how we are ignoring $a$.
+
+Project  down to one dimension.  THen run the thing.
 
 
 \subsection{Finding the barcodes}
@@ -225,37 +230,6 @@ Also now  the height of the barcodes are the same, they simply need to be measur
 
 
 \subsection{Garbage	} 
-
-We also assume that the nature of fluorescence itself is noisy, and since we assume the integration time of our detector is long, and thus each pixel will contain many many photons, we assume that the by the central limit theorem the noise from fluorescence should be Gaussian.
-
-
-
-
-
-
-Before we can use the formalisms described above, we must first ensure that our data matches the assumptions: gaussian, IID, mean zero, one-dimensional. 
-
-Without processing, the noise in the two-dimension, three-channel nanorod barcode images are non-gaussian, non-identicially distributed, they lack a zero offset and they are two dimensional.
-
-
-
-Now we seek to reduce our three-channel two-dimensional barcode images into three-channel one-dimensional data. 
-
-
-
-%bold non-ital uppercase for matrices
-%bold non-ital lowercase for vectors
-
-
-%Walk through
-
-
-
-ASSUMPTION: The camera is just a photon counter. The noise we see comes overwhelmingly from "background fluorescence". We assume it is additive, thus we assume that our signal is merely superposed on top of the mean background. 
-
-This implies that there is a single true peak height that is valid for all peaks. To test this assumption, I should background subtract the local mean from the barcodes and measure the height single isolated peaks. The height of locally background subtracted single isolated peaks should be flat and not correlate with location in the image.
-
-This would mean that when identifying our barcode we don't have to scale our reference, we can use a single reference for all barcodes regardless of the location.
 
 
 \section{Manuscript Information}
