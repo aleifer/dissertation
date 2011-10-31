@@ -26,6 +26,8 @@ We chose to work with this particular form of fluorescently encoded barcodes as 
 The barcodes are, in fact, so small that the distance between fluorescing sites is often smaller than a wavelength of light. As a result, when the barcodes are imaged on a flat surface, the distinct flourescent sites appear to blend into one another. This becomes one of the primary challenges facing any computer vision barcode identification software, namely to  decode the barcode even when the individual difraction-limited fluorescent spots overlap. 
 
 \subsection{Imaging}
+ANDY--explain evanescent wave, particularly why out-of-plane position reduces intensity
+
 Barcodes were imaged on a glass cover slide on a BLAH BLAH microscope,  under total internal reflection fluorescence (TIRF). 
 The red, green and blue channel images of the barcodes were taken on a glass coverslip, with purple (XXXnm), green (XXXnm) or blue (XXXnm) laser light at YYY mW, ZZZ mW and XXXX mW incident power, respectively. A BLAH BLAH EMCCD camera was used with an exposure time of BLAH ms.
  
@@ -55,18 +57,18 @@ Recall that, in our system, laser light at one wavelength is incident on the sam
 
 %Explain the noise terms more fully.. what are they.. where are they coming from...
 
-\begin{eqnarray}
+\begin{eqnarray}\label{eq:f_and_b}
 f(\mathbf{r})&=&\gamma_{\text{ex}}(\mathbf{r}) q_f(\mathbf{r})\\
 b(\mathbf{r})&=&\gamma_{\text{ex}}(\mathbf{r}) q_b.
 \end{eqnarray}
 Here $\gamma_{\text{ex}}(\mathbf{r})$ is the slowly varying position-dependent intensity of the excitation laser,  $q_f(\mathbf{r})$ describes the position-dependent fluorescent efficiency of the barcodes independent of illumination, and $q_b$ is the background fluorescent efficiency of the media which is assumed to be independent of position and illumination. The term $q_f$ is itself composed of light from the fluorophores, modulated by the point spread function (PSF) of the optical system
 %Make an equation for th epoint spread function
 \begin{equation}
-q_f(\mathbf{r})=a \sum_i\delta(\mathbf{r}-\mathbf{r}_i) * h(\mathbf{r}).
+q_f(\mathbf{r})=\sum_i a_i \delta(\mathbf{r}-\mathbf{r}_i) * h(\mathbf{r}).
 \end{equation}
-Here $\mathbf{r}_i$ is the set of locations for fluorophores in the image, $h$ is the PSF, and the star denotes the convolution operation.
+Here $a_i$ is a factor that accounts for intensity variations due to out-of-plane positions of the fluorophores, $\mathbf{r}_i$ is the set of locations for fluorophores in the image, $h$ is the PSF, and the star denotes the convolution operation.
 
-The contributions of the terms can be evaluated by acquiring auxiliary images. The offset and thermal detector noise are present in a dark image taken when the laser is off, for example, while the background media noise and spatially varying illumination become visible in an image taken with the laser on but with empty media present. The final image, of course, has DNA barcodes embedded in the media. The voltages recorded in these cases are
+The contributions of the terms in Eqs.~\ref{eq:f_and_b} can be evaluated by acquiring auxiliary images. The offset and thermal detector noise are present in a dark image taken when the laser is off, for example, while the background media noise and spatially varying illumination become visible in an image taken with the laser on but with media present but no barcode samples. The final image, of course, has DNA barcodes in the media. The voltages recorded in these cases are
 \begin{eqnarray}
 V_{\text{dark}}(\mathbf{r})&=&V_0(\mathbf{r})+v_t\\
 V_{\text{back}}(\mathbf{r})&=&V_0(\mathbf{r})+c \cdot  b(\mathbf{r})  +v_t\\
