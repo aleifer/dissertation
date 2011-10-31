@@ -57,8 +57,7 @@ different fluorophores allows intensity encoding while spatial positioning of fl
 facilitates geometrical encoding and can help minimize undesired inter-fluorophore 
 quenching. 
 
-\section{DNA Origami Barcode Construction}
-\subsection{A Simple Barcode}
+\section{A Simple DNA Origami Barcode}
 As a proof-of-concept demonstration, we first designed a family of 27 barcodes 
 based on six-helix bundle DNA nanotubes \citep{douglas_dna-nanotube-induced_2007} that are ~800 nm long. Figure \ref{fig:dna1}a illustrates 
 the design of such barcodes. Three 84-base pair (\textasciitilde28 nm) zones on the nanotube were 
@@ -144,26 +143,6 @@ are shown in blue. Scale bars: 5 \textmu m.\label{fig:dna2}}
 \end{figure}
 	
 
-\begin{FPfigure} %3
-\includegraphics[width=\textwidth]{figures/dna3}
-\caption[Dual-labeled-zone fluorescent barcodes.]{Dual-labeled-zone fluorescent barcodes. (\textbf{a}) Typical TIRF microscopy images 
-of five selected barcode species, shown both in separate channels and after 
-superimposing. Scale bar: 5 \textmu m. (\textbf{b}) Statistics obtained by analyzing two 50×50 \textmu m$^2$ 
-images of each barcode species (\textasciitilde85 barcodes, the exact sample size N is noted beside 
-the corresponding bar-graph). The barcode types are noted under the x-axis of the 
-diagram. Color scheme (unrelated to the pseudo-colors of the fluorophores): blue, correct 
-barcodes (correct geometry and color identity); green, incorrect barcodes (correct 
-geometry but incorrect color identity); red, monomer nanotubes (one spot or two 
-connecting spots); and purple, barcodes with wrong geometry (i.e., bending angle <120°, 
-see methods in SI). (\textbf{c}) Computer-aided barcode counting results of the 72-barcode pool 
-(N=2,617) and the 216-barcode pool (N=7,243) plotted as bar-graphs with descending 
-barcode counts from left to right (see Tables S6 and S7 for the numeric counting results). 
-A computer-generated reference barcode image is placed underneath the corresponding 
-bar. (\textbf{d}) A table containing one representative TIRF image (1.4×0.7 \textmu m$^2$) for each of the 
-216 dual-labeled-zone barcode species. 
-\label{fig:dna4}}
-\end{FPfigure}
-	
 \subsection{Inspecting the simple barcodes}
 In order to validate our system, we randomly chose five distinct barcodes from the
 %Note to Chenxiang: What does it mean to "validate" the system? what specifically are you doing this section?
@@ -228,6 +207,87 @@ rare occasion in which the front monomer of the BRG barcode lay in proximity to 
 rear monomer of the RGB barcode. We believe this could be eliminated in the future if a 
 more stringent purification condition is applied to minimize the amount of leftover 
 monomers.  
+
+
+%We should do a better job with organization here.. this is a very very long section, without much direction. Perhaps we could make clear the different instances with which we will inspect barcodes...
+We next inspect barcodes when all 27 members of the barcode family were mixed at equimolar amount. The TIRF images 
+(Figure \ref{fig:dna2}b and Figure \ref{fig:dna_s7}) showed that all types of barcodes were resolved. Statistical 
+analyses of twenty-seven 50×50 \textmu m$^2$ images (\textasciitilde1,500 barcodes in total) revealed an 
+average count of 55 per barcode type with a standard deviation of 9 (Figure \ref{fig:dna2}c), fitting 
+well with the expected stoichiometry considering pipetting and sampling errors. The 
+distribution of observed objects over the four categories (note that here correct vs. 
+incorrect barcodes were not distinguishable as all 27 types were included) was consistent 
+with the values measured from the single-type barcode samples. The above observations 
+suggest that the sub-micrometer-long DNA nanotube represents a reliable platform to 
+construct geometrically encoded barcodes with built-in structural rigidity. 
+
+
+\section{Dual-labeled DNA origami Barcodes}
+
+\begin{FPfigure} %3
+\includegraphics[width=\textwidth]{figures/dna3}
+\caption[Dual-labeled-zone fluorescent barcodes.]{Dual-labeled-zone fluorescent barcodes. (\textbf{a}) Typical TIRF microscopy images 
+of five selected barcode species, shown both in separate channels and after 
+superimposing. Scale bar: 5 \textmu m. (\textbf{b}) Statistics obtained by analyzing two 50×50 \textmu m$^2$ 
+images of each barcode species (\textasciitilde85 barcodes, the exact sample size N is noted beside 
+the corresponding bar-graph). The barcode types are noted under the x-axis of the 
+diagram. Color scheme (unrelated to the pseudo-colors of the fluorophores): blue, correct 
+barcodes (correct geometry and color identity); green, incorrect barcodes (correct 
+geometry but incorrect color identity); red, monomer nanotubes (one spot or two 
+connecting spots); and purple, barcodes with wrong geometry (i.e., bending angle <120°, 
+see methods in SI). (\textbf{c}) Computer-aided barcode counting results of the 72-barcode pool 
+(N=2,617) and the 216-barcode pool (N=7,243) plotted as bar-graphs with descending 
+barcode counts from left to right (see Tables S6 and S7 for the numeric counting results). 
+A computer-generated reference barcode image is placed underneath the corresponding 
+bar. (\textbf{d}) A table containing one representative TIRF image (1.4×0.7 \textmu m$^2$) for each of the 
+216 dual-labeled-zone barcode species. 
+\label{fig:dna4}}
+\end{FPfigure}
+
+
+Our modular design enabled straightforward reengineering of the barcode to 
+enhance its multiplexing capability through a variety of ways. For example, we changed 
+the sequence of six staple extensions per zone so that instead of using twelve identical 
+fluorescent oligonucleotides for labeling, we had the ability to use the combination of up 
+to two fluorophores to create more unique fluorescence signatures (pseudo-colors) for 
+%In the language of the introduction, this is an intensity strategy --AML
+each zone. Six pseudo-colors (B, R, G, BG, BR, and GR) were generated by this “dual- 
+labeling” strategy using three spectrally differentiable fluorophores. Consequently, the 
+total number of distinct barcodes was raised from $3^3=27$ to $6^3=216$, which represented 
+an order of magnitude increase in the multiplexing capability. 
+
+\subsection{Inspecting the dual-labeled barcodes}
+Similar to the single- 
+labeled-zone barcode family, 5 members from the dual-labeled-zone barcode family were 
+chosen for quality control purposes. The barcodes can be visually decoded either solely 
+from the superimposed image or by examining all different channels simultaneously. For 
+example, as shown in the first column of Figure \ref{fig:dna3}a, the barcode “BG--GR-BR” (“--” and 
+“-” denotes larger and smaller inter-zone distance in the barcode, respectively) exhibits
+two spots each in the blue, green and red channels but with descending gaps between 
+them, matching its design. In the superimposed image, the barcodes are seen as Cyan-- 
+Yellow-Pink, an expected consequence of color mixing caused by the dual-labeling 
+strategy. In a similar fashion, we further verified the correct formation of the other four 
+selected barcodes (Figure \ref{fig:dna3}a and \ref{fig:dna_s8}). Although the final pseudo-color from the dual- 
+labeled zones was not always uniform (e.g., some yellow spots were green-tinted while 
+the others were red-tinted) due to inconsistent labeling efficiency and minor sample 
+displacement during imaging, the fluorescence signature of any given spot could be 
+identified by checking the raw images acquired from the three imaging channels. We 
+manually analyzed two 50×50 \textmu m$^2$ images of each dual-labeled-zone barcode and 
+plotted the statistical data in Figure \ref{fig:dna3}b. Here, objects were sorted into qualified barcodes 
+and unqualified barcodes based on their geometry and the qualified ones were further 
+categorized as either correct or incorrect. We found that 75–95\% of the objects were 
+qualified barcodes, among which 80–90\% were the correct type (percentage varies 
+depending on the exact type of barcode). Compared to the single-labeled-zone barcode 
+family, the percentage of qualified barcodes remained the same, while the false positive 
+rate increased significantly from zero (Figure 1a) to 10–20\%. That the 
+%I added in this line about information entropy. It makes much more sense than what was here before.  --AML
+false positive rate increases is consistent with the increased information entropy in the system (216 possible barcodes compared to 27). 
+
+
+%I am omitting a paragraph from the original text here --AML
+
+
+
 
 
 
