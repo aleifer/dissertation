@@ -79,21 +79,21 @@ The offset and illumination intensity vary over the length of the image but are 
 \begin{equation}
 U(\mathbf{r})= \frac{ V_{\text{fluor}}(\mathbf{r}) - \langle V_{\text{back}}(\mathbf{r}) \rangle }{ \langle V_{\text{back}}(\mathbf{r}) \rangle - \langle V_{\text{dark}}(\mathbf{r}) \rangle},
 \end{equation}
-where $\langle~\rangle$ denotes the expectation value. Substituting Eq.~\ref{eq:f_and_b} gives
+where $\langle~\rangle$ denotes smoothing (ANDY CHANGE THIS TO BE SQUIGGLES). Substituting Eq.~\ref{eq:f_and_b} gives
 \begin{equation}
-U(\mathbf{r})= \frac{ c \cdot \big[ f(\mathbf{r})  +b(\mathbf{r}) -\langle b(\mathbf{r}] \rangle \big)+ v_t  }{   c \cdot \langle b(\mathbf{r}) \rangle }
+U(\mathbf{r})= \frac{ c \cdot \big[ f(\mathbf{r})  +b(\mathbf{r}) -\langle b(\mathbf{r}) \rangle \big]+ v_t  }{   c \cdot \langle b(\mathbf{r}) \rangle }
 \end{equation}
-Note that $\langle V_0(\mathbf{r}) \rangle = V_0(\mathbf{r})$ and $\langle \gamma_{\text{ex}}(\mathbf{r}) \rangle  = \gamma_{\text{ex}}(\mathbf{r})$ since both are modeled as deterministic processes. Substituting further, and recalling that the means of the noise terms are zero, gives
+Note that $\langle V_0(\mathbf{r}) \rangle = V_0(\mathbf{r})$ and $\langle \gamma_{\text{ex}}(\mathbf{r}) \rangle  = \gamma_{\text{ex}}(\mathbf{r})$ since both are assumed to be slowly varying. Substituting further, and recalling that the means of the noise terms are zero, gives
 \begin{equation}
 U(\mathbf{r})= \frac{ c \cdot \gamma_{\text{ex}}(\mathbf{r}) q_f(\mathbf{r})  + v_t  }{ c \gamma_{\text{ex}}(\mathbf{r})  q_b }
 \end{equation}
 or
 \begin{equation}\label{eq:realDeal}
-U(\mathbf{r})= \frac{ q_f(\mathbf{r}) }{ q_b}   + \frac{ v_t }{   c \gamma_{\text{ex}}(\mathbf{r}) q_b} 
-\end{equation}.
+U(\mathbf{r})= \frac{ q_f(\mathbf{r}) }{ q_b}   + \frac{ v_t }{   c \gamma_{\text{ex}}(\mathbf{r}) q_b}.
+\end{equation}
 
 
-The first term is the fundamental fluorophore distribution while the second term is thermal noise scaled by the local intensity of illumination. The factor $q_b$ is a constant. This conditioned thermal noise term is zero-mean, gaussian, and identical independently distributed (IID), as will be verified later.
+The first term is the fundamental fluorophore distribution while the second term is thermal noise scaled by the local intensity of illumination. The factor $q_b$ is a constant. This conditioned thermal noise term is zero-mean, gaussian, and on the length-scale of a barcode is identical independently distributed (IID), as will be verified later.
 
 Now that the spatially varying offset and illumination have been removed, we turn to the problem of barcode identification. Since performing multiple-hypothesis testing on a two-dimensional dataset is computationally intensive, we start with a simple one-dimensional identification problem. 
 
@@ -162,7 +162,7 @@ p(\mathbf{u}|\mathbf{m}_k) = p(\mathbf{u}_1|\mathbf{m}_{k1})p(\mathbf{u}_2|\math
 
 Substituting Eq.~\ref{eq:iidEnergy} gives
 \begin{multline}
-\L_k=p(\mathbf{u}|\mathbf{m}_k) =\frac{1}{ (\sigma_1\sigma_2\sigma_3)^N  (2\pi)^{3N/2}}  }  \exp\Bigg[ -\frac{(\mathbf{u}-\mathbf{m}_{k1})^T(\mathbf{u}-\mathbf{m}_{k1})} {2 N \sigma_1^2 }   - \\ \frac{(\mathbf{u}-\mathbf{m}_{k2})^T(\mathbf{u}-\mathbf{m}_{k2})} {2 N \sigma_2^2 } -\frac{(\mathbf{u}-\mathbf{m}_{k3})^T(\mathbf{u}-\mathbf{m}_{k3})} {2 N \sigma_3^2 }    \Bigg].
+\L_k=p(\mathbf{u}|\mathbf{m}_k) =\frac{1}{ (\sigma_1\sigma_2\sigma_3)^N  (2\pi)^{3N/2}  }  \exp\Bigg[ -\frac{(\mathbf{u}-\mathbf{m}_{k1})^T(\mathbf{u}-\mathbf{m}_{k1})} {2 N \sigma_1^2 }   - \\ \frac{(\mathbf{u}-\mathbf{m}_{k2})^T(\mathbf{u}-\mathbf{m}_{k2})} {2 N \sigma_2^2 } -\frac{(\mathbf{u}-\mathbf{m}_{k3})^T(\mathbf{u}-\mathbf{m}_{k3})} {2 N \sigma_3^2 }    \Bigg].
 \end{multline}
 
 As before, we can factor out and ignore terms that have no $k$ dependence. Thus the maximum likelihood model $k$ correspond to finding $k$ that minimizes the quantity on the right below:
