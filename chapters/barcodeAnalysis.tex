@@ -74,7 +74,7 @@ V_{\text{fluor}}(\mathbf{r})&=&V_0(\mathbf{r})+c \cdot \big[ f(\mathbf{r}) + b(\
 \end{eqnarray}
 See Fig BLAH BLAH. 
 
-We smooth the dark and background images and subtract and divide them, to remove the DC offset and compensate for the spatially varying illumination, respectively, according to
+The offset and illumination intensity vary over the length of the image but are constant over the length of a barcode. dark and background images are smoothed over a length scale larger than a barcode. They are then subtracted and divided, to remove the DC offset and compensate for the spatially varying illumination, respectively, according to
 
 \begin{equation}
 U(\mathbf{r})= \frac{ V_{\text{fluor}}(\mathbf{r}) - \langle V_{\text{back}}(\mathbf{r}) \rangle }{ \langle V_{\text{back}}(\mathbf{r}) \rangle - \langle V_{\text{dark}}(\mathbf{r}) \rangle}
@@ -95,7 +95,7 @@ U(\mathbf{r})= \frac{ q_f(\mathbf{r}) }{ q_b}   + \frac{ v_t }{   c \gamma_{\tex
 \end{equation}.
 
 
-The first term is the signal of interest and the second term is the thermal noise scaled by the local illumination intensity, which we will show varies over the length of the image but is constant over the length of a barcode. The factor $q_b$ is a constant. The second thermal noise term is zero-mean, gaussian, and IID, as will be demonstrated later.
+The first term is the signal of interest and the second term is the thermal noise scaled by the local illumination intensity, which we will show varies The factor $q_b$ is a constant. The second thermal noise term is zero-mean, gaussian, and IID, as will be demonstrated later.
 
 Now that the spatially varying offset and illumination has been removed, we turn for guidance to a simple one-dimensional anlalogy of our two-dimensional barcode decoding problem. 
 
