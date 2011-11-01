@@ -1,11 +1,6 @@
 %!TEX root = /Users/andy/Documents/Academics/Dissertation/thesis.tex
 
-
-
-
-multiplexed snp genotyping site:ncbi.nlm.nih.gov
-
-\chapter{Sub-micrometer Geometrically Encoded Fluorescent Barcodes Self-Assembled from DNA}
+\chapter{Sub-micrometer Geometrically Encoded Fluorescent Barcodes Self-Assembled from DNA}\label{chapter:DNAbarcode}
 
 \section{Introduction}
 %Comment to chenxiang: found the beginning cheesy,modified it a bit
@@ -24,7 +19,7 @@ Therefore, larger barcode libraries may be more easily accessible through geomet
 encoding, provided that a rigid structural scaffold capable of defining the spatial 
 arrangement of the fluorescent molecules is available. To date, despite the remarkable 
 success in synthesizing fluorescent barcodes for in vitro multiplexed detection, very little 
-effort has been made to create robust single-molecule barcodes suitable as in situ imaging 
+effort has been made to create robust single-molecule barcodes suitable as \textit{in situ} imaging 
 probes. In addition, most existing fluorescent barcodes range from 2 \textmu m to 100 \textmu m in 
 size, leaving the construction of fluorescent barcodes with largest dimension less than 1 
 \textmu m an underexplored research area (with only a few reports  \citep{li_multiplexed_2005,lin_self-assembled_2007,li_controlled_2010,levsky_single-cell_2002} and no more than 11 
@@ -279,9 +274,7 @@ categorized as either correct or incorrect. We found that 75–95\% of the objec
 qualified barcodes, among which 80–90\% were the correct type (percentage varies 
 depending on the exact type of barcode). Compared to the single-labeled-zone barcode 
 family, the percentage of qualified barcodes remained the same, while the false positive 
-rate increased significantly from zero (Figure 1a) to 10–20\%. That the 
-%I added in this line about information entropy. It makes much more sense than what was here before.  --AML
-false positive rate increases is consistent with the increased information entropy in the system (216 possible barcodes compared to 27). 
+rate increased significantly from zero (Figure 1a) to 10–20.
 
 
 %I am omitting a paragraph from the original text here --AML
@@ -457,7 +450,7 @@ specific interaction existed between the barcode and the cell surface.
 
 \begin{figure} %6
 \includegraphics[width=\textwidth]{figures/dna6}
-\caption[Tagging yeast cells with the GRG barcodes as in situ imaging probes.]{Tagging yeast cells with the GRG barcodes as in situ imaging probes. (\textbf{a}) 
+\caption[Tagging yeast cells with the GRG barcodes as \textit{in situ} imaging probes.]{Tagging yeast cells with the GRG barcodes as \textit{in situ} imaging probes. (\textbf{a}) 
 Cartoon illustrating the tagging mechanism. The biotinylated barcodes are anchored on 
 the yeast cell through streptavidin molecules bound to biotinylated polyclonal antibodies 
 coated on the yeast surface. Only two of the ten biotinylated staples on the barcode are 
@@ -471,7 +464,92 @@ bars: 5 \textmu m.
 
 
 \section{Discussion}
+In summary, we have constructed a new kind of geometrically encoded 
+fluorescent barcode using DNA-origami-based self-assembly. We took advantage of the 
+mechanical rigidity of the multi-helix-bundle architecture, the addressable surface and 
+spatial organizing power of the DNA-origami nanotube as well as the programmable 
+linkage between multiple DNA nanostructures to build a modular, robust yet easy-to-
+handle barcoding system. It differs from previously reported optically decodable 
+barcoding systems in the following three aspects: First, and most notably, the DNA- 
+origami-based barcodes are 400−800 nm in length, making them potentially useful to 
+serve as \textit{in situ} single molecule imaging probes to tag sub-cellular entities such as surface 
+protein markers (as demonstrated in the yeast tagging experiment), chromosomes, 
+mitochondria and microtubules, which generally range from 500 nm to 20 \textmu m in size. 
+Making use of the super-resolution barcode system, one could envision \textit{ex} and \textit{in situ} 
+imaging of a wide variety of biomolecules such as mRNA or proteins simultaneously by 
+using tagging techniques based on hybridization or SNAP tags \citep{gautier_engineered_2008,jones_fast_2011,keppler_general_2003,klein_live-cell_2011}. The system also 
+fulfills a technological challenge to build robust finite-size optical barcodes with its 
+smallest feature approaching or even smaller than the diffraction limit of visible light. 
+Second, the barcodes presented here are massively self-assembled in parallel (typically 
+1011 molecules per barcode species in one 50 \textmu L folding reaction) exclusively through 
+DNA hybridization. Unlike previous constructions, the synthesizing and purification 
+process requires no enzymatic reaction \citep{geiss_direct_2008}, genomic engineering \citep{livet_transgenic_2007}, photolithography \citep{pregibon_multifunctional_2007}, 
+electrochemical etching \citep{cunin_biomolecular_2002} or microfluidic devices \citep{fournier-bidoz_facile_2008, pregibon_multifunctional_2007}, which makes the barcodes easy to 
+reproduce in a typical biochemistry lab. The barcodes could be functionalized to display 
+sequence-specific probes simply through DNA-origami staple extensions. Third, the 
+robustness and programmability of the DNA-origami-based platform allows us to achieve 
+high multiplexing capability. 
 
+Here we successfully constructed 216 barcode species that 
+were decoded in one pool, while the previously reported sub-micrometer-sized 
+fluorescent barcodes contained no more than 11 distinct barcodes \citep{li_multiplexed_2005, fournier-bidoz_facile_2008, li_controlled_2010, levsky_single-cell_2002}. Even compared 
+to the prior art of producing multi-color fluorescent barcodes that are less than 10 \textmu m in 
+size, our system is among the few examples \citep{fournier-bidoz_facile_2008, geiss_direct_2008} that demonstrated more than 100 codes in 
+practice. To the best of our knowledge, the only system that demonstrated larger numbers 
+of barcodes coexisting in a homogenous solution is the NanoString nCounter \citep{ geiss_direct_2008}. However 
+the reporter probes of the NanoString (\textasciitilde7-kb double-stranded RNA-DNA-hybrid 
+molecules) require combing to make the codes resolvable, making them fundamentally 
+unsuitable as \textit{in situ} imaging probes. In contrast, the DNA-origami-based barcodes 
+maintain their structural integrity when applied to cell surfaces, suggesting their 
+promising application as \textit{in situ} imaging makers. Furthermore, the combination of the 
+DNA-PAINT imaging technique and the DNA-origami-based nanotubes allowed us to 
+create the first nanoscopic "super-resolution" barcodes while maintaining the 
+multiplexing power. To give an idea of the number of achievable different codes  
+consider the incorporation of 12 fluorescently labeled zones into the 800-nm long dimer 
+nanotube and using all possible equimolar combinations of the RGB fluorophores - an 
+enormous number ($7^{12}\approx 1.4  \times 10^17$ of barcode
+species can be generated. Using DNA- 
+PAINT as a readout technique also makes the system less prone to fluorescent labeling 
+errors, as the "imager strands" are replenished from solution during the acquisition 
+process. Finally, the fact that the barcodes can be resolved using epi-fluorescence 
+microscopy makes them more adaptive and implies their possible application in deep 
+tissue labeling in the future. 
+
+\section{Future Directions}
+We note that the barcode design and experimental procedures can be refined to 
+further minimize the false-positive rate of the dual-labeled-zone barcodes. For example, 
+fluorophores with higher quantum efficiency and less susceptibility to photobleaching 
+(e.g. Atto dyes or quantum dots) could be used to improve imaging quality. Higher 
+quality staples (e.g., enzymatically produced and HPLC purified) could be used to fold 
+the barcode to enhance fluorescent labeling efficiency by minimizing the number of 
+missing or truncated staple extensions in the binding zones. Barcodes could be purified 
+under more gentle conditions (e.g., recover DNA from agarose gel through electro- 
+elution \citep{bellot_recovery_2011} instead of crush-and-soak) to reduce the possibility of breaking a dimer 
+nanotube into two monomers. The purified barcodes could be chemically cross-linked \citep{rajendran_photo-cross-linking-assisted_2011}
+to improve their thermal and mechanical stability. Redundant coding could be built into 
+the barcode to generate more reliable readouts. In practice, it is likely that a small number 
+of distinct codes could be sufficient to label the targets of interests. For those 
+applications, one could selectively use the most robust subset of the barcode library. A 
+larger library of barcodes may be achieved through more sophisticated geometrical and 
+intensity encoding, which is made possible by our growing ability to build more 
+complicated DNA nanostructures and to optically resolve features below the diffraction 
+limit. At the same time, as computational power and image-processing technology 
+advance, future barcode analysis systems should run more accurately. In the future, we 
+expect our barcode technology to interface with the rapidly growing protein/antibody 
+library technology to yield a powerful imaging toolbox for single-molecule studies of 
+biological events and biomedical diagnostics. 
+
+\section{Acknowledgements}
+We thank Dr. Christian Steinhauer and Sebastian Piet Laurien for help with super- 
+resolution software development. We thank Dr. Bernhard Goetze and the Harvard Center 
+for Biological Imaging as well as the Nikon Imaging Center at Harvard Medical School 
+for the use of their microscopes. We thank Dr. Shawn M. Douglas for providing TEM 
+images used in Figure \ref{fig:dna_s5}. This work was supported by grants from an NIH Director’s New 
+Innovator Award and a Wyss Institute for Biologically Inspired Engineering Faculty 
+Award to W.M.S. and an NIH Director’s New Innovator Award, an NSF Faculty Early 
+Development Award, an ONR Young Investigator Program Award, and Wyss Institute 
+for Biologically Engineering Faculty Startup Fund to P.Y. R.J. acknowledges support 
+from the Alexander von Humboldt-Foundation through a Feodor Lynen fellowship.
 
 
 %Andy, don't forget to go back and add references to Supplementary Information and Supplementary Figures
@@ -480,9 +558,22 @@ bars: 5 \textmu m.
 
 \section{Manuscript Information}
 \subsection{Submitted for Publication As}
-A version of this chapter has been submitted for publication in the journal \textit{Nature Nanotechnologies}.
-% in \citep{leifer_optogenetic_2011}:
-%\bibentry{leifer_optogenetic_2011}
+A version of this chapter has been submitted for publication to the journal \textit{Nature Nanotechnologies}  as \citep{lin_sub-micrometer_2011},
 
-\subsection{The Author's Contribution}
-Andrew M.~Leifer conceived of and wrote the software to analyze TIRF images and identify and decode the barcodes. He wrote portions of the manuscript and generated one of the supplementary figures. 
+\bibentry{lin_sub-micrometer_2011}.
+
+\subsection{Author Contributions}
+Andrew M.~Leifer designed and wrote the software to analyze TIRF images and identify and decode the barcodes. He wrote portions of the manuscript and generated one of the supplementary figures. This work lays the foundation for the more detailed analysis performed in Chapter \ref{chapter:DNAtheory}.
+
+C. Lin conceived the project, designed and conducted the majority of the experiments, 
+analyzed the data, and prepared the majority of the draft. R.J. conceived the super 
+resolution barcode study, designed and conducted experiments for this study, analyzed 
+the data, and prepared the draft. C. Li wrote the C script for the barcode 
+geometry characterization. D.L. (with C. Lin) performed the yeast tagging experiment. 
+W.M.S. conceived the project, discussed the results, and prepared the draft. P.Y. 
+conceived, designed, and supervised the study, interpreted the data, and prepared the 
+draft. All authors reviewed and approved the draft. 
+
+
+\section{Supplementary Material}
+ 
