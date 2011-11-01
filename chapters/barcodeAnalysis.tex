@@ -108,8 +108,7 @@ The probability that the $k$th reference signal $\mathbf{m}_k$ is present when t
 \begin{equation}\label{eq:Bayes}
 p(\mathbf{m}_k|\mathbf{u}) = \frac{p(\mathbf{u}|\mathbf{m}_k)p(\mathbf{m}_k)} {p(\mathbf{u})},
 \end{equation}
-where $p(\mathbf{m}_k|\mathbf{u})$ is the inverse probability, $p(\mathbf{u}|\mathbf{m}_k)$ is the forward probability or likelihood of seeing data $\mathbf{u}$ given the presence of model $\mathbf{m}_k$, $p(\mathbf{m}_k)$ is the prior probability that model $\mathbf{m}_k$ is present, and $p(\mathbf{u})$ is a normalization constant.
-We seek to compute the probability for each possible reference $\mathbf{m}_k$, $k=1,2,3 \ldots K$, and select the largest, which is the one most likely to fit the observed data.
+where $p(\mathbf{m}_k|\mathbf{u})$ is the inverse probability, $p(\mathbf{u}|\mathbf{m}_k)$ is the forward probability or likelihood of seeing data $\mathbf{u}$ given the presence of model $\mathbf{m}_k$, $p(\mathbf{m}_k)$ is the prior probability that model $\mathbf{m}_k$ is present, and $p(\mathbf{u})$ is a normalization constant [Jayn03]. We seek to compute the probability for each possible reference $\mathbf{m}_k$, $k=1,2,3 \ldots K$, and select the largest, which is the one most likely to fit the observed data.
 
 While testing a particular observed signal $\mathbf{u}$ against all models, the denominator is constant and independent of $k$. Maximizing $p(\mathbf{m}_k|\mathbf{u})$ is therefore equivalent to finding the model $k$ that maximizes the product  $p(\mathbf{u}|\mathbf{m}_k)p(\mathbf{m}_k)$.
 In the present case where all barcodes are equally probable so that
@@ -146,43 +145,43 @@ As mentioned, we find the $\mathbf{m}_k$ that produces the maximum likelihood in
 Since $\sigma$ and $N$ are independent of $k$ and since the exponential is a monotonically increasing function of its argument, maximizing the likelihood across $k$ is equivalent to minimizing the energy of the difference between the observation and the reference across $k$ 
 
 \begin{equation}
-\max_k   \left\{ p(\mathbf{m}_k|\mathbf{u}) \right\} \sim \min_k  \left\{ (\mathbf{u}-\mathbf{m}_k)^T(\mathbf{u}-\mathbf{m}_k) \right\}. 
+\max_k   \left\{ p(\mathbf{m}_k|\mathbf{u}) \right\} = \min_k  \left\{ (\mathbf{u}-\mathbf{m}_k)^T(\mathbf{u}-\mathbf{m}_k) \right\}. 
 \end{equation}
 It is noteworthy that the Bayesian hypothesis test is equivalent in this case to finding the $k$ that minimizes the mean squared error between observation and reference. This is clear by rewriting this expression explicitly in terms of a sum,
 \begin{equation}
-\max_k   \left\{ p(\mathbf{m}_k|\mathbf{u}) \right\} \sim  \min_k  \left\{ \sum_{i=1}^N  (u_i-m_{k,i})^2   \right\}. 
+\max_k   \left\{ p(\mathbf{m}_k|\mathbf{u}) \right\} =  \min_k  \left\{ \sum_{i=1}^N  (u_i-m_{k,i})^2   \right\}. 
 \end{equation}
 
 \subsection{One dimension, multiple channels}\label{sec:simpleModel}
-We now consider a system where each reference $\mathbf{m}_k$ consists of three one-dimensional vectors $\mathbf{m}_{k1}$, $\mathbf{m}_{k2}$ and $\mathbf{m}_{k3}$ of length $N$. Each will correspond to the portion of the reference contained in a different channel, but there are still $K$ references. Analogously, the signal $\mathbf{u}$ also consists of three one-dimensional observations $\mathbf{u}_1$, $\mathbf{u}_2$ and $\mathbf{u}_3$, each in its own channel, and each channel has zero-mean additive IID Gaussian noise with variances $\sigma_1^2$, $\sigma_2^2$ and $\sigma_3^2$, respectively. As we will see later, these channels can be thought of as the red, green and blue channels in a one-dimensional composite color image. 
+We now consider a system where each reference $\mathbf{m}_k$ consists of three one-dimensional vectors $\mathbf{m}_{k1}$, $\mathbf{m}_{k2}$ and $\mathbf{m}_{k3}$ each of length $N$. Each will correspond to the portion of the reference contained in a different channel, so that there are still $K$ references. Analogously, the signal $\mathbf{u}$ also consists of three one-dimensional observations $\mathbf{u}_1$, $\mathbf{u}_2$ and $\mathbf{u}_3$, each in its own channel, and each channel has zero-mean additive IID Gaussian noise with variances $\sigma_1^2$, $\sigma_2^2$ and $\sigma_3^2$, respectively. As we will see later, these channels can be thought of as the red, green and blue channels in a one-dimensional composite color image. 
 
-Because the three channels are independent, the likelihood that signal $\mathbf{u}$ is observed when $\mathbf{m}_k$ is present simply factors into the product of the individual likelihoods, that is, the likelihood that $\mathbf{u}_1$ is observed when $\mathbf{m}_{k1}$ is present times the likelihood that $\mathbf{u}_2$ is observed when $\mathbf{m}_{k2}$ is present times the likelihood that $\mathbf{u}_3$ is observed when $\mathbf{m}_{k3}$ is present [CITE ELEMENTARY PROBABILITY],
+Because the three channels are independent, the likelihood that signal $\mathbf{u}$ is observed when $\mathbf{m}_k$ is present simply factors into the product of the individual likelihoods, that is, the likelihood that $\mathbf{u}_1$ is observed when $\mathbf{m}_{k1}$ is present times the likelihood that $\mathbf{u}_2$ is observed when $\mathbf{m}_{k2}$ is present times the likelihood that $\mathbf{u}_3$ is observed when $\mathbf{m}_{k3}$ is present [Jayn03],
 \begin{equation}
 p(\mathbf{u}|\mathbf{m}_k) = p(\mathbf{u}_1|\mathbf{m}_{k1})p(\mathbf{u}_2|\mathbf{m}_{k2})p(\mathbf{u}_3|\mathbf{m}_{k3}).
 \end{equation}
 
 Substituting Eq.~\ref{eq:iidEnergy} gives
 \begin{multline}
-\Lambda_k=p(\mathbf{u}|\mathbf{m}_k) =\frac{1}{ (\sigma_1\sigma_2\sigma_3)^N  \sqrt{ (2\pi)^{3N}}  }  \exp\Bigg[ -\frac{(\mathbf{u}-\mathbf{m}_{k1})^T(\mathbf{u}-\mathbf{m}_{k1})} {2 N \sigma_1^2 }   - \\ \frac{(\mathbf{u}-\mathbf{m}_{k2})^T(\mathbf{u}-\mathbf{m}_{k2})} {2 N \sigma_2^2 } -\frac{(\mathbf{u}-\mathbf{m}_{k3})^T(\mathbf{u}-\mathbf{m}_{k3})} {2 N \sigma_3^2 }    \Bigg].
+\L_k=p(\mathbf{u}|\mathbf{m}_k) =\frac{1}{ (\sigma_1\sigma_2\sigma_3)^N  (2\pi)^{3N/2}}  }  \exp\Bigg[ -\frac{(\mathbf{u}-\mathbf{m}_{k1})^T(\mathbf{u}-\mathbf{m}_{k1})} {2 N \sigma_1^2 }   - \\ \frac{(\mathbf{u}-\mathbf{m}_{k2})^T(\mathbf{u}-\mathbf{m}_{k2})} {2 N \sigma_2^2 } -\frac{(\mathbf{u}-\mathbf{m}_{k3})^T(\mathbf{u}-\mathbf{m}_{k3})} {2 N \sigma_3^2 }    \Bigg].
 \end{multline}
 
-As before, we can factor out and ignore terms that have no $k$ dependence. Thus the maximum likelihood model $k$ correspond to finding $k$ that minimizes the quantity below:
+As before, we can factor out and ignore terms that have no $k$ dependence. Thus the maximum likelihood model $k$ correspond to finding $k$ that minimizes the quantity on the right below:
 \begin{multline}
 \max_k   \big\{ p(\mathbf{m}_k|\mathbf{u}) \big\} =  \min_k  \Bigg\{  \frac{(u_1-\mathbf{m}_{k1})^T(u_1-\mathbf{m}_{k1})}{\sigma_1^2} +\\  
 \frac{(u_2-\mathbf{m}_{k2})^T(u_2-\mathbf{m}_{k2})}{\sigma_2^2} + \frac{(u_3-\mathbf{m}_{k3})^T(u_3-\mathbf{m}_{k3})}{\sigma_3^2} \Bigg\}. 
 \end{multline}
-
+This is the best solution to finding the identity of the barcode.
 
 \section{Implementation}
 Transition to talk about real data.
 
-How we take the real data, process it, threshold ( so that the big gaps don't touch). look to find the barcodes.  
+How we take the real data, process it, threshold (so that the big gaps don't touch). look to find the barcodes.  
 
 Dilate to group contiguous blobs. Apply morphological criteria to look at shape and size.
 
-Calculate the mean peak height
-Could talk about gaussian neoise here.
+Could talk about gaussian noise here since we have masks.
 
+Calculate the mean peak height
 Talk about how we are ignoring $a$.
 
 Project  down to one dimension.  THen run the thing.
