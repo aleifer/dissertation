@@ -186,7 +186,18 @@ Talk about how we are ignoring $a$.
 
 Project  down to one dimension.  THen run the thing.
 
+\section{Sources of Error}
 
+
+
+\subsection{Barcode Defects}
+DNA origami barcodes are a nascent technology that will surely see rapid improvements in manufacturing robustness and quality. Using the initial protocol for barcode manufacture as described in [CHENXIANGS PAPER], we see predominantly two types of barcode defects. First, we see barcodes that have the wrong number of fluorescent spots, either only two spots, or four spots or more. This is likely the result of a barcode that folded improperly or of two barcodes that became conjoined together. The software usually rejects these barcodes based on their morphology, but occasionally the defect conspires to have roughly the same shape as a regular barcode and thus the algorithm is fooled into decoding them. Secondly, we see a more subtle defect. Sometimes two spots in the same color channel on one barcode will vary dramatically in intensity, by as much as 4-fold. Careful inspection by eye will reveal a very bright and very dim spot. This is likely caused by poor labeling of the fluorescent spot. Each spot should have 6 fluorophores, but we suspect that often the number of fluorophores is less. We evaluate the effectiveness of our software both including and excluding these two classes of defects.    
+
+
+\subsection{Imaging Conditions}
+Our model does not take into account stage drift that may cause slight misalignment between frames. 
+Temperature changes in the room, Nor sparodic changes in laser intensity on a \textasciitilde1 minute time scale. Changes slower than \textasciitilde1 are corrected for by taking new regular background and blank images.
+ 
 \section{Software}
 Uses Matlab version BLAH. requires BLAH toolkits. Released as GPL. 
 \section{Results}
