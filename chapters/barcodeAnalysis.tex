@@ -198,9 +198,9 @@ Each blob ensemble $e_j$ acts as a binary mask of the image $\mathbf{U}$, and th
 
 
 \subsection{Normalizing Intensity of Each Channel}
-The average intensity of the barcodes in one color channel is not necessarily the same as the average intensity of barcodes in another channel, rather they depend on such channel-specific characteristics as the fluorophore, the illumination wavelength and intensity  and the width of  the narrowband filter. To normalize across channels, we divide each channel by the mean peak height, 
+The average intensity of the barcodes in one color channel may differ from that of barcodes in another channel, since they depend on such channel-specific characteristics as the fluorophore, the illumination wavelength and intensity, and the width of  the narrowband filter. To normalize across channels, we divide each channel by the mean peak height, 
 \begin{equation}
-	U'_i(\mathbf{r})= U_i(\mathbf{r})/  \langle g \rangle_i   \qquad\text{for } i=1,2,3,
+	U'_i(\mathbf{r})= \frac{U_i(\mathbf{r})} { \langle g \rangle_i }  \qquad\text{for } i=1,2,3 ,
 \end{equation}
 where $\langle g \rangle_i$ is simply the mean of the peak heights in the $i$th channel. To measure peak height, the software first identifies blobs $b_{j,i}$, $j=1\ldots N$ in the binary mask $B_i$ that have an eccentricity and an area consistent with that of a single peak. For the $j$th  blob matching the criteria, the corresponding peak height $g_{j,i}$ is the pixel with the highest intensity in the conditioned image, masked by the blob,
 \begin{equation}
@@ -209,8 +209,13 @@ where $\langle g \rangle_i$ is simply the mean of the peak heights in the $i$th 
 Note that this process is entirely automated. The resulting normalized and conditioned image $\mathbf{U}'(\mathbf{r})$ has barcodes with pixel intensities such that the brightest pixel in an average barcode in any channel will have an intensity of 1. 
 
   
-\subsection{Reduce the Barcode to One Dimension}
-A barcode consisting of blob ensemble $e_j$  (found in section \ref{sec:locatingBarcodes}) can be reduced to three one-dimensional profiles $\mathbf{u}_j=[\mathbf{u}_{j,1}, \mathbf{u}_{j,2}, \mathbf{u}_{j,3}]$ by rotating the image $\mathbf{U}'$ around the blob ensemeble's centroid, defining a rectangular region around the centroid, and projecting the pixel intensities contained within the rectangular region onto the major axis of the barcode.  The image $\mathbf{U}'$ is rotated so that the major axis of the barcode lies horizontally. The rectangular region is specified so as to be centered on the centroid and so as to have the same length as the major axis of the blob ensemble and to have a constant preset radius, $r$. The projection is performed as an arithmetic mean of each column of pixels perpendicular to the major axis of the blob ensemble. The result is a one-dimensional intensity profile of the barcode, in each channel, 
+\subsection{Projecting the Barcode to One Dimension}
+A barcode consisting of blob ensemble $e_j$  (found in section \ref{sec:locatingBarcodes}) can be reduced to three one-dimensional profiles $\mathbf{u}_j=[\mathbf{u}_{j,1}, \mathbf{u}_{j,2}, \mathbf{u}_{j,3}]$ by rotating the major axis of the blob ensemble's image $\mathbf{U}'$ around its centroid, defining a rectangular region around it, and projecting the pixel intensities contained within the rectangular region onto the major axis.  If the rotation aligns the major axis of the barcode with the $x$ axis, then the projection in each color channel is 
+\begin{equation}
+	   \mathbf{u}_{j,i}(x)=\sum_y{\mathbf{u}_{j,i}(x,y)} .
+\end{equation}
+
+The rectangular region is specified so as to be centered on the centroid and so as to have the same length as the major axis of the blob ensemble and to have a constant preset radius, $r$. The projection is performed as an arithmetic mean of each column of pixels perpendicular to the major axis of the blob ensemble. The result is a one-dimensional intensity profile of the barcode, in each channel, 
 
 HELP. HOW DO I DESCRIBE THIS MATHEMATICALLY. 
 \begin{equation} \label{eq:project}
