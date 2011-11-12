@@ -61,10 +61,10 @@ b(\mathbf{r})&=&\gamma_{\text{ex}}(\mathbf{r}) q_b.
 \end{eqnarray}
 Here $\gamma_{\text{ex}}(\mathbf{r})$ is the slowly varying position-dependent intensity of the excitation laser,  $q_f(\mathbf{r})$ describes the position-dependent fluorescent efficiency of the barcodes independent of illumination, and $q_b$ is the background fluorescent efficiency of the media which is assumed to be independent of position and illumination. The term $q_f$ is itself composed of light from fluorophores at positions $\mathbf{r}_i$, each modulated by the point spread function (PSF) $h$ of the optical system
 
-\begin{equation}
+\begin{equation} \label{eq:withPSF}
 q_f(\mathbf{r})=\sum_i a_i \delta(\mathbf{r}-\mathbf{r}_i) * h(\mathbf{r}).
 \end{equation}
-Here $a_i$ is a factor that accounts for intensity variations due to out-of-plane positions of the fluorophores and the star denotes the convolution operation.
+Here $a_i$ is a factor that accounts for intensity variations due to inconsistant fluorescent labeling  during barcode assembly and the star denotes the convolution operation.
 
 The contributions of the terms in Eq.~\ref{eq:V_of_r} can be evaluated by acquiring auxiliary images. The offset and thermal detector noise are present in a dark image taken when the laser is off, for example, while the background media noise and spatially varying illumination become visible in an image taken with the laser on and with media present but with no barcode samples. The final image, of course, has DNA barcodes in the media. The voltages recorded in these cases are
 \begin{eqnarray}
@@ -166,13 +166,74 @@ Substituting Eq.~\ref{eq:iidEnergy} gives
 \end{multline}
 
 As before, we can factor out and ignore terms that have no $k$ dependence. Thus the maximum likelihood model $k$ correspond to finding $k$ that minimizes the quantity on the right below:
-\begin{multline}
+\begin{multline}\label{eq:mle}
 \max_k   \big\{ p(\mathbf{m}_k|\mathbf{u}) \big\} =  \min_k  \Bigg\{  \frac{(u_1-\mathbf{m}_{k1})^T(u_1-\mathbf{m}_{k1})}{\sigma_1^2} +\\  
 \frac{(u_2-\mathbf{m}_{k2})^T(u_2-\mathbf{m}_{k2})}{\sigma_2^2} + \frac{(u_3-\mathbf{m}_{k3})^T(u_3-\mathbf{m}_{k3})}{\sigma_3^2} \Bigg\}. 
 \end{multline}
 This is the best solution to finding the identity of the barcode.
 
 \section{Implementation}
+We begin with the composite image containing 3 aligned conditioned images $\mathbf{U}(\mathbf{r})=[U_1(\mathbf{r}), U_2(\mathbf{r}), U_3(\mathbf{r})]$, one each for channel Red, Green and Blue respectively, as in Eq.~\ref{eq:realDeal}. Before we can begin to employ the solution in Eq.~\ref{eq:mle}, we must locate the barcodes within the image, normalize the intensities of the barcodes across the three channels, and project the barcodes down to a single dimension. 
+
+\subsection{Locating the Barcodes} \label{sec:locatingBarcodes}
+We locate the barcodes by employing a thresholding strategy and studying the barcode morphology. For each channel of $\mathbf{U}$, we generate a smoothed image, $\tilde{U_i}(\mathbf{r})$, by  convolution with a gaussian of width smaller than the width of the point spread function in Eq.~\ref{eq:withPSF}. The user manually selects a threshold $t_i$ for each of the three channels of the smoothed conditioned image to generate a binary mask,
+\begin{equation}
+	B_i(\mathbf{r}) = \left\{
+	\begin{array}{rl}
+		 1 & \text{if } \tilde{U_i}(\mathbf{r}) \geq t_i,\\
+		 0 & \text{if } \tilde{U_i}(\mathbf{r}) < t_i,
+	\end{array} \right. \qquad\text{for } i=1,2,3
+\end{equation}
+as in Fig.~BINARY MASK FIGURE. Recall that unlike the original image,  the conditioned image $\mathbf{U}$, has a homogeneous zero-mean  background, so a single threshold per channel is sufficient to capture all of the barcodes. The three channels of the binary masks are merged, 
+\begin{equation}
+B_\lor=B_1\lor B_2 \lor B_3, 
+\end{equation}
+as in Fig.~BINARY MASK MERGED FIGURE. $B_\lor$ consists of many discontiguous blobs. Some barcodes are entirely masked by one blob, others barcodes are represented by two or more nearby but distinct blobs. Adjacent blobs are identified and grouped together by dilating the binary mask using standard image processing routines to create a new binary image which is used as a mask to label blob ensembles in the original merged image $B_\lor$. In this way, if a barcode is made up of two nearby blobs, the blobs will be fused into one superblob in the dilated image, and the two original subblobs will be labeled together as one blob ensemble, $e_j$ where $j$ indicates $j$th blob ensemble.
+
+Each blob ensemble $e_j$ contains one or more blobs and acts as a binary mask of the image $\mathbf{U}$. The software  examines properties of the shape of  $e_j$ to determine if  $e_j$ could be a barcode. To qualify as a barcode, the area of $e_j$ must lie in an acceptable range, its  eccentricity must be  $>0.7$,  and the major and minor axis of the ellipse that fits its second moment must lie in a range consistent with that of a barcode. Using standard image processing routines, the software extracts each blob's characteristics and compares them to the criteria. The software also records the centroid, and angle of the major axis of the barcode. This provides a list of locations and orientations of the putative barcodes	.
+
+
+\subsection{Normalizing Intensity of Each Channel}
+The average intensity of the barcodes in one color channel is not necessarily the same as the average intensity of barcodes in another channel, rather they depend on such channel-specific characteristics as the fluorophore, the illumination wavelength and intensity  and the width of  the narrowband filter. To normalize across channels, we divide each channel by the mean peak height, 
+\begin{equation}
+	U'_i(\mathbf{r})= U_i(\mathbf{r})/  \langle g \rangle_i   \qquad\text{for } i=1,2,3,
+\end{equation}
+where $\langle g \rangle_i$ is simply the mean of the peak heights in the $i$th channel. To measure peak height, the software first identifies blobs $b_{j,i}$, $j=1\ldots N$ in the binary mask $B_i$ that have an eccentricity and an area consistent with that of a single peak. For the $j$th  blob matching the criteria, the corresponding peak height $g_{j,i}$ is the pixel with the highest intensity in the conditioned image, masked by the blob,
+\begin{equation}
+	   g_{j,i}= \max_{\mathbf{r}}  U_i(\mathbf{r})\cup b_{j,i} .
+\end{equation}
+Note that this process is entirely automated. The resulting normalized and conditioned image $\mathbf{U}'(\mathbf{r})$ has barcodes with pixel intensities such that the brightest pixel in an average barcode in any channel will have an intensity of 1. 
+
+  
+\subsection{Reduce the Barcode to One Dimension}
+A barcode consisting of blob ensemble $e_j$  (found in section \ref{sec:locatingBarcodes}) can be reduced to three one-dimensional profiles $\mathbf{u}_j=[\mathbf{u}_{j,1}, \mathbf{u}_{j,2}, \mathbf{u}_{j,3}]$ by rotating the image $\mathbf{U}'$ around the blob ensemeble's centroid, defining a rectangular region around the centroid, and projecting the pixel intensities contained within the rectangular region onto the major axis of the barcode.  The image $\mathbf{U}'$ is rotated so that the major axis of the barcode lies horizontally. The rectangular region is specified so as to be centered on the centroid and so as to have the same length as the major axis of the blob ensemble and to have a constant preset radius, $r$. The projection is performed as an arithmetic mean of each column of pixels perpendicular to the major axis of the blob ensemble. The result is a one-dimensional intensity profile of the barcode, in each channel, 
+
+HELP. HOW DO I DESCRIBE THIS MATHEMATICALLY. 
+\begin{equation} \label{eq:project}
+	\mathbf{u}_i = \text{projection}(e_j, U'_i) / \kappa \qquad \text{for } i=1,2,3
+\end{equation}
+where $\kappa$ is a constant correction factor across all channels so that the average peak height remains unity even after the projection. $\kappa$ is  the integral of the point spread function $h$ from -$r$ to +$r$,
+\begin{equation}
+	\kappa=\int_{-r}^{r} h(x) \, \mathrm{d}x.
+\end{equation}
+In our analysis we assume that the point spread function is gaussian with width $\sigma_{\text{psf}}$,
+\begin{equation}
+h(x)=\exp \left(  \frac{-x^2}{2\sigma_{\text{psf}}^2} \right)
+\end{equation}
+and thus $\kappa$ is,
+\begin{equation}
+\kappa = \frac{\sqrt{2\pi}} {2r} \text{erf} \left(\frac{r}{\sigma_{\text{psf}}2\sqrt{2}} \right)
+\end{equation}
+where $\text{erf}(x)$ denotes the error function,
+\begin{equation}
+\text{erf}(x) \equiv  \frac{2}{\sqrt{pi}} \int_0^x \exp (-t^2) \, \mathrm{d}t.
+\end{equation}
+
+Eq. \ref{eq:project} provides us with three one-dimensional projections of the barcode intensity with average peak heights of unity, and identicially independentaly distributed zero-mean gaussian noise. These projections are now ready to be compared to a reference. 
+
+
+\subsection{Vetting Subpar Barcodes}
+
 Transition to talk about real data.
 
 How we take the real data, process it, threshold (so that the big gaps don't touch). look to find the barcodes.  
