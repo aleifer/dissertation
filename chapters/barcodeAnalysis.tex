@@ -232,9 +232,10 @@ where $\text{erf}(x)$ denotes the error function,
 Eq. \ref{eq:project} provides us with three one-dimensional projections of the barcode intensity with average peak heights of unity, and identically independently distributed zero-mean gaussian noise. These projections are now ready to be compared to a reference. 
 
 \subsection{Generating References}
-While there are only $6^3=216$  species of barcodes, we actually generate many order of magnitude more one-dimensional references to account for all of the different microconfigurations a given barcode species might take. For example, in one microconfiguration a barcode could be oriented left to right, but in another the same barcode species could be oriented right to left. Secondly, a given barcode could be translated arbitrarily along the x-axis. Moreover, the size of the gaps between spots are not uniform, but rather have some variability due to the manufacturing process. Finally, the barcodes  flex and bend modestly when lying on the glass slide. In our one dimensional projection, this also appears as lengthening or shortening the gaps between the fluorescent spots.
- 
-We assume that each fluorescent spot on the barcode has a gaussian point spread function $h$ as in Eqs.~\ref{eq:psf} and \ref{eq:withPSF}. For our optics the point spread function has width  $\sigma=1.59$ pixels or \textasciitilde 117 nm. 
+While there are only $6^3=216$  species of barcodes, there are many different microconfigurations that the barcode can adopt. For example, in one intensity profile a barcode could be oriented either left to right or right to left. Secondly, a given barcode could be translated arbitrarily along the x-axis. Moreover, the size of the gaps between spots are not uniform, but rather have some variability due to the manufacturing process. Finally, the barcodes flex and bend when lying on the glass slide. In our one dimensional projection, this manifests itself as lengthening or shortening the gaps between the fluorescent spots. Whe therefore must generate many more than  216 one-dimensional references to account for all of these microconfigurations.
+
+
+We assume that each fluorescent spot on the barcode has a gaussian point spread function $h$ as in Eqs.~\ref{eq:psf} and \ref{eq:withPSF}. For our optics the point spread function has width  $\sigma=1.59$ pixels or \textasciitilde 117 nm. We parameterize each barcode to 
 
 
 
