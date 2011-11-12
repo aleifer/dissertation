@@ -173,10 +173,13 @@ As before, we can factor out and ignore terms that have no $k$ dependence. Thus 
 This is the best solution to finding the identity of the barcode.
 
 \section{Implementation}
-We begin with the composite image containing 3 aligned conditioned images $\mathbf{U}(\mathbf{r})=[U_1(\mathbf{r}), U_2(\mathbf{r}), U_3(\mathbf{r})]$, one each for channel Red, Green and Blue respectively, as in Eq.~\ref{eq:realDeal}. Before we can begin to employ the solution in Eq.~\ref{eq:mle}, we must locate the barcodes within the image, normalize the intensities of the barcodes across the three channels, and project the barcodes down to a single dimension. 
+We begin with the composite image containing 3 aligned conditioned images $\mathbf{U}(\mathbf{r})=[U_1(\mathbf{r}), U_2(\mathbf{r}), U_3(\mathbf{r})]$, one each for channel Red, Green, and Blue, respectively, as in Eq.~\ref{eq:realDeal}. Before we can begin to employ the solution in Eq.~\ref{eq:mle}, we must locate the barcodes within the image, normalize the intensities of the barcodes across the three channels, and project the barcodes down to a single dimension. 
+
+ANDY This section needs more "road signs". You have a one sentence description--a little more motivation and maybe more detail (the next step is thresholding and blurring. Why do you need blobs?)---------
+
 
 \subsection{Locating the Barcodes} \label{sec:locatingBarcodes}
-We locate the barcodes by employing a thresholding strategy and studying the barcode morphology. For each channel of $\mathbf{U}$, we generate a smoothed image, $\tilde{U_i}(\mathbf{r})$, by  convolution with a gaussian of width smaller than the width of the point spread function in Eq.~\ref{eq:withPSF}. The user manually selects a threshold $t_i$ for each of the three channels of the smoothed conditioned image to generate a binary mask,
+We locate the barcodes by thresholding away background noise, and studying the morphology of the remaining bright image features. To threshold, we generate a smoothed image, $\tilde{U_i}(\mathbf{r})$ for each channel of $\mathbf{U}$ by  convolution with a gaussian whose width is narrower than that of the point spread function in Eq.~\ref{eq:withPSF}. The user manually selects a threshold $t_i$ for each of the three channels of the smoothed conditioned image to generate a binary mask,
 \begin{equation}
 	B_i(\mathbf{r}) = \left\{
 	\begin{array}{rl}
@@ -184,13 +187,14 @@ We locate the barcodes by employing a thresholding strategy and studying the bar
 		 0 & \text{if } \tilde{U_i}(\mathbf{r}) < t_i,
 	\end{array} \right. \qquad\text{for } i=1,2,3
 \end{equation}
-as in Fig.~BINARY MASK FIGURE. Recall that unlike the original image,  the conditioned image $\mathbf{U}$, has a homogeneous zero-mean  background, so a single threshold per channel is sufficient to capture all of the barcodes. The three channels of the binary masks are merged, 
+as in Fig.~BINARY MASK FIGURE. Noise below the threshold is masked out. Recall that unlike the original image, the conditioned image $\mathbf{U}$ has a homogeneous zero-mean  background, so a single threshold per channel is sufficient to capture all barcodes. The three channels of binary masks are merged, 
+ANDY: Should this be union (\bigcup) instead of wedge????
 \begin{equation}
 B_\lor=B_1\lor B_2 \lor B_3, 
 \end{equation}
-as in Fig.~BINARY MASK MERGED FIGURE. $B_\lor$ consists of many discontiguous blobs. Some barcodes are entirely masked by one blob, others barcodes are represented by two or more nearby but distinct blobs. Adjacent blobs are identified and grouped together by dilating the binary mask using standard image processing routines to create a new binary image which is used as a mask to label blob ensembles in the original merged image $B_\lor$. In this way, if a barcode is made up of two nearby blobs, the blobs will be fused into one superblob in the dilated image, and the two original subblobs will be labeled together as one blob ensemble, $e_j$ where $j$ indicates $j$th blob ensemble.
+as in Fig.~BINARY MASK MERGED FIGURE. $B_\lor$ consists of many small discontiguous islands, here called blobs, against a masked-away zero background. Some barcodes lie entirely within one blob, while others are represented by two or more nearby but distinct blobs. Adjacent blobs are identified and grouped together by dilating the binary mask using standard image processing routines so that closely spaced blobs run together to form new elongated blobs which are used to label blob ensembles in the original merged image $B_\lor$. In this way, if a barcode is made up of two nearby blobs, the blobs will be fused into one superblob in the dilated image, and the two original subblobs will be labeled together as one blob ensemble, $e_j$ where $j$ indicates $j$th blob ensemble.
 
-Each blob ensemble $e_j$ contains one or more blobs and acts as a binary mask of the image $\mathbf{U}$. The software  examines properties of the shape of  $e_j$ to determine if  $e_j$ could be a barcode. To qualify as a barcode, the area of $e_j$ must lie in an acceptable range, its  eccentricity must be  $>0.7$,  and the major and minor axis of the ellipse that fits its second moment must lie in a range consistent with that of a barcode. Using standard image processing routines, the software extracts each blob's characteristics and compares them to the criteria. The software also records the centroid, and angle of the major axis of the barcode. This provides a list of locations and orientations of the putative barcodes	.
+Each blob ensemble $e_j$ acts as a binary mask of the image $\mathbf{U}$, and the software examines properties of its shape determine if $e_j$ could be a barcode. To qualify as a barcode, the area of $e_j$ must lie in an acceptable range, its  eccentricity must be  $>0.7$,  and the major and minor axis of the ellipse that fits its second moment must lie in a range consistent with that of a barcode. Using standard image processing routines, the software extracts each blob's characteristics and compares them to these criteria. The software also records the centroid, and angle of the major axis of the barcode. This provides a list of locations and orientations of all putative barcodes.
 
 
 \subsection{Normalizing Intensity of Each Channel}
