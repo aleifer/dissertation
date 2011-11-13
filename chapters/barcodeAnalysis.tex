@@ -173,14 +173,14 @@ As before, we can factor out and ignore terms that have no $k$ dependence. Thus 
 This is the best solution to finding the identity of the barcode.
 
 \section{Implementation}
-We begin with the composite image containing 3 aligned conditioned images $\mathbf{U}(\mathbf{r})=[U_1(\mathbf{r}), U_2(\mathbf{r}), U_3(\mathbf{r})]$, one each for channel Red, Green, and Blue, respectively, as in Eq.~\ref{eq:realDeal}. Before we can begin to employ the solution in Eq.~\ref{eq:mle}, we must locate the barcodes within the image, normalize the intensities of the barcodes across the three channels, and project the barcodes down to a single dimension. Each of these steps requires multiple sequential image manipulations which are described in detail in the next three sections. At the conclusion of Section \ref{sec:projectDown}, we will  have one-dimensional 3-channel projections of our barcodes. In Section \ref{sec:generateReferences} we describe how our reference signals are generated. Finally, in Section \ref{sec:compareSignal2Ref} we will decode the barcodes by comparing our observed signals with the generated references  using Eq.~\ref{eq:mle}.
+To identify and decode our barcodes, we start with three conditioned images, $U_1(\mathbf{r}), U_2(\mathbf{r}), U_3(\mathbf{r})$, one each for channel Red, Green, and Blue, respectively.  Before we can begin to employ the solution in Eq.~\ref{eq:mle}, we must locate the barcodes within our image, normalize the intensities of the barcodes across the three channels, and project the barcodes down to a single dimension. Each of these steps requires multiple sequential image manipulations which are described in detail in the next three sections. At the conclusion of Section \ref{sec:projectDown}, we will  have one-dimensional 3-channel projections of our barcodes. In Section \ref{sec:generateReferences} we describe how our reference signals are generated. Finally, in Section \ref{sec:compareSignal2Ref} we will decode the barcodes by comparing our observed signals with the generated references  using Eq.~\ref{eq:mle}.
 
-
+The first  portion of this section deals with theory without scale... 
 
 \subsection{Locating the Barcodes} \label{sec:locatingBarcodes}
 Before we can decode the barcodes, we first must locate them in our image. We locate the barcodes by thresholding away background noise, and studying the morphology of the remaining bright image features. Finally, we apply selection criteria to select out only image features that match the shape of a barcode. 
 
- To threshold, we generate a smoothed image, $\tilde{U_i}(\mathbf{r})$ for each channel of $\mathbf{U}$ by  convolution with a gaussian whose width is narrower than that of the point spread function in Eq.~\ref{eq:withPSF}. The user manually selects a threshold $t_i$ for each of the three channels of the smoothed conditioned image to generate a binary mask,
+ To threshold, we generate a smoothed image, $\tilde{U_i}(\mathbf{r})$ for each channel of $U_i$ by  convolution with a gaussian whose width is narrower than that of the point spread function in Eq.~\ref{eq:withPSF}. The user manually selects a threshold $t_i$ for each of the three channels of the smoothed conditioned image to generate a binary mask,
 \begin{equation}
 	B_i(\mathbf{r}) = \left\{
 	\begin{array}{rl}
@@ -188,7 +188,7 @@ Before we can decode the barcodes, we first must locate them in our image. We lo
 		 0 & \text{if } \tilde{U_i}(\mathbf{r}) < t_i,
 	\end{array} \right. \qquad\text{for } i=1,2,3
 \end{equation}
-as in Fig.~BINARY MASK FIGURE. Noise below the threshold is masked out. Recall that unlike the original image, the conditioned image $\mathbf{U}$ has a homogeneous zero-mean  background, so a single threshold per channel is sufficient to capture all barcodes. The three channels of binary masks are merged, 
+as in Fig.~BINARY MASK FIGURE. Noise below the threshold is masked out. Recall that unlike the original images, the conditioned images $U_i$ have homogeneous zero-mean  background, so a single threshold per channel is sufficient to capture all barcodes. The three channels of binary masks are merged, 
 \begin{equation}
 B_{\cup}=B_1\cup B_2 \cup B_3, 
 \end{equation}
@@ -196,28 +196,24 @@ as in Fig.~BINARY MASK MERGED FIGURE. $B_\cup$ consists of many small discontigu
 
 Some barcodes lie entirely within one blob, while others are represented by two or more nearby but distinct blobs. To correctly locate barcodes, we must first  group together adjacent but distinct blobs.  To do so, we dilate the binary mask using standard image processing routines so that closely spaced blobs run together to form larger blobs. These larger blobs now fully enclose their prior original constituent blobs. We can label the larger blobs and use them to group together their constituent blobs. In this way, if a barcode is made up of two nearby blobs in $B_\cup$, they both will be labeled together as one blob ensemble.
 
-Each blob ensembles $e_n$ , for $n=1\ldots N$ can be examined to select those that represent a barcode. To qualify as a barcode, the area of a blob ensemble must lie in an acceptable range, its  eccentricity must be  $>0.7$,  and the major and minor axis of the ellipse that fits its second moment must lie in a range consistent with that of a barcode. The software also records the centroid, and angle of the major axis of the barcode, which will be used in Section \ref{sec:projectDown} to rotate and project down the barcode. 
+Each blob ensemble can be examined to select those that represent a barcode. To qualify as a barcode, the area of a blob ensemble must lie in an acceptable range, its  eccentricity must be  $>0.7$,  and the major and minor axis of the ellipse that fits its second moment must lie in a range consistent with that of a barcode. The software also records the centroid, and angle of the major axis of the barcode, which will be used in Section \ref{sec:projectDown} to rotate and project down the barcode. 
 
-\subsection{Normalizing Intensity of Each Channel}
-Before the barcodes can be decoded, each channel of the image needs to be normalized so that the average intensity of the barcodes in each channel is the same.  \textit{A priori} The average intensity of the barcodes in one color channel may differ from that of barcodes in another channel, since they depend on such channel-specific characteristics as the fluorophore, the illumination wavelength, illumination intensity, and the width of  the narrowband filter. To normalize across channels, we divide each channel by the mean peak height, 
-\begin{equation}
-	U'_i(\mathbf{r})= \frac{U_i(\mathbf{r})} { \langle g \rangle_i }  \qquad\text{for } i=1,2,3 ,
-\end{equation}
-where $\langle g \rangle_i$ is the mean of the peak heights in the $i$th channel. To measure peak height, the software first identifies blobs $b_{j,i}$, $j=1\ldots J$ in the binary mask $B_i$ that have an eccentricity and an area consistent with that of a single peak. For the $j$th  blob matching the criteria, the corresponding peak height $g_{j,i}$ is the pixel with the highest intensity in the conditioned image, masked by the blob,
-\begin{equation}
-	   g_{j,i}= \max_{\mathbf{r}}   b_{j,i} \cap U_i(\mathbf{r}). 
-\end{equation}
-Note that this process is entirely automated. The resulting normalized and conditioned image $\mathbf{U}'(\mathbf{r})$ has barcodes with pixel intensities such that the brightest pixel in an average barcode in any channel will have an intensity of 1. $\mathbf{U}'(\mathbf{r})$ along with the locations of the barcodes within it (Section \ref{sec:locatingBarcodes}) can be used to create one dimensional barcode intensity profiles (Section \ref{sec:locatingBarcodes}) that can then be decoded using the framework described in (Section \ref{sec:simpleModel}).
+\subsection{Normalizing Intensity of Each Channel}\label{sec:normalizePeakHeight}
+Before the barcodes can be decoded, each channel of the image needs to be normalized so that the average intensity of the barcodes in each channel is the same.  \textit{A priori} The average intensity of the barcodes in one color channel may differ from that of barcodes in another channel, since they depend on such channel-specific characteristics as the fluorophore, the illumination wavelength, illumination intensity, and the width of  the narrowband filter. To normalize across channels, we divide each channel by the mean peak height,  $\langle g \rangle_i$. 
+
+To measure mean peak height, the software first identifies blobs in the binary mask $B_i$ that have an eccentricity and an area consistent with that of a single peak. It then finds the brightest pixel in each blob that matches the criteria and takes the arithmetic mean. 
+
+The resulting normalized and conditioned image has barcodes with pixel intensities such that the brightest pixel in an average barcode in any channel will have an intensity of one. Along with the locations of the barcodes within it (Section \ref{sec:locatingBarcodes}), this normalized and conditioned image can be used to create one dimensional barcode intensity profiles (Section \ref{sec:locatingBarcodes}) that can then be decoded using the framework described in (Section \ref{sec:simpleModel}).
 
   
 \subsection{Projecting the Barcode to One Dimension} \label{sec:projectDown}
 To decode our barcode we need to first project down from a three-channel image to three one-dimensional intensity profiles.  We use the location and orientation of the barcodes found in Section \ref{sec:locatingBarcodes} to rotate the barcode, draw a rectangular bounding box around the barcode and to project it down to a single profile.
 
-  To generate three one-dimensional profiles $\mathbf{u}_j(x)=[u_{j,1}(x), u_{j,2}(x), u_{j,3}(x)]$ corresponding to the  $j$th barcode corresponding in \ref{sec:locatingBarcodes}, we rotate the normalized three channel image $\mathbf{U}'$ around the barcode's centroid, so that the major axis of the barcode lies along the $x$ axis. We call this rotated image  $\mathbf{U}'_{\theta_{j}}$. The projection of the $j$th barcode in the $i$th color channel is then, 
+  For each barcode, we seek to generate three one-dimensional profiles $\mathbf{u}_1, \mathbf{u}_2, \mathbf{u}_3$. For a given barcode, we rotate each channel of the  conditioned image $U_i$ around the barcode's centroid, so that the major axis of the barcode lies along the $x$ axis. We call this rotated image  $U_{\theta,i}$. The projection of a barcode in the $i$th color channel is then, 
 \begin{equation}\label{eq:projectDown}
-	   u_{j,i}=u_{j,i}(x)=\frac{1}{\kappa (2r)}  \sum_{y=-r}^r{  U_{\theta_j,i}(x,y)  },
+	   \mathbf{u}_i=u_i(x)=\frac{1}{\kappa (2r)}  \sum_{y=-r}^r{ \frac {U_{\theta,i}(x,y)}{\langle g \rangle_i}  },
 \end{equation}
-where $\kappa$ is a constant correction factor across all channels so that the average peak height remains unity even after the projection. $\kappa$ is the integral of the point spread function $h$ 
+where $\langle g \rangle_i$ is the average peak height for this channel (Section \ref{sec:normalizePeakHeight}) and $\kappa$ is a constant correction factor across all channels so that the average peak height remains unity even after the projection. $\kappa$ is the integral of the point spread function $h$ 
 \begin{equation}
 	\kappa=\int_{-r}^{r} h(x) \, \mathrm{d}x
 \end{equation}
