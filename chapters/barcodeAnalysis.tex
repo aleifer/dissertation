@@ -214,7 +214,7 @@ Note that this process is entirely automated. The resulting normalized and condi
 To decode our barcode we need to first project down from a three-channel image to three one-dimensional intensity profiles.  We use the location and orientation of the barcodes found in Section \ref{sec:locatingBarcodes} to rotate the barcode, draw a rectangular bounding box around the barcode and to project it down to a single profile.
 
   To generate three one-dimensional profiles $\mathbf{u}_j(x)=[u_{j,1}(x), u_{j,2}(x), u_{j,3}(x)]$ corresponding to the  $j$th barcode corresponding in \ref{sec:locatingBarcodes}, we rotate the normalized three channel image $\mathbf{U}'$ around the barcode's centroid, so that the major axis of the barcode lies along the $x$ axis. We call this rotated image  $\mathbf{U}'_{\theta_{j}}$. The projection of the $j$th barcode in the $i$th color channel is then, 
-\begin{equation}
+\begin{equation}\label{eq:projectDown}
 	   u_{j,i}=u_{j,i}(x)=\frac{1}{\kappa (2r)}  \sum_{y=-r}^r{  U_{\theta_j,i}(x,y)  },
 \end{equation}
 where $\kappa$ is a constant correction factor across all channels so that the average peak height remains unity even after the projection. $\kappa$ is the integral of the point spread function $h$ 
@@ -234,20 +234,28 @@ where $\text{erf}(x)$ denotes the error function [REFEENCE NEEDED (Reif?)],
 \text{erf}(x) = \frac{2}{\sqrt{\pi}} \int_0^x \exp (-t^2) \, \mathrm{d}t.
 \end{equation}
 
-Eq. \ref{eq:project} provides us with three one-dimensional projections of the barcode intensity with average peak heights of unity, and identical independently distributed (IID) zero-mean gaussian noise. These projections are now ready to be compared to a reference. 
+Eq. \ref{eq:projectDown} provides us with three one-dimensional projections of the barcode intensity with average peak heights of unity, and identical independently distributed (IID) zero-mean gaussian noise. These projections are now ready to be compared to a reference to decode the barcode.
 
 \subsection{Generating References}\label{sec:generateReferences}
 Although there are only $6^3=216$ species of barcodes, there are many differences in geometry, or microconfigurations, that the barcode can adopt, including:
-1. left/right reflections, that is, the small gap to the left or to the right,
-2. left/right mis-centering within the rectangular window,
-3. variation in the fluorophore spacings arising from the barcode manufacturing process,
-4. bends in the DNA strand resulting in a mild U rather than a linear shape.
-These differences are accounted for by varying each barcode matched filter reference waveform in half-pixel increments, so that the observed profile $\mathbf{u}$ is compared to a bank of references encompassing each possible geometric microconfiguration. There are XXXX variations for each of the 216 barcode species, for a total of YYYY waveforms in the reference bank.  
+\begin{enumerate}
+\item left/right reflections, that is, the small gap to the left or to the right,
+\item left/right mis-centering within the rectangular window,
+\item variation in the fluorophore spacings arising from the barcode manufacturing process,
+\item bends in the DNA strand resulting in a mild U rather than a linear shape.
+\end{enumerate}
+These differences are accounted for by varying each barcode  reference waveform in half-pixel increments, so that the observed profile $\mathbf{u}$ is compared to a bank of references encompassing each possible geometric microconfiguration. There are XXXX variations for each of the 216 barcode species, for a total of YYYY waveforms in the reference bank.  
+
+
+
+There's the theory. There's the implementation, and then there's 
+
 
 ANDY MOVE THIS ABOVE WHERE TALK ABOUT h
-We assume that each fluorescent spot on the barcode has a gaussian point spread function $h$ as in Eqs.~\ref{eq:psf} and \ref{eq:withPSF}. For our optics the point spread function has width  $\sigma=1.59$ pixels or \textasciitilde 117 nm. We parameterize each barcode to 
+We assume that each fluorescent spot on the barcode has a gaussian point spread function $h$ as in Eqs.~\ref{eq:psf} and \ref{eq:withPSF}. 
 
 
+For our optics the point spread function has width  $\sigma=1.59$ pixels or \textasciitilde 117 nm. We parameterize each barcode to 
 
 \subsection{Vetting Subpar Barcodes}
 
