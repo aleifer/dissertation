@@ -211,7 +211,7 @@ To decode our barcode we need to first project down from a three-channel image t
 
   For each barcode, we seek to generate three one-dimensional profiles $\mathbf{u}_1, \mathbf{u}_2, \mathbf{u}_3$. For a given barcode, we rotate each channel of the  conditioned image $U_i$ around the barcode's centroid, so that the major axis of the barcode lies along the $x$ axis. We call this rotated image  $U_{\theta,i}$. The projection of a barcode in the $i$th color channel is then, 
 \begin{equation}\label{eq:projectDown}
-	   \mathbf{u}_i=u_i(x)=\frac{1}{\kappa (2r)}  \sum_{y=-r}^r{ \frac {U_{\theta,i}(x,y)}{\langle g \rangle_i}  },
+	   \mathbf{u}_i=u_i(x)=\frac{1}{2r\kappa\langle g_i \rangle}  \int_{y=-r}^r{ {U_{\theta,i}(x,y)dy} },
 \end{equation}
 where $\langle g \rangle_i$ is the average peak height for this channel (Section \ref{sec:normalizePeakHeight}) and $\kappa$ is a constant correction factor across all channels so that the average peak height remains unity even after the projection. $\kappa$ is the integral of the point spread function $h$ 
 \begin{equation}
