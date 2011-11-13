@@ -264,7 +264,7 @@ Our quest would be complete except that the barcodes in our observed signal may 
 \max_k   \big\{  p(\mathbf{m}_k|\mathbf{u}) \big\} =  \min_k  \Bigg\{ \sum_{i=1}^3 \frac{  \max_{x} 2 (\mathbf{u}_i * \mathbf{m}_{ki}) - \lVert \mathbf{m}_{ki} \rVert^2   }{\sigma_i^2}  
 \Bigg\},
 \end{equation}
-where $*$ denotes convolution. We choose the $x$ offset that produces the largest product. This is computationally cheap, as we can implement the convolution using the Fast Fourier Transform, and thus we need only take the  Fourier transform of each reference $m_k$ once ahead of time, and for each barcode we merely take the inverse transform of the product of the  Fourier transforms of the signal and the reference. 
+where $*$ denotes convolution. We choose the $x$ offset that produces the largest product. This is computationally cheap, as we can implement the convolution using the Fast Fourier Transform. Moreover,  we need only take the  Fourier transform of each reference $m_k$ once ahead of time, and for each barcode we merely take the inverse transform of the product of the  Fourier transforms of the signal and the reference. 
 
 
 
