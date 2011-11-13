@@ -23,7 +23,7 @@ We chose to image DNA origami nanorod barcodes [cite chenxiang]. These nanorods 
 
 We chose to work with this particular form of fluorescently encoded barcodes as opposed to others because this form offer the largest published number of distinct barcode species to date, has the advantage of being massively self-assembled in parallel, and creates barcodes of suitably small  size so as to be useful for future microarray applications. 
 
-The barcodes are, in fact, so small that the distance between fluorescing sites is often smaller than a wavelength of light. As a result, when the barcodes are imaged on a flat surface, the distinct flourescent sites appear to blend into one another. This becomes one of the primary challenges facing any computer vision barcode identification software, namely to  decode the barcode even when the individual difraction-limited fluorescent spots overlap. 
+The barcodes are, in fact, so small that the distance between fluorescing sites is often smaller than a wavelength of light. As a result, when the barcodes are imaged on a flat surface, the distinct flourescent sites appear to blend into one another. This becomes one of the primary challenges facing any computer vision barcode identification software, namely to  decode the barcode even when there is overlap between individual difraction-limited fluorescent spots. 
 
 \subsection{Imaging}
 ANDY--explain evanescent wave, particularly why out-of-plane position reduces intensity
@@ -162,13 +162,13 @@ p(\mathbf{u}|\mathbf{m}_k) = p(\mathbf{u}_1|\mathbf{m}_{k1})p(\mathbf{u}_2|\math
 
 Substituting Eq.~\ref{eq:iidEnergy} gives
 \begin{multline}
-\L_k=p(\mathbf{u}|\mathbf{m}_k) =\frac{1}{ (\sigma_1\sigma_2\sigma_3)^N  (2\pi)^{3N/2}  }  \exp\Bigg[ -\frac{(\mathbf{u}-\mathbf{m}_{k1})^T(\mathbf{u}-\mathbf{m}_{k1})} {2 N \sigma_1^2 }   - \\ \frac{(\mathbf{u}-\mathbf{m}_{k2})^T(\mathbf{u}-\mathbf{m}_{k2})} {2 N \sigma_2^2 } -\frac{(\mathbf{u}-\mathbf{m}_{k3})^T(\mathbf{u}-\mathbf{m}_{k3})} {2 N \sigma_3^2 }    \Bigg].
+L_k=p(\mathbf{u}|\mathbf{m}_k) =\frac{1}{ (\sigma_1\sigma_2\sigma_3)^N  (2\pi)^{3N/2}  }  \exp\Bigg[ -\frac{(\mathbf{u}-\mathbf{m}_{k1})^T(\mathbf{u}-\mathbf{m}_{k1})} {2 N \sigma_1^2 }   - \\ \frac{(\mathbf{u}-\mathbf{m}_{k2})^T(\mathbf{u}-\mathbf{m}_{k2})} {2 N \sigma_2^2 } -\frac{(\mathbf{u}-\mathbf{m}_{k3})^T(\mathbf{u}-\mathbf{m}_{k3})} {2 N \sigma_3^2 }    \Bigg].
 \end{multline}
 
 As before, we can factor out and ignore terms that have no $k$ dependence. Thus the maximum likelihood model $k$ correspond to finding $k$ that minimizes the quantity on the right below:
 \begin{multline}\label{eq:mle}
-\max_k   \big\{ p(\mathbf{m}_k|\mathbf{u}) \big\} =  \min_k  \Bigg\{  \frac{(u_1-\mathbf{m}_{k1})^T(u_1-\mathbf{m}_{k1})}{\sigma_1^2} +\\  
-\frac{(u_2-\mathbf{m}_{k2})^T(u_2-\mathbf{m}_{k2})}{\sigma_2^2} + \frac{(u_3-\mathbf{m}_{k3})^T(u_3-\mathbf{m}_{k3})}{\sigma_3^2} \Bigg\}. 
+\max_k   \big\{ p(\mathbf{m}_k|\mathbf{u}) \big\} =  \min_k  \Bigg\{  \frac{(\mathbf{u}_1-\mathbf{m}_{k1})^T(u_1-\mathbf{m}_{k1})}{\sigma_1^2} +\\  
+\frac{(\mathbf{u}_2-\mathbf{m}_{k2})^T(\mathbf{u}_2-\mathbf{m}_{k2})}{\sigma_2^2} + \frac{(\mathbf{u}_3-\mathbf{m}_{k3})^T(\mathbf{u}_3-\mathbf{m}_{k3})}{\sigma_3^2} \Bigg\}. 
 \end{multline}
 This is the best solution to finding the identity of the barcode.
 
@@ -233,6 +233,9 @@ where $\text{erf}(x)$ denotes the error function [REFEENCE NEEDED (Reif?)],
 Eq. \ref{eq:projectDown} provides us with three one-dimensional projections of the barcode intensity with average peak heights of unity, and identical independently distributed (IID) zero-mean gaussian noise. These projections are now ready to be compared to a reference to decode the barcode.
 
 \subsection{Generating References}\label{sec:generateReferences}
+We must generate a bank of reference barcodes to test against the observed signal. Each reference barcode consists of three one-dimensional traces containing  gaussian peaks of height unity (Eq.~\ref{eq:psf}) superposed at the predicted location of the fluorescent spots, as shown for example in Fig.~FIGURE WITH PICTURE OF THREE TRACES. 
+
+
 Although there are only $6^3=216$ species of barcodes, there are many differences in geometry, or microconfigurations, that the barcode can adopt, including:
 \begin{enumerate}
 \item left/right reflections, that is, the small gap to the left or to the right,
@@ -240,7 +243,35 @@ Although there are only $6^3=216$ species of barcodes, there are many difference
 \item variation in the fluorophore spacings arising from the barcode manufacturing process,
 \item bends in the DNA strand resulting in a mild U rather than a linear shape.
 \end{enumerate}
-These differences are accounted for by varying each barcode  reference waveform in half-pixel increments, so that the observed profile $\mathbf{u}$ is compared to a bank of references encompassing each possible geometric microconfiguration. There are XXXX variations for each of the 216 barcode species, for a total of YYYY waveforms in the reference bank.  
+These differences are accounted for by varying each barcode  reference waveform in half-pixel increments, so that the observed profile $\mathbf{u}$ is compared to a bank of references encompassing each possible geometric microconfiguration. Excluding left/right mis-centerings, there are 48 variations for each of the 216 barcode species that we determined a valid barcode might adopt, for a total of 10,368 three-channel waveforms in the reference bank (see table BLAH for the exact parameters that are allowed to vary). Left/right translations are handled by employing a convolution as described in the following Section \ref{sec:convoloution}.  
+
+The bank of references are then used in the multiple hypothesis test to determine the most likely barcode corresponding to a given observed signal.
+
+
+\subsection{Decoding the Barcode}
+The main task of the software is to decode the barcode by identifying the most likely reference given an observed signal. The image processing prior to this section merely prepares the signals for decoding.  For a given observed signal, $\mathbf{u}$ composed of three one-dimensional traces as in Eq. 
+\ref{eq:projectDown}, we invoke Eq.~\ref{eq:mle} to find the most likely reference.  We test all 10,368 references against the observed signal, 
+
+\begin{equation}
+\max_k   \big\{  p(\mathbf{m}_k|\mathbf{u}) \big\} =  \min_k  \Bigg\{ \sum_{i=1}^3  \frac{  2 \mathbf{u}_i ^T \mathbf{m}_{ki} - \lVert \mathbf{u}_i \rVert^2  - \lVert \mathbf{m}_{ki} \rVert^2   }{\sigma_i^2}  \Bigg\}, 
+\end{equation}
+where $\mathbf{m}_{ki}$  is the the $k$th reference in the $i$th color channel, and $\sigma_i$ is the noise in the $i$th channel, as before. Note that $\lVert \mathbf{u}_i \rVert^2$  is independent of the reference $k$ and can be omitted from the minimization, 
+\begin{equation}
+\max_k   \big\{  p(\mathbf{m}_k|\mathbf{u}) \big\} =  \min_k  \Bigg\{ \sum_{i=1}^3  \frac{  2 \mathbf{u}_i ^T \mathbf{m}_{ki}  - \lVert \mathbf{m}_{ki} \rVert^2   }{\sigma_i^2}  \Bigg\}. 
+\end{equation}
+Our quest would be complete except that the barcodes in our observed signal may be translated from right to left within our window, as discussed in  Section \ref{sec:generateReferences}. Instead of adding  additional references to account for every possible translation for all of the 10,368 references we chose a computationally more efficient method of calculating the transpose $\mathbf{u}_i ^T \mathbf{m}_{ki}$ for all possible $x$ offsets between the reference and signal using a convolution, 
+\begin{equation}
+\max_k   \big\{  p(\mathbf{m}_k|\mathbf{u}) \big\} =  \min_k  \Bigg\{ \sum_{i=1}^3 \frac{  \max_{x} 2 (\mathbf{u}_i * \mathbf{m}_{ki}) - \lVert \mathbf{m}_{ki} \rVert^2   }{\sigma_i^2}  
+\Bigg\},
+\end{equation}
+where $*$ denotes convolution. We choose the $x$ offset that produces the largest product. This is computationally cheap, as we can implement the convolution using the Fast Fourier Transform, and thus we need only take the  Fourier transform of each reference $m_k$ once ahead of time, and for each barcode we merely take the inverse transform of the product of the  Fourier transforms of the signal and the reference. 
+
+
+
+
+
+
+For a given channel, the actual computation is as follows,
 
 
 
@@ -273,7 +304,7 @@ Project  down to one dimension.  THen run the thing.
 
 
 \subsection{Barcode Defects}
-DNA origami barcodes are a nascent technology that will surely see rapid improvements in manufacturing robustness and quality. Using the initial protocol for barcode manufacture as described in [CHENXIANGS PAPER], we see predominantly two types of barcode defects. First, we see barcodes that have the wrong number of fluorescent spots, either only two spots, or four spots or more. This is likely the result of a barcode that folded improperly or of two barcodes that became conjoined together. The software usually rejects these barcodes based on their morphology, but occasionally the defect conspires to have roughly the same shape as a regular barcode and thus the algorithm is fooled into decoding them. Secondly, we see a more subtle defect. Sometimes two spots in the same color channel on one barcode will vary dramatically in intensity, by as much as 4-fold. Careful inspection by eye will reveal a very bright and very dim spot. This is likely caused by poor labeling of the fluorescent spot. Each spot should have 6 fluorophores, but we suspect that often the number of fluorophores is less. We evaluate the effectiveness of our software both including and excluding these two classes of defects.    
+DNA origami barcodes are a nascent technology that will surely see rapid improvements in manufacturing robustness and quality. Using the initial protocol for barcode manufacture as described in [CHENXIANGS PAPER], we see predominantly two types of barcode defects. First, we see barcodes that have the wrong number of fluorescent spots, either only two spots, or four spots or more. This is likely the result of a barcode that folded improperly or of two barcodes that became conjoined together. The software usually rejects these barcodes based on their morphology, but occasionally the defect conspires to have roughly the same shape as a regular barcode and thus the algorithm is fooled into decoding them. Secondly, we see a more subtle defect. Sometimes two spots in the same color channel on one barcode will vary dramatically in intensity, by as much as 4-fold. Careful inspection by eye will reveal a very bright and very dim spot. This is likely caused by poor labeling of the fluorescent spot. Each spot should have six fluorophores, but we suspect that often the number of fluorophores is less. We evaluate the effectiveness of our software both including and excluding these two classes of defects.    
 
 
 \subsection{Imaging Conditions}
