@@ -1,6 +1,5 @@
 %!TEX root = /Users/andy/Documents/Academics/Dissertation/thesis.tex
 %
-% https://github.com/downloads/aleifer/dissertation/thesis.pdf
 
 \begin{savequote}[75mm] 
 This is some random quote to start off the chapter.
@@ -91,13 +90,13 @@ See Fig BLAH BLAH.
 The offset and illumination intensity vary over the length of the image but are constant over the length of a barcode. To characterize the variations while removing rapid noise fluctuations, the dark and background images are smoothed over a length scale large compared to a barcode but small compared to the entire image. These smoothed images are then subtracted and divided, to remove the DC offset and compensate for the spatially varying illumination, respectively, producing a unitless conditioned image
 
 \begin{equation}
-U(\mathbf{r})= \frac{ V_{\text{fluor}}(\mathbf{r}) - \langle V_{\text{back}}(\mathbf{r}) \rangle }{ \langle V_{\text{back}}(\mathbf{r}) \rangle - \langle V_{\text{dark}}(\mathbf{r}) \rangle},
+U(\mathbf{r})= \frac{ V_{\text{fluor}}(\mathbf{r}) - \widetilde{V_{\text{back}}}(\mathbf{r})  }{ \widetilde{V_{\text{back}}}(\mathbf{r}) - \widetilde{ V_{\text{dark}}}(\mathbf{r})} ,
 \end{equation}
-where $\langle~\rangle$ denotes smoothing (ANDY CHANGE THIS TO BE SQUIGGLES). Substituting Eq.~\ref{eq:f_and_b} gives
+where~$\widetilde{~~}$~denotes smoothing. Substituting Eq.~\ref{eq:f_and_b} gives
 \begin{equation}
-U(\mathbf{r})= \frac{ c \cdot \big[ f(\mathbf{r})  +b(\mathbf{r}) -\langle b(\mathbf{r}) \rangle \big]+ v_t  }{   c \cdot \langle b(\mathbf{r}) \rangle }
+U(\mathbf{r})= \frac{ c \cdot \big[ f(\mathbf{r})  +b(\mathbf{r}) -\widetilde{b}(\mathbf{r}) \big]+ v_t  }{   c \cdot \widetilde{b}(\mathbf{r}) }
 \end{equation}
-Note that $\langle V_0(\mathbf{r}) \rangle = V_0(\mathbf{r})$ and $\langle \gamma_{\text{ex}}(\mathbf{r}) \rangle  = \gamma_{\text{ex}}(\mathbf{r})$ since both are assumed to be slowly varying. Substituting further, and recalling that the means of the noise terms are zero, gives
+Note that $\widetilde{ V_0}(\mathbf{r}) = V_0(\mathbf{r})$ and $\widetilde{\gamma_{\text{ex}}}(\mathbf{r})  = \gamma_{\text{ex}}(\mathbf{r})$ since both are assumed to be slowly varying. Substituting further, and recalling that the means of the noise terms are zero, gives
 \begin{equation}
 U(\mathbf{r})= \frac{ c \cdot \gamma_{\text{ex}}(\mathbf{r}) q_f(\mathbf{r})  + v_t  }{ c \gamma_{\text{ex}}(\mathbf{r})  q_b }
 \end{equation}
