@@ -26,10 +26,24 @@ We chose to work with this particular form of fluorescently encoded barcodes as 
 The barcodes are, in fact, so small that the distance between fluorescing sites is often smaller than a wavelength of light. As a result, when the barcodes are imaged on a flat surface, the distinct flourescent sites appear to blend into one another. This becomes one of the primary challenges facing any computer vision barcode identification software, namely to  decode the barcode even when there is overlap between individual difraction-limited fluorescent spots. 
 
 \subsection{Imaging}
-ANDY--explain evanescent wave, particularly why out-of-plane position reduces intensity
+Barcodes were imaged on a glass cover slide on a Leica DM1600 microscope using a 100x oil-immersion objective,  under total internal reflection fluorescence (TIRF) . 
+The red, green and blue channel images of the barcodes were  recorded using  635 nm, 561 nm and 488 nm laser light, respectively, from diode pumped solid state lasers (BSR, ChromaLase 635; LASOS YLK6110; and JDS Uniphase, FCD 488-10) . Fluorescence light was spectrally filtered with emission filters (ET525/36, ET600/32, ET705/72) and imaged onto an electron-multiplying CCD camera (Hamamatsu C9100-02, Hamamatsu, Japan). Table~\ref{table:image} lists exposure time and other image information.
 
-Barcodes were imaged on a glass cover slide on a BLAH BLAH microscope,  under total internal reflection fluorescence (TIRF). 
-The red, green and blue channel images of the barcodes were taken on a glass coverslip, with purple (XXXnm), green (XXXnm) or blue (XXXnm) laser light at YYY mW, ZZZ mW and XXXX mW incident power, respectively. A BLAH BLAH EMCCD camera was used with an exposure time of BLAH ms.
+\begin{table}[htbp] 
+\begin{center}
+\begin{tabular}{l c}
+\multicolumn{2}{c}{\textbf{Image Properties}}\\
+Parameter & Value \\
+\hline
+Scale & 1 px $\approx$ 71.4 nm \\
+Size & 1,000 px $\times$ 1,000 px \\
+Bit Depth & 14 bits\\
+Exposure & 700 ms\\
+\hline
+\end{tabular}
+\end{center}
+\caption{Image properties. \label{table:image}	}
+\end{table}
  
 \subsection{Task at Hand}
 To be useful for microarray or other diagnostic applications, it is important for any computer vision software to be able to automatically detect and decode large quantities of barcodes robustly and accurately with little or no user input. 
@@ -196,7 +210,24 @@ as in Fig.~BINARY MASK MERGED FIGURE. $B_\cup$ consists of many small discontigu
 
 Some barcodes lie entirely within one blob, while others are represented by two or more nearby but distinct blobs. To correctly locate barcodes, we must first  group together adjacent but distinct blobs.  To do so, we dilate the binary mask using standard image processing routines so that closely spaced blobs run together to form larger blobs. These larger blobs now fully enclose their prior original constituent blobs. We can label the larger blobs and use them to group together their constituent blobs. In this way, if a barcode is made up of two nearby blobs in $B_\cup$, they both will be labeled together as one blob ensemble.
 
-Each blob ensemble can be examined to select those that represent a barcode. To qualify as a barcode, the area of a blob ensemble must lie in an acceptable range, its  eccentricity must be  $>0.7$,  and the major and minor axis of the ellipse that fits its second moment must lie in a range consistent with that of a barcode. The software also records the centroid, and angle of the major axis of the barcode, which will be used in Section \ref{sec:projectDown} to rotate and project down the barcode. 
+Each blob ensemble can be examined to select those that represent a barcode. To qualify as a barcode, the area of a blob ensemble must lie in an acceptable range, its  eccentricity must be  $>0.75$,  and the major and minor axis of the ellipse that fits its second moment must lie in a range consistent with that of a barcode, see Table~\ref{table:morphCriteria}. The software also records the centroid, and angle of the major axis of the barcode, which will be used in Section \ref{sec:projectDown} to rotate and project down the barcode. 
+
+\begin{table}[htbp] 
+\begin{center}
+\begin{tabular}{l c}
+\multicolumn{2}{c}{\textbf{Morphological Criteria for Barcode}}\\
+Parameter & Value \\
+\hline
+Min Area & 24 px$^2$ \\
+Max Area & 134 px$^2$ \\
+Min Length of Major Axis  & 14 px$^2$ \\
+Min Eccentricity &0.75\\
+\hline
+\end{tabular}
+\end{center}
+\caption{Morphological criteria for barcode. Scale: 1 px $\approx$ 71.4 nm.\label{table:morphCriteria}}
+\end{table}
+
 
 \subsection{Normalizing Intensity of Each Channel}\label{sec:normalizePeakHeight}
 Before the barcodes can be decoded, each channel of the image needs to be normalized so that the average intensity of the barcodes in each channel is the same.  The average intensity of the barcodes in one color channel may differ from that of barcodes in another channel, since they depend on such channel-specific characteristics as the fluorophore, the illumination wavelength, illumination intensity, and the width of  the narrowband filter. To normalize across channels, we divide each channel by the mean peak height,  $\langle g_i \rangle$. 
@@ -243,7 +274,25 @@ Although there are only $6^3=216$ species of barcodes, there are many difference
 \item variation in the fluorophore spacings arising from the barcode manufacturing process,
 \item bends in the DNA strand resulting in a mild U rather than a linear shape.
 \end{enumerate}
-These differences are accounted for by varying each barcode  reference waveform in half-pixel increments, so that the observed profile $\mathbf{u}$ is compared to a bank of references encompassing each possible geometric microconfiguration. Excluding left/right mis-centerings, there are 48 variations for each of the 216 barcode species that we determined a valid barcode might adopt, for a total of 10,368 three-channel waveforms in the reference bank (see table BLAH for the exact parameters that are allowed to vary). Left/right translations are handled by employing a convolution as described in the following Section \ref{sec:convoloution}.  
+These differences are accounted for by varying each barcode  reference waveform in half-pixel increments, so that the observed profile $\mathbf{u}$ is compared to a bank of references encompassing each possible geometric microconfiguration. Excluding left/right mis-centerings, there are 48 variations for each of the 216 barcode species that we determined a valid barcode might adopt, for a total of 10,368 three-channel waveforms in the reference bank (see Table~\ref{table:reference} for the exact parameters that are allowed to vary). Left/right translations are handled by employing a convolution as described in the following Section \ref{sec:convoloution}.  
+
+\begin{table}[htbp] 	
+\begin{center}
+\begin{tabular}{l c}
+\multicolumn{2}{c}{\textbf{Reference Barcode Properties}}\\
+Parameter & Value \\
+\hline
+Point Spread Function Width  & $\sigma^2=1.59$ px \\
+Allowed Lengths for Big Gap &  \{5.5, 6, 6.5, 7, 7.5, 8\} px \\
+Allowed Lengths for Little Gap  & \{ 3.5, 4, 4.5, 5 \} px\\
+Window Size & 64 px\\
+Number of Barcode Species & 216 \\
+Number of Microconfigurations & 10,368 \\
+\hline
+\end{tabular}
+\caption{Reference barcode properties. Scale: 1 px $\approx$ 71.4 nm.\label{table:reference}}
+\end{center}
+\end{table}
 
 The bank of references are then used in the multiple hypothesis test to determine the most likely barcode corresponding to a given observed signal.
 
@@ -265,6 +314,13 @@ Our quest would be complete except that the barcodes in our observed signal may 
 \Bigg\},
 \end{equation}
 where $*$ denotes convolution. We choose the $x$ offset that produces the largest product. This is computationally cheap, as we can implement the convolution using the Fast Fourier Transform. Moreover,  we need only take the  Fourier transform of each reference $m_k$ once ahead of time, and for each barcode we merely take the inverse transform of the product of the  Fourier transforms of the signal and the reference. 
+
+
+
+
+
+
+
 
 
 
