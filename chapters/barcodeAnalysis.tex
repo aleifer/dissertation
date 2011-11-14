@@ -121,7 +121,7 @@ The probability that the $k$th reference signal $\mathbf{m}_k$ is present when t
 \begin{equation}\label{eq:Bayes}
 p(\mathbf{m}_k|\mathbf{u}) = \frac{p(\mathbf{u}|\mathbf{m}_k)p(\mathbf{m}_k)} {p(\mathbf{u})},
 \end{equation}
-where $p(\mathbf{m}_k|\mathbf{u})$ is the inverse probability, $p(\mathbf{u}|\mathbf{m}_k)$ is the forward probability or likelihood of seeing data $\mathbf{u}$ given the presence of model $\mathbf{m}_k$, $p(\mathbf{m}_k)$ is the prior probability that model $\mathbf{m}_k$ is present, and $p(\mathbf{u})$ is a normalization constant [Jayn03]. We seek to compute the probability for each possible reference $\mathbf{m}_k$, $k=1,2,3 \ldots K$, and select the largest, which is the one most likely to fit the observed data.
+where $p(\mathbf{m}_k|\mathbf{u})$ is the inverse probability, $p(\mathbf{u}|\mathbf{m}_k)$ is the forward probability or likelihood of seeing data $\mathbf{u}$ given the presence of model $\mathbf{m}_k$, $p(\mathbf{m}_k)$ is the prior probability that model $\mathbf{m}_k$ is present, and $p(\mathbf{u})$ is a normalization constant \citep{bretthorst_probability_2003}. We seek to compute the probability for each possible reference $\mathbf{m}_k$, $k=1,2,3 \ldots K$, and select the largest, which is the one most likely to fit the observed data.
 
 While testing a particular observed signal $\mathbf{u}$ against all models, the denominator is constant and independent of $k$. Maximizing $p(\mathbf{m}_k|\mathbf{u})$ is therefore equivalent to finding the model $k$ that maximizes the product  $p(\mathbf{u}|\mathbf{m}_k)p(\mathbf{m}_k)$.
 In the present case where all barcodes are equally probable so that
@@ -137,7 +137,7 @@ The probability $p(\mathbf{u}|\mathbf{m}_k)$ of observing $\mathbf{u}$ given the
 \begin{equation}\label{eq:Main}
 L_k = p(\mathbf{u}|\mathbf{m}_k) = \frac{1}{  \sqrt{ (2\pi)^N \det || \mathbf{R}_n||} } \exp\left[ -\frac{1}{2}  (\mathbf{u}-\mathbf{m}_k)^T \mathbf{R}_n^{-1} (\mathbf{u}-\mathbf{m}_k) \right]
 \end{equation}
-where $N$ is the length of vector $\mathbf{u}$, $\mathbf{R}_n$ is the noise covariance matrix, $\det||{\cdot}||$ is the matrix determinant, and $T$ denotes the transpose operation  \citep{helstrom_statistical_1968, zubakov_extraction_1962}.
+where $N$ is the length of vector $\mathbf{u}$, $\mathbf{R}_n$ is the noise covariance matrix, $\det||{\cdot}||$ is the matrix determinant, and $T$ denotes the transpose operation  \citep{helstrom_statistical_1968, wainstein_extraction_1962}.
 
 For the case of identical independently distributed (IID) Gaussian noise, 
 \begin{equation}
@@ -168,7 +168,7 @@ It is noteworthy that the Bayesian hypothesis test is equivalent in this case to
 \subsection{One dimension, multiple channels}\label{sec:simpleModel}
 We now consider a system where each reference $\mathbf{m}_k$ consists of three one-dimensional vectors $\mathbf{m}_{k1}$, $\mathbf{m}_{k2}$ and $\mathbf{m}_{k3}$ each of length $N$. Each will correspond to the portion of the reference contained in a different channel, so that there are still $K$ references. Analogously, the signal $\mathbf{u}$ also consists of three one-dimensional observations $\mathbf{u}_1$, $\mathbf{u}_2$ and $\mathbf{u}_3$, each in its own channel, and each channel has zero-mean additive IID Gaussian noise with variances $\sigma_1^2$, $\sigma_2^2$ and $\sigma_3^2$, respectively. As we will see later, these channels can be thought of as the red, green and blue channels in a one-dimensional composite color image. 
 
-Because the three channels are independent, the likelihood that signal $\mathbf{u}$ is observed when $\mathbf{m}_k$ is present simply factors into the product of the individual likelihoods, that is, the likelihood that $\mathbf{u}_1$ is observed when $\mathbf{m}_{k1}$ is present times the likelihood that $\mathbf{u}_2$ is observed when $\mathbf{m}_{k2}$ is present times the likelihood that $\mathbf{u}_3$ is observed when $\mathbf{m}_{k3}$ is present [Jayn03],
+Because the three channels are independent, the likelihood that signal $\mathbf{u}$ is observed when $\mathbf{m}_k$ is present simply factors into the product of the individual likelihoods, that is, the likelihood that $\mathbf{u}_1$ is observed when $\mathbf{m}_{k1}$ is present times the likelihood that $\mathbf{u}_2$ is observed when $\mathbf{m}_{k2}$ is present times the likelihood that $\mathbf{u}_3$ is observed when $\mathbf{m}_{k3}$ is present \citep{bretthorst_probability_2003},
 \begin{equation}
 p(\mathbf{u}|\mathbf{m}_k) = p(\mathbf{u}_1|\mathbf{m}_{k1})p(\mathbf{u}_2|\mathbf{m}_{k2})p(\mathbf{u}_3|\mathbf{m}_{k3}).
 \end{equation}
