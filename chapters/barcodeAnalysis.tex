@@ -69,7 +69,17 @@ To automatically detect and decode a barcode from its three-channel image, the s
 
 
 \subsection{Conditioning the Raw Image}
-The first step in processing the image is removing the offsets and correcting the scaling, both of which vary across the image as a consequence of the illumination and optical system properties. We begin by describing the signals and their sources.
+The first step in processing the image is removing the offsets and correcting the scaling, both of which vary across the image as a consequence of the illumination and optical system properties (See Figure \ref{fig:conditionedImage}a). We begin by describing the signals and their sources.
+
+\begin{figure}[htbp]
+\begin{center}
+	\includegraphics[width=\textwidth]{figures/theoryConditionedImage}
+	\caption{The raw image must be conditioned to remove offset and correct scaling. For all images, scalebar is 10 \textmu m.(\textbf{a}) The raw image (1000 px by 1000 px) of DNA origami barcodes (red channel) is shown along with  its projection onto the $x$- and $y$-axes of the image. The raw image has a large offset and the background varies slowly. (\textbf{b}) The conditioned image (red channel) is shown with projections onto the $x$ and $y$ axes. The background of the conditioned image has a mean close to zero, and it does not slowly vary. \textbf{c} Image of only the background (red channel). This is the image of slide and buffer without barcodes taken under the same conditions as in \textbf{a}. The glowing spot towards the left reveals uneven illumination. Image has been smoothed by convolution with a Gaussian of width $\sigma=10$ px. This image is used to correct for uneven illumination.   \textbf{c} Dark image (red channel) taken without slide or buffer in the absence of illumination is used to correct for DC camera offset. Image has been smoothed by convolution with a Gaussian of width $\sigma=10$ px. \label{fig:conditionedImage}}
+\end{center}	
+\end{figure}
+
+
+
 
 %We would like to apply the simple model described above to the problem of identifying the barcodes in two-dimensional images. To do so, we perform image processing on the two-dimensional images that transforms them into a one-dimensional form appropriate for the analysis described above. The analysis assumes, as well, that noise in the barcode images is additive, zero-mean and Gaussian. We will show later that the experimentally-observed noise is Gaussian to good approximation. It is clear from inspection, however, that the background of the barcode images does not have zero mean and also has a slowly varying spatial inhomogeneity. To remove this slowly-varying non-zero-mean background, we must account for all of the contributions to the signal recorded by the detector.
 
@@ -99,19 +109,18 @@ V_{\text{dark}}(\mathbf{r})&=&V_0(\mathbf{r})+v_t\\
 V_{\text{back}}(\mathbf{r})&=&V_0(\mathbf{r})+c \cdot  b(\mathbf{r})  +v_t\\
 V_{\text{fluor}}(\mathbf{r})&=&V_0(\mathbf{r})+c \cdot \big[ f(\mathbf{r}) + b(\mathbf{r})\big]  +v_t
 \end{eqnarray}
-See Fig BLAH BLAH. 
+corresponding to Figure \ref{fig:conditionedImage}d, c and a, respectively. 
 
 The offset and illumination intensity vary over the length of the image but are constant over the length of a barcode. To characterize the variations while removing rapid noise fluctuations, the dark and background images are smoothed over a length scale large compared to a barcode but small compared to the entire image. These smoothed images are then subtracted and divided, to remove the DC offset and compensate for the spatially varying illumination, respectively, producing a unitless conditioned image
-ANDY: SUGGEST PUTTING TILDE JUST OVER THE 'V' AND 'GAMMA' FOR SAKE OF APPEARANCE
 
 \begin{equation}
-U(\mathbf{r})= \frac{ V_{\text{fluor}}(\mathbf{r}) - \widetilde{V_{\text{back}}}(\mathbf{r})  }{ \widetilde{V_{\text{back}}}(\mathbf{r}) - \widetilde{ V_{\text{dark}}}(\mathbf{r})} ,
+U(\mathbf{r})= \frac{ V_{\text{fluor}}(\mathbf{r}) - \widetilde{V}_{\text{back}}(\mathbf{r})  }{ \widetilde{V}_{\text{back}}(\mathbf{r}) - \widetilde{V}_{\text{dark}}(\mathbf{r})} ,
 \end{equation}
 where~$\widetilde{~~}$~denotes smoothing. Substituting Eq.~\ref{eq:f_and_b} gives
 \begin{equation}
 U(\mathbf{r})= \frac{ c \cdot \big[ f(\mathbf{r})  +b(\mathbf{r}) -\widetilde{b}(\mathbf{r}) \big]+ v_t  }{   c \cdot \widetilde{b}(\mathbf{r}) }
 \end{equation}
-Note that $\widetilde{ V_0}(\mathbf{r}) = V_0(\mathbf{r})$ and $\widetilde{\gamma_{\text{ex}}}(\mathbf{r})  = \gamma_{\text{ex}}(\mathbf{r})$ since both are assumed to be slowly varying. Substituting further, and recalling that the means of the noise terms are zero, gives
+Note that $\widetilde{V}_0(\mathbf{r}) = V_0(\mathbf{r})$ and $\widetilde{\gamma}_{\text{ex}}(\mathbf{r})  = \gamma_{\text{ex}}(\mathbf{r})$ since both are assumed to be slowly varying. Substituting further, and recalling that the means of the noise terms are zero, gives
 \begin{equation}
 U(\mathbf{r})= \frac{ c \cdot \gamma_{\text{ex}}(\mathbf{r}) q_f(\mathbf{r})  + v_t  }{ c \gamma_{\text{ex}}(\mathbf{r})  q_b }
 \end{equation}
