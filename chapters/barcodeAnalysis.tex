@@ -156,15 +156,18 @@ As mentioned, we find the $\mathbf{m}_k$, or rather just the index $k$, that pro
 \begin{equation}
 \max_k   \left\{ p(\mathbf{u}|\mathbf{m}_k) \right\} =  \max_k  \left\{ \frac{1}{   \sigma^N\sqrt{ (2\pi)^N}  } \exp\left[ -\frac{(\mathbf{u}-\mathbf{m}_k)^T(\mathbf{u}-\mathbf{m}_k)} {2 N \sigma^2 } \right] \right\}. 
 \end{equation}
-Since $\sigma$ and $N$ are independent of $k$ and since the exponential is a monotonically increasing function of its argument, maximizing the likelihood across $k$ is equivalent to minimizing the energy of the difference between the observation and the reference across $k$ 
+This equation leads directly to implementation with a classic matched filter ADD REFS [WAIN62], [HELS68]. 
+
+This equation has another interpretation, as well. Since $\sigma$ and $N$ are independent of $k$ and since the exponential is a monotonically increasing function of its argument, maximizing the likelihood across $k$ is equivalent to minimizing the energy of the difference between the observation and the reference across $k$ 
 
 \begin{equation}
 \max_k   \left\{ p(\mathbf{m}_k|\mathbf{u}) \right\} = \min_k  \left\{ (\mathbf{u}-\mathbf{m}_k)^T(\mathbf{u}-\mathbf{m}_k) \right\}. 
 \end{equation}
-It is noteworthy that the Bayesian hypothesis test is equivalent in this case to finding the $k$ that minimizes the mean squared error between observation and reference. This is clear by rewriting this expression explicitly in terms of a sum,
+Note that the Bayesian hypothesis test is equivalent in this case to finding the $k$ that minimizes the mean squared error between observation and reference. This is clear by rewriting this expression explicitly in terms of a sum,
 \begin{equation}
 \max_k   \left\{ p(\mathbf{m}_k|\mathbf{u}) \right\} =  \min_k  \left\{ \sum_{i=1}^N  (u_i-m_{k,i})^2   \right\}. 
 \end{equation}
+Thus, for the one-dimensional barcode case, the Bayesian hypothesis test is equivalent to classic matched filter and least-mean-squared-error (LMSE) detection strategies.
 
 \subsection{One dimension, multiple channels}\label{sec:simpleModel}
 We now consider a system where each reference $\mathbf{m}_k$ consists of three one-dimensional vectors $\mathbf{m}_{k1}$, $\mathbf{m}_{k2}$ and $\mathbf{m}_{k3}$ each of length $N$. Each will correspond to the portion of the reference contained in a different channel, so there are still $K$ references. Analogously, the signal $\mathbf{u}$ also consists of three one-dimensional observations $\mathbf{u}_1$, $\mathbf{u}_2$ and $\mathbf{u}_3$, each in its own channel, and each channel has zero-mean additive IID Gaussian noise with variances $\sigma_1^2$, $\sigma_2^2$ and $\sigma_3^2$, respectively. As we will see later, these channels can be thought of as the red, green and blue channels in a one-dimensional composite color image. 
@@ -329,7 +332,7 @@ Our work would be complete at this point, were it not for possible left/right mi
 \max_k   \big\{  p(\mathbf{m}_k|\mathbf{u}) \big\} =  \max_k  \Bigg\{ \sum_{i=1}^3 \frac{  \max_{x} 2 (\mathbf{u}_i * \mathbf{m}_{ki}) - \lVert \mathbf{m}_{ki} \rVert^2   }{\sigma_i^2}  
 \Bigg\},
 \end{equation}
-where $*$ denotes convolution, and choose the lag that produces the largest result.  It is computationally efficient to calculate such a convolution, for all values of lag, by employing the Fast Fourier Transform. The observed one-dimensional profile $\mathbf{u}_i$ is zero-padded to equal the length of the reference. It and the reference $\mathbf{m}_k$ are transformed, their spectra multiplied, and the product inverse transformed to find the result [Oppe75]. Moreover, the Fourier transform of each reference $m_k$ can be calculated ahead of time just once, and stored together with $\lVert \mathbf{m}_{ki} \rVert^2 / \sigma_i^2$, for use in testing all barcodes in the image.  
+where $*$ denotes convolution, and choose the lag that produces the largest result.  It is computationally efficient to calculate such a convolution, for all values of lag, by employing the Fast Fourier Transform. The observed one-dimensional profile $\mathbf{u}_i$ is zero-padded to equal the length of the reference. It and the reference $\mathbf{m}_k$ are transformed, their spectra multiplied, and the product inverse transformed to find the result NEED REFERENCE HERE [Oppe75]. Moreover, the Fourier transform of each reference $m_k$ can be calculated ahead of time just once, and stored together with $\lVert \mathbf{m}_{ki} \rVert^2 / \sigma_i^2$, for use in testing all barcodes in the image.  
 
 
 \section{Sources of Error}
