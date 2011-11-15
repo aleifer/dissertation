@@ -22,7 +22,14 @@ We chose to image DNA origami nanorod barcodes (see Chapter \ref{chapter:DNAbarc
 
 We chose to work with this particular form of fluorescently encoded barcodes as opposed to others because this form offer the largest published number of distinct barcode species to date, has the advantage of being massively self-assembled in parallel, and creates barcodes of suitably small  size so as to be useful for future microarray applications. 
 
-The barcodes are, in fact, so small that the distance between fluorescing sites is often smaller than a wavelength of light. As a result, when the barcodes are imaged on a flat surface, the distinct flourescent sites appear to blend into one another (see Figure~\ref{fig:}). This becomes one of the primary challenges facing any computer vision barcode identification software, namely to  decode the barcode even when there is overlap between individual difraction-limited fluorescent spots. 
+The barcodes are, in fact, so small that the distance between fluorescing sites is often smaller than a wavelength of light. As a result, when the barcodes are imaged on a flat surface, the distinct flourescent sites appear to blend into one another (see Figure~\ref{fig:rawImage}). This becomes one of the primary challenges facing any computer vision barcode identification software, namely to  decode the barcode even when there is overlap between individual difraction-limited fluorescent spots. 
+\begin{figure}[htbp]
+\begin{center}
+	\includegraphics[width=\textwidth]{figures/theoryRawImage}
+	\caption{Fluorescent images of DNA origami nanorod barcodes. \textbf{(a)} Composite image. Scale bar is 100 \textmu m. \textbf{(b)} Inset of dashed region in \textbf{a}. Scale bar is 10 \textmu m. \textbf{(c)} A single barcode of species RedGreen--RedBlue-Blue. (Inset of dashed region in \textbf{c}.) Scale bar is 500 nm. \label{fig:rawImage}}
+\end{center}	
+\end{figure}
+
 
 \subsection{Imaging}
 Barcodes were imaged on a glass cover slide on a Leica DM1600 microscope using a 100x oil-immersion objective,  under total internal reflection fluorescence (TIRF) . 
