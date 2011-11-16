@@ -74,7 +74,7 @@ The first step in processing the image is removing the offsets and correcting th
 \begin{figure}[htbp]
 \begin{center}
 	\includegraphics[width=\textwidth]{figures/theoryConditionedImage}
-	\caption{The raw image must be conditioned to remove offset and correct scaling. For all images, scalebar is 10 \textmu m.(\textbf{a}) The raw image (1000 px by 1000 px) of DNA origami barcodes (red channel) is shown along with  its projection onto the $x$- and $y$-axes of the image. The raw image has a large offset and the background varies slowly. (\textbf{b}) The conditioned image (red channel) is shown with projections onto the $x$ and $y$ axes. The background of the conditioned image has a mean close to zero, and it does not slowly vary. \textbf{(c)} Image of only the background (red channel). This is the image of slide and buffer without barcodes taken under the same conditions as in \textbf{a}. The glowing spot towards the left reveals uneven illumination. Image has been smoothed by convolution with a Gaussian of width $\sigma=10$ px. This image is used to correct for uneven illumination.   \textbf{(d)} Dark image (red channel) taken without slide or buffer in the absence of illumination is used to correct for DC camera offset. Image has been smoothed by convolution with a Gaussian of width $\sigma=10$ px. \label{fig:conditionedImage}}
+	\caption{The raw image must be conditioned to remove offsets and to correct scaling. For all images, scalebar is 10 \textmu m.(\textbf{a}) The raw red channel image (1000 px by 1000 px) of DNA origami barcodes is shown along with  its projections onto the $x$- and $y$-axes of the image. The raw image has a large offset and the background varies slowly. (\textbf{b}) The conditioned red channel image is shown with projections onto the $x$ and $y$ axes. The background of the conditioned image has a mean that is constant and nearly zero. \textbf{(c)} Image of only the red channel background, at magnified scale. This image, which has been smoothed by convolution with a Gaussian of width $\sigma=10$ px, was taken under the same conditions as \textbf{a}. It contains slide and buffer, without any barcodes. This image is used to correct for uneven illumination, visible as the glowing spot towards the left.   \textbf{(d)} Dark red channel image taken with neither slide, nor buffer, nor illumination, is used to correct for DC camera offset. This image has also been smoothed by convolution with a Gaussian of width $\sigma=10$ px. \label{fig:conditionedImage}}
 \end{center}	
 \end{figure}
 
@@ -101,7 +101,7 @@ Here $\gamma_{\text{ex}}(\mathbf{r})$ is the slowly varying position-dependent i
 \begin{equation} \label{eq:withPSF}
 q_f(\mathbf{r})=\sum_j a_j \delta(\mathbf{r}-\mathbf{r}_j) * h(\mathbf{r}).
 \end{equation}
-Here $a_j$ is a factor that accounts for intensity variations due to inconsistant fluorescent labeling  during barcode assembly and the star denotes the convolution operation.
+Here $a_j$ is a factor that accounts for intensity variations due to inconsistent fluorescent labeling  during barcode assembly, and the star denotes the convolution operation.
 
 The contributions of the terms in Eq.~\ref{eq:V_of_r} can be evaluated by acquiring auxiliary images. The offset and thermal detector noise are present in a dark image taken when the laser is off, for example, while the background media noise and spatially varying illumination become visible in an image taken with the laser on and with media present but with no barcode samples. The final image, of course, has all of these plus DNA barcodes in the media. The voltages recorded in these cases are
 \begin{eqnarray}
@@ -141,7 +141,7 @@ In the one dimensional problem we assume that there are $K$ possible one-dimensi
 \end{equation}
 Given a noisy observation $\mathbf{u}$, we seek the most likely corresponding reference or model signal $\mathbf{m}_k$. 
 
-The $a posteriori$, or inverse, probability that the $k$th reference signal $\mathbf{m}_k$ is present when the data vector $\mathbf{u}$ is observed is given by Bayes' theorem,
+The inverse probability that the $k$th reference signal $\mathbf{m}_k$ is present when the data vector $\mathbf{u}$ is observed is given by Bayes' theorem
 \begin{equation}\label{eq:Bayes}
 p(\mathbf{m}_k|\mathbf{u}) = \frac{p(\mathbf{u}|\mathbf{m}_k)p(\mathbf{m}_k)} {p(\mathbf{u})},
 \end{equation}
@@ -169,7 +169,7 @@ For the case of identical independently distributed (IID) Gaussian noise,
 \end{equation}
 where $\mathbf{I}$ is the identity matrix and $\sigma^2$ is the variance of the noise. The probability thus reduces further to
 \begin{equation}\label{eq:iidEnergy}
-L_k = p(\mathbf{u}|\mathbf{m}_k) = \frac{1}{  \sigma^N \sqrt{ (2\pi)^N}   } \exp\left[ -\frac{(\mathbf{u}-\mathbf{m}_k)^T(\mathbf{u}-\mathbf{m}_k)} {2 N \sigma^2 } \right].
+L_k = \frac{1}{  \sigma^N \sqrt{ (2\pi)^N}   } \exp\left[ -\frac{(\mathbf{u}-\mathbf{m}_k)^T(\mathbf{u}-\mathbf{m}_k)} {2 N \sigma^2 } \right].
 \end{equation}
 
 The exponent is simply the energy contained in the sequence $\mathbf{u}-\mathbf{m}_k$ divided by the
@@ -177,40 +177,40 @@ energy of a sequence of noise of length $N$ and variance $\sigma^2$. We recogniz
 
 As mentioned, we find the $\mathbf{m}_k$, or rather just the index $k$, that produces the maximum likelihood in equation \ref{eq:iidEnergy}, that is,
 \begin{equation}
-\max_k   \left\{ p(\mathbf{u}|\mathbf{m}_k) \right\} =  \max_k  \left\{ \frac{1}{   \sigma^N\sqrt{ (2\pi)^N}  } \exp\left[ -\frac{(\mathbf{u}-\mathbf{m}_k)^T(\mathbf{u}-\mathbf{m}_k)} {2 N \sigma^2 } \right] \right\}. 
+\max_k   \left\{ L_k \right\} =  \max_k  \left\{ \frac{1}{   \sigma^N\sqrt{ (2\pi)^N}  } \exp\left[ -\frac{(\mathbf{u}-\mathbf{m}_k)^T(\mathbf{u}-\mathbf{m}_k)} {2 N \sigma^2 } \right] \right\}. 
 \end{equation}
-This equation leads directly to implementation with a classic matched filter ADD REFS [WAIN62], [HELS68]. 
+This equation leads directly to implementation with a classic bank of matched filters that compares observed and $k$th reference waveforms ANDY:  ADD REFS [WAIN62], [HELS68]. 
 
 This equation has another interpretation, as well. Since $\sigma$ and $N$ are independent of $k$ and since the exponential is a monotonically increasing function of its argument, maximizing the likelihood across $k$ is equivalent to minimizing the energy of the difference between the observation and the reference across $k$ 
 
 \begin{equation}
 \max_k   \left\{ p(\mathbf{m}_k|\mathbf{u}) \right\} = \min_k  \left\{ (\mathbf{u}-\mathbf{m}_k)^T(\mathbf{u}-\mathbf{m}_k) \right\}. 
 \end{equation}
-Note that the Bayesian hypothesis test is equivalent in this case to finding the $k$ that minimizes the mean squared error between observation and reference. This is clear by rewriting this expression explicitly in terms of a sum,
+Note that the Bayesian hypothesis test is equivalent in this case to finding the $k$ that minimizes the mean squared error between observation and reference. This is clear by rewriting this expression explicitly in terms of a sum over the components in the waveform vectors,
 \begin{equation}
-\max_k   \left\{ p(\mathbf{m}_k|\mathbf{u}) \right\} =  \min_k  \left\{ \sum_{i=1}^N  (u_i-m_{k,i})^2   \right\}. 
+\max_k   \left\{ p(\mathbf{m}_k|\mathbf{u}) \right\} =  \min_k  \left\{ \sum_{j=1}^N  (u_j-m_{k,j})^2   \right\}. 
 \end{equation}
-Thus, for the one-dimensional barcode case, the Bayesian hypothesis test is equivalent to classic matched filter and least-mean-squared-error (LMSE) detection strategies.
+Thus, for the one-dimensional barcode case, the Bayesian hypothesis test is equivalent to both classic matched filter and least-mean-squared-error (LMSE) detection strategies. All are strictly optimum strategies for the problem posed here.
 
 \subsection{One dimension, multiple channels}\label{sec:simpleModel}
 We now consider a system where each reference $\mathbf{m}_k$ consists of three one-dimensional vectors $\mathbf{m}_{k1}$, $\mathbf{m}_{k2}$ and $\mathbf{m}_{k3}$ each of length $N$. Each will correspond to the portion of the reference contained in a different channel, so there are still $K$ references. Analogously, the signal $\mathbf{u}$ also consists of three one-dimensional observations $\mathbf{u}_1$, $\mathbf{u}_2$ and $\mathbf{u}_3$, each in its own channel, and each channel has zero-mean additive IID Gaussian noise with variances $\sigma_1^2$, $\sigma_2^2$ and $\sigma_3^2$, respectively. As we will see later, these channels can be thought of as the red, green and blue channels in a one-dimensional composite color image. 
 
 Because the three channels are independent, the likelihood that signal $\mathbf{u}$ is observed when $\mathbf{m}_k$ is present simply factors into the product of the individual likelihoods, namely, it is the likelihood that $\mathbf{u}_1$ is observed when $\mathbf{m}_{k1}$ is present times the likelihood that $\mathbf{u}_2$ is observed when $\mathbf{m}_{k2}$ is present times the likelihood that $\mathbf{u}_3$ is observed when $\mathbf{m}_{k3}$ is present \citep{bretthorst_probability_2003},
 \begin{equation}
-p(\mathbf{u}|\mathbf{m}_k) = p(\mathbf{u}_1|\mathbf{m}_{k1})p(\mathbf{u}_2|\mathbf{m}_{k2})p(\mathbf{u}_3|\mathbf{m}_{k3}).
+L_k = p(\mathbf{u}|\mathbf{m}_k) = p(\mathbf{u}_1|\mathbf{m}_{k1})p(\mathbf{u}_2|\mathbf{m}_{k2})p(\mathbf{u}_3|\mathbf{m}_{k3}).
 \end{equation}
 
 Substituting Eq.~\ref{eq:iidEnergy} gives
 \begin{multline}
-L_k=p(\mathbf{u}|\mathbf{m}_k) =\frac{1}{ (\sigma_1\sigma_2\sigma_3)^N  (2\pi)^{3N/2}  }  \exp\Bigg[ -\frac{(\mathbf{u}-\mathbf{m}_{k1})^T(\mathbf{u}-\mathbf{m}_{k1})} {2 N \sigma_1^2 }   - \\ \frac{(\mathbf{u}-\mathbf{m}_{k2})^T(\mathbf{u}-\mathbf{m}_{k2})} {2 N \sigma_2^2 } -\frac{(\mathbf{u}-\mathbf{m}_{k3})^T(\mathbf{u}-\mathbf{m}_{k3})} {2 N \sigma_3^2 }    \Bigg].
+L_k=\frac{1}{ (\sigma_1\sigma_2\sigma_3)^N  (2\pi)^{3N/2}  }  \exp\Bigg[ -\frac{(\mathbf{u}-\mathbf{m}_{k1})^T(\mathbf{u}-\mathbf{m}_{k1})} {2 N \sigma_1^2 }   - \\ \frac{(\mathbf{u}-\mathbf{m}_{k2})^T(\mathbf{u}-\mathbf{m}_{k2})} {2 N \sigma_2^2 } -\frac{(\mathbf{u}-\mathbf{m}_{k3})^T(\mathbf{u}-\mathbf{m}_{k3})} {2 N \sigma_3^2 }    \Bigg].
 \end{multline}
 
 As before, we can factor out and ignore terms that have no $k$ dependence. Thus the maximum likelihood model $k$ correspond to finding $k$ that minimizes the quantity on the right below:
 \begin{multline}\label{eq:mle}
-\max_k   \big\{ p(\mathbf{m}_k|\mathbf{u}) \big\} =  \min_k  \Bigg\{  \frac{(\mathbf{u}_1-\mathbf{m}_{k1})^T(u_1-\mathbf{m}_{k1})}{\sigma_1^2} +\\  
+\max_k   \left\{ L_k \right\} =  \min_k  \Bigg\{  \frac{(\mathbf{u}_1-\mathbf{m}_{k1})^T(u_1-\mathbf{m}_{k1})}{\sigma_1^2} +\\  
 \frac{(\mathbf{u}_2-\mathbf{m}_{k2})^T(\mathbf{u}_2-\mathbf{m}_{k2})}{\sigma_2^2} + \frac{(\mathbf{u}_3-\mathbf{m}_{k3})^T(\mathbf{u}_3-\mathbf{m}_{k3})}{\sigma_3^2} \Bigg\}. 
 \end{multline}
-This is the best solution to finding the identity of the barcode.
+As before, this maximum likelihood formalism leads to a classic matched filter bank, and is the optimal solution to finding the identity of the barcode.
 
 \section{Implementation}
 To identify and decode our barcodes, we start with three conditioned images, $U_1(\mathbf{r}), U_2(\mathbf{r}), U_3(\mathbf{r})$, one each for channel Red, Green, and Blue, respectively.  Before we can begin to employ the solution in Eq.~\ref{eq:mle}, we must locate the barcodes within our image, normalize the intensities of the barcodes across the three channels, and project the barcodes down to a single dimension. Each of these steps requires multiple sequential image manipulations which are described in detail in the next three sections. At the conclusion of the first, Section \ref{sec:projectDown}, we will  have one-dimensional 3-channel projections of our barcodes. Section \ref{sec:generateReferences} describes how the reference signals are generated. Finally, in Section \ref{sec:compareSignal2Ref} the barcodes are decoded by comparing the observed signals with the generated references  using Eq.~\ref{eq:mle}.
@@ -220,7 +220,7 @@ The first  portion of this section deals with theory without scale... NEED MORE 
 \subsection{Locating the Barcodes} \label{sec:locatingBarcodes}
 Before we can decode the barcodes, we first must locate them in our image. We locate the barcodes by thresholding away background noise, and studying the morphology of the remaining bright image features. Finally, we apply selection criteria to select out only image features that match the shape of a barcode. 
 
- To threshold, we generate a smoothed image $\tilde{U_i}(\mathbf{r})$ for each channel of $U_i$, by  convolution with a gaussian whose width is narrower than that of the point spread function in Eq.~\ref{eq:withPSF}. The user manually selects a threshold $t_i$ for each of the three channels of the smoothed conditioned image to generate a binary mask,
+ To threshold, we generate a smoothed image $\tilde{U_i}(\mathbf{r})$ for each channel by convolving $U_i$ with a gaussian whose width is narrower than that of the point spread function in Eq.~\ref{eq:withPSF}. The user manually selects a threshold $t_i$ for each of the three channels of the smoothed conditioned image to generate a binary mask,
 \begin{equation}
 	B_i(\mathbf{r}) = \left\{
 	\begin{array}{rl}
@@ -228,15 +228,15 @@ Before we can decode the barcodes, we first must locate them in our image. We lo
 		 0 & \text{if } \tilde{U_i}(\mathbf{r}) < t_i,
 	\end{array} \right. \qquad\text{for } i=1,2,3
 \end{equation}
-as in Fig.~BINARY MASK FIGURE. Noise below the threshold is masked out. Recall that unlike the original images, the conditioned images $U_i$ have homogeneous zero-mean  background, so a single threshold per channel is sufficient to capture all barcodes. The three channels of binary masks are merged, 
+as in Fig.~BINARY MASK FIGURE. Noise below the threshold is masked out. Recall that unlike the original images, the conditioned images $U_i$ have homogeneous zero-mean  backgrounds, so a single threshold per channel is sufficient to capture all barcodes. The three channels of binary masks are merged, 
 \begin{equation}
 B_{\cup}=B_1\cup B_2 \cup B_3, 
 \end{equation}
-as in Fig.~BINARY MASK MERGED FIGURE. $B_\cup$ consists of many small discontiguous islands, here called blobs, against a masked-away zero background.  Now we seek to locate barcodes by examining the patterns of blobs.
+as in Fig.~BINARY MASK MERGED FIGURE. $B_\cup$ consists of many small discontiguous islands, here called blobs, against a masked-away zero background.  We can locate barcodes by examining the patterns of blobs.
 
-Some barcodes lie entirely within one blob, while others are represented by two or more nearby but distinct blobs. To correctly locate barcodes, we must first  group together adjacent but distinct blobs.  To do so, we dilate the binary mask using standard image processing routines \citep{matlab_version_2010} so that closely spaced blobs run together into single larger blobs. We can label the larger blobs and use them to group together their constituent blobs, so that, if a barcode is made up of two nearby blobs in $B_\cup$, they both will be labeled together as one blob ensemble.
+Some barcodes lie entirely within one blob, while others are represented by two or more nearby but distinct blobs--so we must first  group together adjacent but distinct blobs.  To do this, we dilate the binary mask using standard image processing routines \citep{matlab_version_2010} so that closely spaced blobs run together into single larger blobs. We can label the larger blobs and use them to group together their constituent blobs, so that, if a barcode is made up of two nearby blobs in $B_\cup$, they both will be labeled together as one blob ensemble.
 
-Each blob ensemble can be examined to determine if it represents a barcode. To qualify as a barcode, the area of a blob ensemble must lie in an acceptable range, the major and minor axis of the ellipse that fits its second moment must lie in a range consistent with that of a barcode, and the ellipse must be sufficiently elongated or eccentric. Table~\ref{table:morphCriteria} lists the pertinent numerical criteria. 
+Each blob ensemble is examined to determine if it represents a barcode. To qualify as a barcode, the area of a blob ensemble must lie in an acceptable range, the major and minor axis of the ellipse that fits its second moment must lie in a range consistent with that of a barcode, and the ellipse must be sufficiently elongated or eccentric. Table~\ref{table:morphCriteria} lists the pertinent numerical criteria. 
 
 \begin{table}[htbp] 
 \begin{center}
@@ -256,7 +256,7 @@ Min Eccentricity &0.75\\
 The software also records the centroid and the angle of the barcode major axis, which will be used in Section \ref{sec:projectDown} to rotate the barcode and project it to one dimension. 
 
 \subsection{Normalizing Intensity of Each Channel}\label{sec:normalizePeakHeight}
-The average barcode intensity can vary across color channels since it depends on such channel-specific characteristics as the fluorophore, illumination wavelength, illumination intensity, and the width of the narrowband filter. These are normalized across channels by dividing the intensity in each channel by the mean peak height in that channel,  $\langle g_i \rangle$, where $i=1,2,3$ denotes the channel number. 
+We continue conditioning the raw image in this Section. The average barcode intensity can vary across color channels since it depends on such channel-specific characteristics as the fluorophore, illumination wavelength, illumination intensity, and the width of the narrowband filter. These are normalized across channels by dividing the intensity in each channel by the mean peak height in that channel,  $\langle g_i \rangle$, where $i=1,2,3$ denotes the channel number. 
 
 To measure mean peak height, the software first identifies blobs in the binary mask $B_i$ that have an eccentricity and an area consistent with that of a single peak. It then finds the brightest pixel in each blob that matches the criteria described in Table~\ref{table:singlePeak}.
 
@@ -282,19 +282,19 @@ To decode a barcode using the one-dimensional matched filter described earlier, 
 
   For a given barcode, we first rotate each channel of the  conditioned image $U_i(x,y)$ around the barcode's centroid until the major axis of the barcode lies along the $x$ axis. We call this rotated image  $U_{\theta,i}(x,y)$. The one-dimensional projection of a barcode in the $i$th color channel is then, 
 \begin{equation}\label{eq:projectDown}
-	   \mathbf{u}_i=u_i(x)=\frac{1}{(y_{\text{max}}-y_{\text{min}})\kappa\langle g_i \rangle}  \int_{y_{\text{min}}}^{y_{\text{max}}} { {U_{\theta,i}(x,y) \mathrm{d}y} },
+	   \mathbf{u}_i=u_i(x)=\frac{1}{2 \Delta y \kappa\langle g_i \rangle}  \int_{y_0 - \Delta y}^{y_0+\Delta y} { {U_{\theta,i}(x,y) \mathrm{d}y} },
 \end{equation}
-where $\langle g \rangle_i$ is the average peak height for this channel described in Section \ref{sec:normalizePeakHeight}, the rectangular region extends from $y_{\text{min}}$ to $y_{\text{max}}$ in the vertical direction, and $\kappa$ is a correction factor, the same for all channels, so that the average peak height remains unity even after the projection. $\kappa$ is the integral of the point spread function $h$ in the vertical direction
+where $\langle g \rangle_i$ is the average peak height for this channel described in Section \ref{sec:normalizePeakHeight}, the rectangular region is centered vertically at $y_0$ and is $2\Delta y$ tall, and $\kappa$ is a correction factor, the same for all channels, so that the average peak height remains unity even after the projection. $\kappa$ is the integral of the point spread function $h$ in the vertical direction
 \begin{equation}
-	\kappa=\int_{-r_0}^{r_0} h(y) \, \mathrm{d}y
+	\kappa=\int_{-\Delta y}^{\Delta y} h(y) \mathrm{d}y
 \end{equation}
-over a preset radius $r_0$ that captures the majority of the energy within $h$. Our analysis models the point spread function $h$ as a gaussian with width $\sigma_{\text{psf}}$,
+where the radius $\Delta y$ is chosen to capture the majority of the energy within $h$. Our analysis models the point spread function $h$ as a gaussian with width $\sigma_{\text{psf}}$,
 \begin{equation}\label{eq:psf}
 h(r)=\exp \left(  -\frac{r^2}{2\sigma_{\text{psf}}^2} \right),
 \end{equation}
 so $\kappa$ is
 \begin{equation}
-\kappa = \frac{\sqrt{2\pi}} {2r_0} \text{erf} \left(\frac{r_0}{2\sqrt{2}\sigma_{\text{psf}}} \right)
+\kappa = \frac{\sqrt{2\pi}} {2 \Delta y} \text{erf} \left(\frac{\Delta y}{2\sqrt{2}\sigma_{\text{psf}}} \right)
 \end{equation}
 where $\text{erf}$ is the error function \citep{reif_fundamentals_1965}
 \begin{equation}
@@ -342,20 +342,20 @@ The image processing steps described to this point have prepared the signals for
 \ref{eq:projectDown}, against all 10,368 references, using Eq.~\ref{eq:mle} to identify the most likely one. Expanding this equation for the $i$th channel gives
 
 \begin{equation}
-\max_k   \big\{  p(\mathbf{m}_k|\mathbf{u}) \big\} =  \max_k  \Bigg\{ \sum_{i=1}^3  \frac{  2 \mathbf{u}_i ^T \mathbf{m}_{ki} - \lVert \mathbf{u}_i \rVert^2  - \lVert \mathbf{m}_{ki} \rVert^2   }{\sigma_i^2}  \Bigg\}, 
+\max_k   \left\{ L_k \right\} =  \max_k  \Bigg\{ \sum_{i=1}^3  \frac{  2 \mathbf{u}_i ^T \mathbf{m}_{ki} - \lVert \mathbf{u}_i \rVert^2  - \lVert \mathbf{m}_{ki} \rVert^2   }{\sigma_i^2}  \Bigg\}, 
 \end{equation}
 where $\mathbf{m}_{ki}$  is the $k$th reference and $\sigma_i$ the noise, both in the $i$th channel. Note that $\lVert \mathbf{u}_i \rVert^2$  is independent of the reference $k$ being used for comparison and can be omitted from the maximization, so that
 \begin{equation}
 \max_k   \big\{  p(\mathbf{m}_k|\mathbf{u}) \big\} =  \max_k  \Bigg\{ \sum_{i=1}^3  \frac{  2 \mathbf{u}_i ^T \mathbf{m}_{ki}  - \lVert \mathbf{m}_{ki} \rVert^2   }{\sigma_i^2}  \Bigg\}. 
 \end{equation}
-As noted earlier, this equation describes a classic multi-hypothesis matched filter ADD HELSTROM REFERENCE.
+The term $\mathbf{u}_i ^T \mathbf{m}_{ki}$ is a convolution that, in fact, is exactly a matched filter for the $k$th reference waveform. This equation may be interpreted, therefore, as a multi-hypothesis bank of matched filters ADD HELSTROM REFERENCE.
 
-Our work would be complete at this point, were it not for possible left/right mis-centering of the barcodes within the rectangular window, as mentioned in  Section \ref{sec:generateReferences}. Instead of adding  additional references to account for all possible translations of all 10,368 references so far, we note that $\mathbf{u}_i ^T \mathbf{m}_{ki}$ is a convolution and translations in the barcode correspond to $x$ offsets or $lags$ between the reference and signal. Symbolically we write this as 
+Our work would be complete at this point, were it not for possible left/right mis-centering of the barcodes within the rectangular window, as mentioned in  Section \ref{sec:generateReferences}. Instead of adding  additional references to account for all possible translations of all 10,368 references so far, we use the property that translations in the barcode correspond to $x$ offsets or $lags$ in the convolution $\mathbf{u}_i ^T \mathbf{m}_{ki}$ between the reference and signal. Symbolically we write this as 
 \begin{equation}
-\max_k   \big\{  p(\mathbf{m}_k|\mathbf{u}) \big\} =  \max_k  \Bigg\{ \sum_{i=1}^3 \frac{  \max_{x} 2 (\mathbf{u}_i * \mathbf{m}_{ki}) - \lVert \mathbf{m}_{ki} \rVert^2   }{\sigma_i^2}  
+\max_k   \left\{ L_k \right\}  =  \Bigg\{ \sum_{i=1}^3 \frac{  \max_{x} 2 (\mathbf{u}_i * \mathbf{m}_{ki}) - \lVert \mathbf{m}_{ki} \rVert^2   }{\sigma_i^2}  
 \Bigg\},
 \end{equation}
-where $*$ denotes convolution, and choose the lag that produces the largest result.  It is computationally efficient to calculate such a convolution, for all values of lag, by employing the Fast Fourier Transform. The observed one-dimensional profile $\mathbf{u}_i$ is zero-padded to equal the length of the reference. It and the reference $\mathbf{m}_k$ are transformed, their spectra multiplied, and the product inverse transformed to find the result NEED REFERENCE HERE [Oppe75]. Moreover, the Fourier transform of each reference $m_k$ can be calculated ahead of time just once, and stored together with $\lVert \mathbf{m}_{ki} \rVert^2 / \sigma_i^2$, for use in testing all barcodes in the image.  
+where $*$ denotes convolution. This is maximized for the combination of best reference $\mathbf{m}_k$ and maximum convolution, which corresponds to the lag that produces the largest result.  It is computationally efficient to calculate such a convolution, for all values of lag, by employing the Fast Fourier Transform. The observed one-dimensional profile $\mathbf{u}_i$ is zero-padded to equal the length of the reference. It and the reference $\mathbf{m}_k$ are transformed, their spectra multiplied, and the product inverse transformed to find the result NEED REFERENCE HERE [Oppe75]. Moreover, the Fourier transform of each reference $m_k$ can be calculated ahead of time just once, and stored together with $\lVert \mathbf{m}_{ki} \rVert^2 / \sigma_i^2$, for use in testing all barcodes in the image.  
 
 
 \section{Sources of Error}
