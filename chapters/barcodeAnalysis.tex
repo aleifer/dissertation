@@ -278,7 +278,17 @@ The resulting conditioned and normalized image has barcodes with pixel intensiti
 
   
 \subsection{Projecting the Barcode to One Dimension} \label{sec:projectDown}
-To decode a barcode using the one-dimensional matched filter described earlier, we need to first project each three-channel barcode image into three one-dimensional intensity profiles $\mathbf{u}_1, \mathbf{u}_2, \mathbf{u}_3$.  We use the location and orientation of the barcodes found in Section \ref{sec:locatingBarcodes} to rotate the barcode, draw a rectangular bounding box around the barcode and to project it down to a single profile.
+	To decode a barcode using the one-dimensional matched filter described earlier, we need to first project each three-channel barcode image into three one-dimensional intensity profiles $\mathbf{u}_1, \mathbf{u}_2, \mathbf{u}_3$.  We use the location and orientation of the barcodes found in Section \ref{sec:locatingBarcodes} to rotate the barcode, draw a rectangular bounding box around the barcode and to project it down to a single profile, see Figure \ref{fig:projectDown}.
+
+
+	\begin{figure}[htbp]
+	\begin{center}
+		\includegraphics[width=\textwidth]{figures/theoryProjectBarcode}
+		\caption{Two-dimensional barcode images are projected down to a single dimension. 1 px $\approx$ 71.4nm. \textbf{(a)}  A single barcode is shown. From top to bottom, the Red, Green,  Blue and a composite image are shown.These images have already been conditioned and normalized. \textbf{(b)} The one-dimensional projections of the images in \textbf{a} are shown. \label{fig:fig:projectDown}}
+	\end{center}	
+	\end{figure}
+
+
 
   For a given barcode, we first rotate each channel of the  conditioned image $U_i(x,y)$ around the barcode's centroid until the major axis of the barcode lies along the $x$ axis. We call this rotated image  $U_{\theta,i}(x,y)$. The one-dimensional projection of a barcode in the $i$th color channel is then, 
 \begin{equation}\label{eq:projectDown}
