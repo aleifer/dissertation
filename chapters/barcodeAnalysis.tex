@@ -284,7 +284,7 @@ The resulting conditioned and normalized image has barcodes with pixel intensiti
 	\begin{figure}[htbp]
 	\begin{center}
 		\includegraphics[width=\textwidth]{figures/theoryProjectBarcode}
-		\caption{Two-dimensional barcode images are projected down to a single dimension. 1 px $\approx$ 71.4nm. \textbf{(a)}  A single barcode is shown. From top to bottom, the Red, Green,  Blue and a composite image are shown.These images have already been conditioned and normalized. \textbf{(b)} The one-dimensional projections of the images in \textbf{a} are shown. \label{fig:fig:projectDown}}
+		\caption{Two-dimensional barcode images are projected down to a single dimension. 1 px $\approx$ 71.4nm. \textbf{(a)}  A single barcode is shown. From top to bottom, the Red, Green,  Blue and a composite image are shown.These images have already been conditioned and normalized. \textbf{(b)} The one-dimensional projections of the images in \textbf{a} are shown. \label{fig:projectDown}}
 	\end{center}	
 	\end{figure}
 
@@ -382,6 +382,16 @@ Temperature changes in the room, Nor sparodic changes in laser intensity on a \t
 The software consists of Matlab scripts tested using MATLAB Version 7.11.0.584 (R2010b) \citep{matlab_version_2010}. The software depends on functions from the following toolboxes: Image Processing Toolbox Version 7.1, Fuzzy Logic Toolbox Version 2.2.12 and Signal Processing Toolbox Version 6.14. The software is released under the GNU General Public License and is available to download from \url{http://github.com/aleifer/DNAbarcode}.
 
 \section{Results}
+
+\begin{figure}[htbp]
+\begin{center}
+	\includegraphics[width=\textwidth]{figures/theoryFittedBarcodes}
+	\caption{The software decodes barcodes (solid line) by correctly identifying the most likely reference (dashed line). Four representative barcodes are shown. In each case the software correctly decodes them. The barcodes in \textbf{(a)} and  \textbf{(b)} are well formed and have consistent fluorescent labeling ( peak heights fall between 0.75 and 1.5). The barcodes in \textbf{(c)} and  \textbf{(d)} have peaks that vary widely, even within a channel. This is likely caused by poor labeling during the manufacturing process. \label{fig:fittedBarcodes}}
+\end{center}	
+\end{figure}
+
+
+
 
 \section{Discussion}
 
