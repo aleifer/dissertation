@@ -103,7 +103,7 @@ q_f(\mathbf{r})=\sum_j a_j \delta(\mathbf{r}-\mathbf{r}_j) * h(\mathbf{r}).
 \end{equation}
 Here $a_j$ is a factor that accounts for intensity variations due to inconsistant fluorescent labeling  during barcode assembly and the star denotes the convolution operation.
 
-The contributions of the terms in Eq.~\ref{eq:V_of_r} can be evaluated by acquiring auxiliary images. The offset and thermal detector noise are present in a dark image taken when the laser is off, for example, while the background media noise and spatially varying illumination become visible in an image taken with the laser on and with media present but with no barcode samples. The final image, of course, has all of these plus DNA barcodes in the media. The voltages recorded in these cases are
+The contributions of the terms in Eq.~\ref{eq:V_of_r} can be evaluated by acquiring auxiliary images. The offset and thermal detector noise are present in a dark image taken when the laser is off, for example, and the background media noise and spatially varying illumination become visible in an image taken with the laser on and with media present but with no barcode samples. The final image, of course, has all of these plus DNA barcodes in the media. The voltages recorded in these cases are
 \begin{eqnarray}
 V_{\text{dark}}(\mathbf{r})&=&V_0(\mathbf{r})+v_t\\
 V_{\text{back}}(\mathbf{r})&=&V_0(\mathbf{r})+c \cdot  b(\mathbf{r})  +v_t\\
@@ -111,7 +111,7 @@ V_{\text{fluor}}(\mathbf{r})&=&V_0(\mathbf{r})+c \cdot \big[ f(\mathbf{r}) + b(\
 \end{eqnarray}
 corresponding to Figure \ref{fig:conditionedImage}d, c and a, respectively. 
 
-The offset and illumination intensity vary over the length of the image but are constant over the length of a barcode. To characterize the variations while removing rapid noise fluctuations, the dark and background images are smoothed over a length scale large compared to a barcode but small compared to the entire image. These smoothed images are then subtracted and divided, to remove the DC offset and compensate for the spatially varying illumination, respectively, producing a unitless conditioned image
+The offset and illumination intensity vary over the length of the image but are constant over the length of a barcode. To characterize the variations while removing rapid noise fluctuations, the dark and background images are smoothed over a length scale large compared to a barcode but small compared to the entire image. These smoothed images are then subtracted and divided, to remove the DC offset and compensate for the spatially varying illumination, respectively, producing a unitless conditioned image (Figure \ref{fig:conditionedImage}b),
 
 \begin{equation}
 U(\mathbf{r})= \frac{ V_{\text{fluor}}(\mathbf{r}) - \widetilde{V}_{\text{back}}(\mathbf{r})  }{ \widetilde{V}_{\text{back}}(\mathbf{r}) - \widetilde{V}_{\text{dark}}(\mathbf{r})} ,
@@ -130,7 +130,7 @@ U(\mathbf{r})= \frac{ q_f(\mathbf{r}) }{ q_b}   + \frac{ v_t }{   c \gamma_{\tex
 \end{equation}
 
 
-The first term is the fundamental fluorophore distribution, the second term is thermal noise scaled by the local intensity of illumination, while the factor $q_b$ is a constant. This conditioned thermal noise term is zero-mean, gaussian, and on the length-scale of a barcode is identical independently distributed (IID), as will be verified later.
+The first term is the fundamental fluorophore distribution, the second term is thermal noise scaled by the local intensity of illumination, while the factor $q_b$ is a constant. This conditioned thermal noise term is sufficiently zero-mean, gaussian, and on the length-scale of a barcode is identical independently distributed (IID), as will be verified later.
 
 Now that the spatially varying offset and illumination have been removed, we turn to the problem of barcode identification. Since performing multiple-hypothesis testing on a two-dimensional dataset is computationally intensive, we start with a simple one-dimensional identification problem. 
 
@@ -215,12 +215,23 @@ This is the best solution to finding the identity of the barcode.
 \section{Implementation}
 To identify and decode our barcodes, we start with three conditioned images, $U_1(\mathbf{r}), U_2(\mathbf{r}), U_3(\mathbf{r})$, one each for channel Red, Green, and Blue, respectively.  Before we can begin to employ the solution in Eq.~\ref{eq:mle}, we must locate the barcodes within our image, normalize the intensities of the barcodes across the three channels, and project the barcodes down to a single dimension. Each of these steps requires multiple sequential image manipulations which are described in detail in the next three sections. At the conclusion of the first, Section \ref{sec:projectDown}, we will  have one-dimensional 3-channel projections of our barcodes. Section \ref{sec:generateReferences} describes how the reference signals are generated. Finally, in Section \ref{sec:compareSignal2Ref} the barcodes are decoded by comparing the observed signals with the generated references  using Eq.~\ref{eq:mle}.
 
-The first  portion of this section deals with theory without scale... NEED MORE HERE
-
 \subsection{Locating the Barcodes} \label{sec:locatingBarcodes}
-Before we can decode the barcodes, we first must locate them in our image. We locate the barcodes by thresholding away background noise, and studying the morphology of the remaining bright image features. Finally, we apply selection criteria to select out only image features that match the shape of a barcode. 
+Before we can decode the barcodes, we first must locate them in our image. We locate the barcodes by thresholding away background noise, and studying the morphology of the remaining bright image features. Finally, we apply selection criteria to select out only image features that match the shape of a barcode (see Figure \ref{fig:blobs}). 
 
- To threshold, we generate a smoothed image $\tilde{U_i}(\mathbf{r})$ for each channel of $U_i$, by  convolution with a gaussian whose width is narrower than that of the point spread function in Eq.~\ref{eq:withPSF}. The user manually selects a threshold $t_i$ for each of the three channels of the smoothed conditioned image to generate a binary mask,
+\begin{FPfigure}
+	\includegraphics[width=\textwidth]{figures/theoryBlobRelated}
+	\caption{Image processing is used to locate barcodes and to normalize the intensity across the three channels. Scale bar is 100 \textmu m.
+	\textbf{(a)} The conditioned image of the barcodes is shown. The three color channels have been merged into a single channel. Color indicates intensity. 
+	\textbf{(b)} Each channel of the conditioned image in \textbf{a} has been  smoothed by convolution with a Gaussian of width less than that of the average peak width. This decreases noise for thresholding. The three smoothed color channels are shown here merged together, where color indicates intensity. 
+	\textbf{(c)} Each channel of the smoothed conditioned image in \textbf{b} is thresholded according to a channel-specific user-specified threshold. The three binary images, one each for channel Red, Green and Blue,  are shown in a composite image.  By inspecting the thresholded regions in each color channel, the software can measure the mean peak height for each channel. 
+	\textbf{(d)} The union of the three binary images in \textbf{c} is shown as a single binary image. Contiguous white patches are called blobs.
+	\textbf{(e)} The binary image in \textbf{d} is dilated. This image is used by the software to group nearby blobs in image \textbf{d} together into blob ensembles.  The area and eccentricity of each blob ensemble is inspected, and those that match the criteria of a barcode are flagged as such. Their location and orientation is recorded. 
+	\textbf{(f)} The conditioned image normalized by mean peak height in each channel is shown. On average the height of peaks in each channel is unity. Here the the three channels are shown merged as one, where color indicates intensity.  Note how the intensity of fluorescing spots on barcodes is more uniform here than in \textbf{a}.
+	Dotted lines indicate the location of blob ensembles from \textbf{d} that match the criteria for barcodes.\label{fig:fig:blobs}}
+\end{FPfigure}
+
+
+ To threshold, we generate a smoothed image $\tilde{U_i}(\mathbf{r})$ for each channel of $U_i$, by  convolution with a gaussian whose width is narrower than that of the point spread function in Eq.~\ref{eq:withPSF}. See  Figure \ref{fig:blobs}b. The user manually selects a threshold $t_i$ for each of the three channels of the smoothed conditioned image to generate a binary mask,
 \begin{equation}
 	B_i(\mathbf{r}) = \left\{
 	\begin{array}{rl}
@@ -228,15 +239,15 @@ Before we can decode the barcodes, we first must locate them in our image. We lo
 		 0 & \text{if } \tilde{U_i}(\mathbf{r}) < t_i,
 	\end{array} \right. \qquad\text{for } i=1,2,3
 \end{equation}
-as in Fig.~BINARY MASK FIGURE. Noise below the threshold is masked out. Recall that unlike the original images, the conditioned images $U_i$ have homogeneous zero-mean  background, so a single threshold per channel is sufficient to capture all barcodes. The three channels of binary masks are merged, 
+as in Figure \ref{fig:blobs}c. Noise below the threshold is masked out. Recall that unlike the original images, the conditioned images $U_i$  (Figure \ref{fig:blobs}a) have homogeneous zero-mean  background, so a single threshold per channel is sufficient to capture all barcodes. The three channels of binary masks are merged, 
 \begin{equation}
 B_{\cup}=B_1\cup B_2 \cup B_3, 
 \end{equation}
-as in Fig.~BINARY MASK MERGED FIGURE. $B_\cup$ consists of many small discontiguous islands, here called blobs, against a masked-away zero background.  Now we seek to locate barcodes by examining the patterns of blobs.
+as in Figure \ref{fig:blobs}d. $B_\cup$ consists of many small discontiguous islands, here called blobs, against a masked-away zero background.  Now we seek to locate barcodes by examining the patterns of blobs.
 
-Some barcodes lie entirely within one blob, while others are represented by two or more nearby but distinct blobs. To correctly locate barcodes, we must first  group together adjacent but distinct blobs.  To do so, we dilate the binary mask using standard image processing routines \citep{matlab_version_2010} so that closely spaced blobs run together into single larger blobs. We can label the larger blobs and use them to group together their constituent blobs, so that, if a barcode is made up of two nearby blobs in $B_\cup$, they both will be labeled together as one blob ensemble.
+Some barcodes lie entirely within one blob, while others are represented by two or more nearby but distinct blobs. To correctly locate barcodes, we must first  group together adjacent but distinct blobs.  To do so, we dilate the binary mask using standard image processing routines \citep{matlab_version_2010} so that closely spaced blobs run together into single larger blobs, as in Figure \ref{fig:blobs}e. We can label the larger blobs and use them to group together their constituent blobs, so that, if a barcode is made up of two nearby blobs in $B_\cup$, they both will be labeled together as one blob ensemble.
 
-Each blob ensemble can be examined to determine if it represents a barcode. To qualify as a barcode, the area of a blob ensemble must lie in an acceptable range, the major and minor axis of the ellipse that fits its second moment must lie in a range consistent with that of a barcode, and the ellipse must be sufficiently elongated or eccentric. Table~\ref{table:morphCriteria} lists the pertinent numerical criteria. 
+Each blob ensemble can be examined to determine if it represents a barcode. To qualify as a barcode, the area of a blob ensemble and the major and minor axis of the ellipse that fits its second moment must lie in a range consistent with that of a barcode, and the ellipse must be sufficiently elongated or eccentric. Table~\ref{table:morphCriteria} lists the pertinent numerical criteria. 
 
 \begin{table}[htbp] 
 \begin{center}
@@ -254,6 +265,8 @@ Min Eccentricity &0.75\\
 \caption{Morphological criteria for barcode. Scale: 1 px $\approx$ 71.4 nm.\label{table:morphCriteria}}
 \end{table}
 The software also records the centroid and the angle of the barcode major axis, which will be used in Section \ref{sec:projectDown} to rotate the barcode and project it to one dimension. 
+
+
 
 \subsection{Normalizing Intensity of Each Channel}\label{sec:normalizePeakHeight}
 The average barcode intensity can vary across color channels since it depends on such channel-specific characteristics as the fluorophore, illumination wavelength, illumination intensity, and the width of the narrowband filter. These are normalized across channels by dividing the intensity in each channel by the mean peak height in that channel,  $\langle g_i \rangle$, where $i=1,2,3$ denotes the channel number. 
@@ -274,9 +287,19 @@ Max Area &  Mean of Area of Blobs in $B_i$ \\
 \end{center}
 \end{table}
 
-The resulting conditioned and normalized image has barcodes with pixel intensities such that the brightest pixel in an average barcode in any channel will have an intensity of one. Together with information about the locations of the barcodes (Section \ref{sec:locatingBarcodes}), this normalized and conditioned image can be used to create one dimensional barcode intensity profiles (Section \ref{sec:locatingBarcodes}) that can then be decoded using the framework described in Section \ref{sec:simpleModel}.
+The resulting conditioned and normalized image (Figure \ref{fig:blobs}f) has barcodes with pixel intensities such that the brightest pixel in an average barcode in any channel will have an intensity of one.  Together with information about the locations of the barcodes (Section \ref{sec:locatingBarcodes}), this normalized and conditioned image can be used to create one dimensional barcode intensity profiles (Section \ref{sec:locatingBarcodes}) that can then be decoded using the framework described in Section \ref{sec:simpleModel}.
 
-  
+\subsection{Inspecting the Background}
+The decoding framework described in Section \ref{sec:simpleModel} expects zero-mean gaussian background noise. We can inspect the background by masking away the prospective barcodes using the inverse of the binary mask $B_{\cup}$ from Section \ref{sec:locatingBarcodes}. The resulting background has roughly zero mean and Gaussian shape as show in Figure \ref{fig:noisePlots}, and thus is consistent with the assumptions in our model.
+\begin{figure}[htbp]
+\begin{center}
+	\includegraphics[width=\textwidth]{figures/theoryBackgroundStatistics}
+	\caption{The background of the normalized and conditioned image is roughly zero mean and Gaussian.  \textbf{(a)} A normal probability plot compares the cumulative distribution function of the pixel intensities (blue "+" marks) of the background of the red channel of a normalized condition image containing barcodes  with that of a Gaussian (red dashed line.)  \textbf{(b)} Histogram shows number of pixels for given intensity ranges. For both \textbf{a} and \textbf{b} the background pixels were collected from the normalized conditioned image by masking away the location of the barcodes and any other bright fluorescent features.   \label{fig:noisePlots}}
+\end{center}	
+\end{figure}
+
+
+   
 \subsection{Projecting the Barcode to One Dimension} \label{sec:projectDown}
 	To decode a barcode using the one-dimensional matched filter described earlier, we need to first project each three-channel barcode image into three one-dimensional intensity profiles $\mathbf{u}_1, \mathbf{u}_2, \mathbf{u}_3$.  We use the location and orientation of the barcodes found in Section \ref{sec:locatingBarcodes} to rotate the barcode, draw a rectangular bounding box around the barcode and to project it down to a single profile, see Figure \ref{fig:projectDown}.
 
