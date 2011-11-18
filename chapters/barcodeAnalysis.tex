@@ -130,7 +130,7 @@ U(\mathbf{r})= \frac{ q_f(\mathbf{r}) }{ q_b}   + \frac{ v_t }{   c \gamma_{\tex
 \end{equation}
 
 
-The first term is the fundamental fluorophore distribution, the second term is thermal noise scaled by the local intensity of illumination, while the factor $q_b$ is a constant. This conditioned thermal noise term is sufficiently zero-mean, gaussian, and on the length-scale of a barcode is identical independently distributed (IID), as will be verified later.
+The first term is the fundamental fluorophore distribution, the second term is thermal noise scaled by the local intensity of illumination, while the factor $q_b$ is a constant. This conditioned thermal noise term is zero-mean and gaussian to reasonable approximation, as will be verified later.
 
 Now that the spatially varying offset and illumination have been removed, we turn to the problem of barcode identification. Since performing multiple-hypothesis testing on a two-dimensional dataset is computationally intensive, we start with a simple one-dimensional identification problem. 
 
@@ -179,7 +179,7 @@ As mentioned, we find the $\mathbf{m}_k$, or rather just the index $k$, that pro
 \begin{equation}
 \max_k   \left\{ L_k \right\} =  \max_k  \left\{ \frac{1}{   \sigma^N\sqrt{ (2\pi)^N}  } \exp\left[ -\frac{(\mathbf{u}-\mathbf{m}_k)^T(\mathbf{u}-\mathbf{m}_k)} {2 N \sigma^2 } \right] \right\}. 
 \end{equation}
-This equation leads directly to implementation with a classic bank of matched filters that compares observed and $k$th reference waveforms ANDY:  ADD REFS [WAIN62], [HELS68]. 
+This equation leads directly to implementation with a classic bank of matched filters that compares observed and reference waveforms ANDY:  ADD REFS [WAIN62], [HELS68]. 
 
 This equation has another interpretation, as well. Since $\sigma$ and $N$ are independent of $k$ and since the exponential is a monotonically increasing function of its argument, maximizing the likelihood across $k$ is equivalent to minimizing the energy of the difference between the observation and the reference across $k$ 
 
@@ -229,13 +229,13 @@ Before we can decode the barcodes, we first must locate them in our image. We lo
 
 \begin{FPfigure}
 	\includegraphics[width=\textwidth]{figures/theoryBlobRelated}
-	\caption{Image processing steps used to locate barcodes and to normalize the intensity across the three channels. Scale bar is 10 \textmu m.
-	\textbf{(a)} The conditioned image of the barcodes is shown. The three color channels have been merged into a single channel. Color indicates intensity. 
+	\caption{Image processing steps used to locate barcodes and to normalize the intensity across the three channels. 
+	\textbf{(a)} The conditioned image of the barcodes is shown. The three color channels have been merged into a single channel. Color indicates intensity and scale bar is 10 \textmu m long. 
 	\textbf{(b)} Each channel of the conditioned image in \textbf{a} has been  smoothed by convolution with a Gaussian of width less than that of the average peak width. This decreases noise for thresholding. The three smoothed color channels are shown here merged together, where color indicates intensity. 
 	\textbf{(c)} Each channel of the smoothed conditioned image in \textbf{b} is thresholded according to a channel-specific user-specified threshold. The three binary images, one each for channel Red, Green and Blue,  are shown in a composite image.  By inspecting the thresholded regions in each color channel, the software can measure the mean peak height for each channel. 
 	\textbf{(d)} The union of the three binary images in \textbf{c} is shown as a single binary image. Contiguous white patches are called blobs.
 	\textbf{(e)} The binary image in \textbf{d} is dilated. This image is used by the software to group nearby blobs in image \textbf{d} together into blob ensembles.  The area and eccentricity of each blob ensemble is inspected, and those that match the criteria of a barcode are flagged as such. Their location and orientation is recorded. 
-	\textbf{(f)} The conditioned image normalized by mean peak height in each channel is shown. On average the height of peaks in each channel is unity. Here the the three channels are shown merged as one, where color indicates intensity.  Note how the intensity of fluorescing spots on barcodes is more uniform here than in \textbf{a}.
+	\textbf{(f)} The conditioned image normalized by mean peak height in each channel shows uniform fluorescing intensity compared to \textbf{a}. On average the height of peaks in each channel is unity. Here the the three channels are shown merged as one, where color indicates intensity.
 	Dotted lines indicate the location of blob ensembles from \textbf{d} that match the criteria for barcodes.\label{fig:blobs}}
 \end{FPfigure}
 
@@ -299,7 +299,7 @@ Max Area &  Mean of Area of Blobs in $B_i$ \\
 The resulting conditioned and normalized image (Figure \ref{fig:blobs}f) has barcodes with pixel intensities such that the brightest pixel in an average barcode in any channel will have an intensity of one.  Together with information about the locations of the barcodes (Section \ref{sec:locatingBarcodes}), this normalized and conditioned image can be used to create one dimensional barcode intensity profiles (Section \ref{sec:locatingBarcodes}) that can then be decoded using the framework described in Section \ref{sec:simpleModel}.
 
 \subsection{Inspecting the Background}
-The decoding framework described in Section \ref{sec:simpleModel} expects zero-mean gaussian background noise. We can inspect the background by masking away the prospective barcodes using the inverse of the binary mask $B_{\cup}$ from Section \ref{sec:locatingBarcodes}. The resulting background has roughly zero mean and Gaussian shape as show in Figure \ref{fig:noisePlots}, and thus is consistent with the assumptions in our model.
+The decoding framework described in Section \ref{sec:simpleModel} is designed to operate with zero-mean gaussian background noise. We verify the nature of the noise by masking away the prospective barcodes using the inverse of the binary mask $B_{\cup}$ from Section \ref{sec:locatingBarcodes}.  The intensity histogram of the background, shown in Figure \ref{fig:noisePlots}, demonstrates that the noise is close to zero mean. The same data plotted on normal probability axes shows that over 90% of the noise pixels fit a gaussian distribution. The remainder have lower intensity than expected, so treating them as gaussian is conservative in the sense that they are unlikely to cause false positives by masquerading as a fluorescent marker. The background noise is thus well described by a zero mean gaussian distribution, and is therefore consistent with the assumptions in our model.
 \begin{figure}[htbp]
 \begin{center}
 	\includegraphics[width=\textwidth]{figures/theoryBackgroundStatistics}
@@ -330,7 +330,7 @@ where $\langle g \rangle_i$ is the average peak height for this channel describe
 \begin{equation}
 	\kappa=\int_{-\Delta y}^{\Delta y} h(y) \mathrm{d}y
 \end{equation}
-where the radius $\Delta y$ is chosen to capture the majority of the energy within $h$. Our analysis models the point spread function $h$ as a gaussian with width $\sigma_{\text{psf}}$,
+where $\Delta y$ is chosen to capture the majority of the energy within $h$. All rectangular regions have the same height $\Delta y$. Our analysis models the point spread function $h$ as a gaussian with width $\sigma_{\text{psf}}$,
 \begin{equation}\label{eq:psf}
 h(r)=\exp \left(  -\frac{r^2}{2\sigma_{\text{psf}}^2} \right),
 \end{equation}
@@ -343,7 +343,7 @@ where $\text{erf}$ is the error function \citep{reif_fundamentals_1965}
 \text{erf}(z) = \frac{2}{\sqrt{\pi}} \int_0^z \exp (-t^2) \, \mathrm{d}t.
 \end{equation}
 
-Eq. \ref{eq:projectDown} provides us with three one-dimensional projections of the barcode intensity with average peak heights of unity and with identical independently distributed (IID) zero-mean gaussian noise. These projections are now ready to be compared to a reference to decode the barcode.
+Eq. \ref{eq:projectDown} provides us with three one-dimensional projections of the barcode intensity with average peak heights of unity and with zero-mean gaussian noise. These projections are now ready to be compared to a reference to decode the barcode.
 
 \subsection{Generating References}\label{sec:generateReferences}
 The last ingredient needed for detection and identification is a bank of reference barcodes to compare against the observed signal. Each reference barcode consists of three one-dimensional traces containing  gaussian peaks of height unity (Eq.~\ref{eq:psf}) superposed at the predicted locations of the fluorescent spots, as shown for example in Fig.~FIGURE WITH PICTURE OF THREE TRACES. 
@@ -390,38 +390,36 @@ where $\mathbf{m}_{ki}$  is the $k$th reference and $\sigma_i$ the noise, both i
 \begin{equation}
 \max_k   \big\{  p(\mathbf{m}_k|\mathbf{u}) \big\} =  \max_k  \Bigg\{ \sum_{i=1}^3  \frac{  2 \mathbf{u}_i ^T \mathbf{m}_{ki}  - \lVert \mathbf{m}_{ki} \rVert^2   }{\sigma_i^2}  \Bigg\}. 
 \end{equation}
-The term $\mathbf{u}_i ^T \mathbf{m}_{ki}$ is a convolution that, in fact, is exactly a matched filter for the $k$th reference waveform. This equation may be interpreted, therefore, as a multi-hypothesis bank of matched filters ADD HELSTROM REFERENCE.
+The term $\mathbf{u}_i ^T \mathbf{m}_{ki}$ is a convolution that, by definition, is a matched filter for the $k$th reference waveform. This equation may be interpreted, therefore, as a multi-hypothesis bank of matched filters ADD HELSTROM REFERENCE.
 
 Our work would be complete at this point, were it not for possible left/right mis-centering of the barcodes within the rectangular window, as mentioned in  Section \ref{sec:generateReferences}. Instead of adding  additional references to account for all possible translations of all 10,368 references so far, we use the property that translations in the barcode correspond to $x$ offsets or $lags$ in the convolution $\mathbf{u}_i ^T \mathbf{m}_{ki}$ between the reference and signal. Symbolically we write this as 
 \begin{equation}
 \max_k   \left\{ L_k \right\}  =  \max_{k,x} \Bigg\{ \sum_{i=1}^3 \frac{   2 (\mathbf{u}_i * \mathbf{m}_{ki}) - \lVert \mathbf{m}_{ki} \rVert^2   }{\sigma_i^2}  \Bigg\},
 \end{equation}
-where $*$ denotes convolution. This is maximized for the combination of best reference $\mathbf{m}_k$ and maximum convolution, which corresponds to the lag that produces the largest result.  It is computationally efficient to calculate such a convolution, for all values of lag, by employing the Fast Fourier Transform. The observed one-dimensional profile $\mathbf{u}_i$ is zero-padded to equal the length of the reference. It and the reference $\mathbf{m}_k$ are transformed, their spectra multiplied, and the product inverse transformed to find the result NEED REFERENCE HERE [Oppe75]. Moreover, the Fourier transform of each reference $m_k$ can be calculated ahead of time just once, and stored together with $\lVert \mathbf{m}_{ki} \rVert^2 / \sigma_i^2$, for use in testing all barcodes in the image.  
+where $*$ denotes convolution. This is maximized for the best reference $\mathbf{m}_k$ and for the maximum value of convolution, which occurs for the lag that produces the largest result.  It is computationally efficient to calculate such a convolution, for all values of lag, by employing the Fast Fourier Transform algorithm. The observed one-dimensional profile $\mathbf{u}_i$ is first zero-padded to equal the length of the reference. It and the reference $\mathbf{m}_k$ are then transformed, their spectra multiplied, and the product inverse transformed to find the result NEED REFERENCE HERE [Oppe75]. Moreover, both  $\lVert \mathbf{m}_{ki} \rVert^2 / \sigma_i^2$ and the Fourier transform of each reference $m_k$ can be calculated once in advance, and stored, to reduce analysis time. These stored values may then be used to test all barcodes in the image.  
 
 
 \section{Sources of Error}
 
 \subsection{Barcode Defects}\label{sec:defects}
-DNA origami barcodes are a nascent technology that will surely see rapid improvements in manufacturing robustness and quality. Using the initial protocol for barcode manufacture as described in Chapter \ref{chapter:DNAbarcode}, we see predominantly two types of barcode defects. First, we see barcodes that have the wrong number of fluorescent spots, either only two spots, or four spots or more. This is likely the result of a barcode that folded improperly or of two barcodes that became conjoined together. The software usually rejects these barcodes based on their morphology, but occasionally the defect conspires to have roughly the same shape as a regular barcode and thus the algorithm is fooled into decoding them. Secondly, we see a more subtle defect. Sometimes two spots in the same color channel on one barcode will vary dramatically in intensity, by as much as 4-fold. Careful inspection by eye will reveal a very bright and very dim spot. This is likely caused by poor labeling of the fluorescent spot. Each spot should have six fluorophores, but we suspect that often the number of fluorophores is less. We evaluate the effectiveness of our software both including and excluding these two classes of defects.    
+DNA origami barcodes are a nascent technology that will surely see rapid improvements in manufacturing robustness, quality, and uniformity. The initial protocol for barcode manufacture as described in Chapter \ref{chapter:DNAbarcode} produces numerous barcode defects, predominantly of two types. First, we see barcodes that have the wrong number of fluorescent spots, either only two spots, or four spots or more. This is likely the result of a barcode that folded improperly or of two barcodes that became conjoined together. The software usually rejects these barcodes based on their morphology, but occasionally the defect conspires to have roughly the same shape as a regular barcode and thus the algorithm is fooled into decoding them. Secondly, we see a more subtle defect. Sometimes two spots in the same color channel on one barcode will vary dramatically in intensity, by as much as four-fold. Careful inspection by eye reveals a very bright and very dim spot. This is likely caused by poor labeling of the active site. Each site or spot should have six fluorophores, but we suspect that often the number of fluorophores is less. We evaluate the effectiveness of our software both including and excluding these two classes of defects.    
 
 
 \subsection{Imaging Conditions}
+NEED SOME HELP HERE
 Our model does not take into account stage drift that may cause slight misalignment between frames. 
 Temperature changes in the room, Nor sparodic changes in laser intensity on a \textasciitilde1 minute time scale. Changes slower than \textasciitilde1 are corrected for by taking new regular background and blank images.
  
 \section{Software}
-The software consists of Matlab scripts tested using MATLAB Version 7.11.0.584 (R2010b) \citep{matlab_version_2010}. The software depends on functions from the following toolboxes: Image Processing Toolbox Version 7.1, Fuzzy Logic Toolbox Version 2.2.12 and Signal Processing Toolbox Version 6.14. The software is released under the GNU General Public License and is available to download from \url{http://github.com/aleifer/DNAbarcode}.
+The software consists of Matlab scripts used with MATLAB Version 7.11.0.584 (R2010b) \citep{matlab_version_2010}. The software calls functions from the following toolboxes: Image Processing Toolbox Version 7.1, Fuzzy Logic Toolbox Version 2.2.12 and Signal Processing Toolbox Version 6.14. The analysis software scripts are released under the GNU General Public License and is available to download from \url{http://github.com/aleifer/DNAbarcode}.
 
 \section{Results}
-The software successfully locates and decodes a variety of barcodes (See Figure \ref{fig:fittedBarcodes}). 
+To test the system, we compared the software's identification of a pool of barcodes to that of a human. The human performed the identification and recorded the results before the software, so that the human was not influenced by the software's identifications. 
+
+We examined three images containing 189 fluorescently labeled objects that match the morphological criteria for a barcode shown in Table \ref{table:morphCriteria}. Of those 189, we manually selected only those barcodes that were fully formed and were evenly labeled. To be fully formed the barcodes must contain three fluorescing spots. To be evenly labeled, all peaks in a given barcode must have a height that falls in a range between 0.7 and 1.5. (Recall that the images have been normalized so that the mean peak height in each channel has intensity of unity.) For example, the barcodes in Figure \ref{fig:fittedBarcodes}a and b have even fluorescent labeling and match the criteria, while the barcodes in Figure \ref{fig:fittedBarcodes}c and d have uneven labeling. Of the 189 putative barcodes in the three images, 28 (15\%) fit the criteria for uniform labeling.   The computer decoded these 28 barcodes and matched the human expert 27 out of 28 times, giving an accuracy of approximately 96\%.
 
 
-To test the software we compared the software's identification of a pool of barcodes to that of a human. The human performed the identification and recorded the results before the software, in this way the human was not influenced by the software's identification. 
-
-We examined three images containing 189 fluorescently labeled objects that match the morphological criteria for a barcode shown in Table \ref{table:morphCriteria}. Of those 189, we manually selected only those barcodes that were fully formed and were evenly labeled. To be fully formed the barcodes must contain three fluorescing spots. To be evenly labeled, all peaks in a given barcode must have a height that falls in a range between 0.7 and 1.5. (Recall that the images have been normalized so that the mean peak height in each channel has intensity of unity.) For example, the barcodes in Figure \ref{fig:fittedBarcodes}a and b have even fluorescent labeling and match the criteria, while the barcodes in Figure \ref{fig:fittedBarcodes}c and d have uneven labeling. Of the 189 putative barcodes in the three images, 28 (15\%) fit the criteria for even labeling.   The computer decoding these 28 barcodes and the computers result matched the human 27 out of 28 times, giving an accuracy of approximately 96\%.
-
-
-The software can still handle non-ideal cases. In extreme cases, when the barcodes contain peak heights that are grater than 1.75 or  less than 0.5, the software still succeeds XXX percent of the time.
+Although it was designed to operate on uniform, well-formed barcodes in a production setting, the software can still handle non-ideal cases. Even in extreme cases when the barcodes contain peak heights that are grater than 1.75 or  less than 0.5, the software still succeeds XXX percent of the time.
 
 This is an extreme case that would never exist in a production application and it still works well.
  
