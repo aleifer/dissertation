@@ -229,7 +229,7 @@ Before we can decode the barcodes, we first must locate them in our image. We lo
 
 \begin{FPfigure}
 	\includegraphics[width=\textwidth]{figures/theoryBlobRelated}
-	\caption{Image processing is used to locate barcodes and to normalize the intensity across the three channels. Scale bar is 100 \textmu m.
+	\caption{Image processing steps used to locate barcodes and to normalize the intensity across the three channels. Scale bar is 10 \textmu m.
 	\textbf{(a)} The conditioned image of the barcodes is shown. The three color channels have been merged into a single channel. Color indicates intensity. 
 	\textbf{(b)} Each channel of the conditioned image in \textbf{a} has been  smoothed by convolution with a Gaussian of width less than that of the average peak width. This decreases noise for thresholding. The three smoothed color channels are shown here merged together, where color indicates intensity. 
 	\textbf{(c)} Each channel of the smoothed conditioned image in \textbf{b} is thresholded according to a channel-specific user-specified threshold. The three binary images, one each for channel Red, Green and Blue,  are shown in a composite image.  By inspecting the thresholded regions in each color channel, the software can measure the mean peak height for each channel. 
@@ -422,7 +422,10 @@ To test the software we compared the software's identification of a pool of barc
 We examined three images containing 189 fluorescently labeled objects that match the morphological criteria for a barcode shown in Table \ref{table:morphCriteria}. Of those 189, we manually selected only those barcodes that were fully formed and were evenly labeled. To be fully formed the barcodes must contain three fluorescing spots. To be evenly labeled, all peaks in a given barcode must have a height that falls in a range between 0.7 and 1.5. (Recall that the images have been normalized so that the mean peak height in each channel has intensity of unity.) For example, the barcodes in Figure \ref{fig:fittedBarcodes}a and b have even fluorescent labeling and match the criteria, while the barcodes in Figure \ref{fig:fittedBarcodes}c and d have uneven labeling. Of the 189 putative barcodes in the three images, 28 (15\%) fit the criteria for even labeling.   The computer decoding these 28 barcodes and the computers result matched the human 27 out of 28 times, giving an accuracy of approximately 96\%.
 
 
-The software can still handle non-ideal cases. In extreme cases, when the barcodes contain peak heights that are grater than 1.75 or  less than 0.5, the software still succeeds XXX percent of the time. 
+The software can still handle non-ideal cases. In extreme cases, when the barcodes contain peak heights that are grater than 1.75 or  less than 0.5, the software still succeeds XXX percent of the time.
+
+This is an extreme case that would never exist in a production application and it still works well.
+ 
 another set of images, we examined all barcodes that matched the bare morphological criteria and compared them to human results. ThIn  
 
 
