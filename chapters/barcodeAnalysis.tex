@@ -402,7 +402,7 @@ where $*$ denotes convolution, and choose the lag that produces the largest resu
 
 \section{Sources of Error}
 
-\subsection{Barcode Defects}
+\subsection{Barcode Defects}\label{sec:defects}
 DNA origami barcodes are a nascent technology that will surely see rapid improvements in manufacturing robustness and quality. Using the initial protocol for barcode manufacture as described in Chapter \ref{chapter:DNAbarcode}, we see predominantly two types of barcode defects. First, we see barcodes that have the wrong number of fluorescent spots, either only two spots, or four spots or more. This is likely the result of a barcode that folded improperly or of two barcodes that became conjoined together. The software usually rejects these barcodes based on their morphology, but occasionally the defect conspires to have roughly the same shape as a regular barcode and thus the algorithm is fooled into decoding them. Secondly, we see a more subtle defect. Sometimes two spots in the same color channel on one barcode will vary dramatically in intensity, by as much as 4-fold. Careful inspection by eye will reveal a very bright and very dim spot. This is likely caused by poor labeling of the fluorescent spot. Each spot should have six fluorophores, but we suspect that often the number of fluorophores is less. We evaluate the effectiveness of our software both including and excluding these two classes of defects.    
 
 
@@ -414,6 +414,17 @@ Temperature changes in the room, Nor sparodic changes in laser intensity on a \t
 The software consists of Matlab scripts tested using MATLAB Version 7.11.0.584 (R2010b) \citep{matlab_version_2010}. The software depends on functions from the following toolboxes: Image Processing Toolbox Version 7.1, Fuzzy Logic Toolbox Version 2.2.12 and Signal Processing Toolbox Version 6.14. The software is released under the GNU General Public License and is available to download from \url{http://github.com/aleifer/DNAbarcode}.
 
 \section{Results}
+The software successfully locates and decodes a variety of barcodes (See Figure \ref{fig:fittedBarcodes}). We examined a total of five images containing 260 fluorescently labeled objects matching the criteria in Table \ref{table:morphCriteria}. For each barcode, we compare the software In all cases a human first visually inspected  barcode and recorded the human's 
+
+the 2 image and projection of the
+
+In the first image
+
+
+As previously mentioned (Section \ref{sec:defects}), the current manufacturing process creates many barcodes that are poorly labeled. These barcodes have spots within the same color channel that vary dramatically. Often the algorithm can correctly identify the barcode even despite improper labeling, as in Figure \ref{fig:fittedBarcodes}c and d. However, the model we use is not designed to handle uneven fluorescent labeling, and the result reflect that. 
+
+
+
 
 \begin{figure}[htbp]
 \begin{center}
