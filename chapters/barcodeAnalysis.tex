@@ -414,7 +414,21 @@ Temperature changes in the room, Nor sparodic changes in laser intensity on a \t
 The software consists of Matlab scripts tested using MATLAB Version 7.11.0.584 (R2010b) \citep{matlab_version_2010}. The software depends on functions from the following toolboxes: Image Processing Toolbox Version 7.1, Fuzzy Logic Toolbox Version 2.2.12 and Signal Processing Toolbox Version 6.14. The software is released under the GNU General Public License and is available to download from \url{http://github.com/aleifer/DNAbarcode}.
 
 \section{Results}
-The software successfully locates and decodes a variety of barcodes (See Figure \ref{fig:fittedBarcodes}). We examined a total of five images containing 260 fluorescently labeled objects matching the criteria in Table \ref{table:morphCriteria}. For each barcode, we compare the software In all cases a human first visually inspected  barcode and recorded the human's 
+The software successfully locates and decodes a variety of barcodes (See Figure \ref{fig:fittedBarcodes}). 
+
+
+To test the software we compared the software's identification of a pool of barcodes to that of a human. The human performed the identification and recorded the results before the software, in this way the human was not influenced by the software's identification. 
+
+We examined three images containing 189 fluorescently labeled objects that match the morphological criteria for a barcode shown in Table \ref{table:morphCriteria}. Of those 189, we manually selected only those barcodes that were fully formed and were evenly labeled. To be fully formed the barcodes must contain three fluorescing spots. To be evenly labeled, all peaks in a given barcode must have a height that falls in a range between 0.7 and 1.5. (Recall that the images have been normalized so that the mean peak height in each channel has intensity of unity.) For example, the barcodes in Figure \ref{fig:fittedBarcodes}a and b have even fluorescent labeling and match the criteria, while the barcodes in Figure \ref{fig:fittedBarcodes}c and d have uneven labeling. Of the 189 putative barcodes in the three images, 28 (15\%) fit the criteria for even labeling.   The computer decoding these 28 barcodes and the computers result matched the human 27 out of 28 times, giving an accuracy of approximately 96\%.
+
+
+The software can still handle non-ideal cases. In extreme cases, when the barcodes contain peak heights that are grater than 1.75 or  less than 0.5, the software still succeeds XXX percent of the time. 
+another set of images, we examined all barcodes that matched the bare morphological criteria and compared them to human results. ThIn  
+
+
+
+ Our criteria for even fluorescent labeling was peak heights `
+We examined a total of three images containing 189 fluorescently labeled objects matching the criteria in Table \ref{table:morphCriteria}. We call these "putative barcodes."  Of the 189 barcodes, only 28 matched we compare the software In all cases a human first visually inspected  barcode and recorded the human's 
 
 the 2 image and projection of the
 
