@@ -34,9 +34,12 @@ The barcodes are, in fact, so small that the distance between fluorescing sites 
 \end{figure}
 
 
+
+\subsection{Sample Preparation}
+Barcodes were prepared using the same technique described in Chapter \ref{chapter:DNAbarcode}. For imaging, the biotin labeled barcodes were immobilized on a glass coverslide functionalized with biotin-streptavanin linkers.  
+
 \subsection{Imaging}
-Barcodes were imaged on a glass cover slide on a Leica DM1600 microscope using a 100x oil-immersion objective,  under total internal reflection fluorescence (TIRF) . 
-The red, green and blue channel images of the barcodes were  recorded using  635 nm, 561 nm and 488 nm laser light, respectively, from diode pumped solid state lasers (BSR, ChromaLase 635; LASOS YLK6110; and JDS Uniphase, FCD 488-10) . Fluorescence light was spectrally filtered with emission filters (ET525/36, ET600/32, ET705/72) and imaged onto an electron-multiplying CCD camera (Hamamatsu C9100-02, Hamamatsu, Japan). Table~\ref{table:image} lists exposure time and other image information.
+Barcodes were imaged on a Leica DM1600 microscope using a 100x oil-immersion objective,  under total internal reflection fluorescence (TIRF). For details see (Chapter \ref{chapter:DNAbarcode}). Breifly. the red, green and blue channel images of the barcodes were  recorded using  635 nm, 561 nm and 488 nm laser light, respectively, from diode pumped solid state lasers (BSR, ChromaLase 635; LASOS YLK6110; and JDS Uniphase, FCD 488-10) . Fluorescence light was spectrally filtered with emission filters (ET525/36, ET600/32, ET705/72) and imaged onto an electron-multiplying CCD camera (Hamamatsu C9100-02, Hamamatsu, Japan). Table~\ref{table:image} lists exposure time and other image information.
 
 \begin{table}[htbp] 
 \begin{center}
@@ -56,7 +59,8 @@ Exposure & 700 ms\\
  
 \subsection{Task at Hand}
 To be useful for microarray or other diagnostic applications, it is important for any computer vision software to be able to automatically detect and decode large quantities of barcodes robustly and accurately with little or no user input. 
-Here we restrict ourselves to immobilized barcodes laying flat on a glass slide, but we demand that our software solution tolerate likely real-world complexities including the presence of inhomogeneous spatial illumination, background fluorescence and minor defects in barcode folding.  [WE PROBABLY NEED TO REMOVE THIS SENTANCE]
+Here we restrict ourselves to immobilized barcodes laying flat on a glass slide, but we demand that our software solution tolerate likely real-world complexities including the presence of inhomogeneous spatial illumination, background fluorescence and modest flexing of the barcodes. Importantly however, we demand that the barcodes be evenly fluorescently labeled, so that the same number of fluorophores are present on each fluorescing spot. While only a modest percentage of barcodes manufactured using current techniques meet this criteria, DNA barcode technology is in its infancy and we are confident that manufacturing quality and robustness will improve dramatically in the coming years. For now we pre-screen for barcodes that have even fluorescence.
+
 In the following sections we develop an optimal mathematical framework and software implementation for identifying the location and orientation of the barcode and then decoding it.
 
 
@@ -97,7 +101,7 @@ Here $\gamma_{\text{ex}}(\mathbf{r})$ is the slowly varying position-dependent i
 \begin{equation} \label{eq:withPSF}
 q_f(\mathbf{r})=\sum_j a_j \delta(\mathbf{r}-\mathbf{r}_j) * h(\mathbf{r}).
 \end{equation}
-Here $a_j$ is a factor that accounts for intensity variations due to inconsistent fluorescent labeling  during barcode assembly, and the star denotes the convolution operation. [WE NEED TO RETURN TO $a_j$ now that we have introduced it!]
+Here $a_j$ is a factor that accounts for intensity variations due to inconsistent fluorescent labeling  during barcode assembly, and the star denotes the convolution operation. 
 
 The contributions of the terms in Eq.~\ref{eq:V_of_r} can be evaluated by acquiring auxiliary images. The offset and thermal detector noise are present in a dark image taken when the laser is off, for example, and the background media noise and spatially varying illumination become visible in an image taken with the laser on and with media present but with no barcode samples. The final image, of course, has all of these plus DNA barcodes in the media. The voltages recorded in these cases are
 \begin{eqnarray}
@@ -208,7 +212,7 @@ As before, we can factor out and ignore terms that have no $k$ dependence. Thus 
 As before, this maximum likelihood formalism leads to a classic matched filter bank, and is the optimal solution to finding the identity of the barcode.
 
 \section{Implementation}
-To identify and decode our barcodes, we start with three conditioned images, $U_1(\mathbf{r}), U_2(\mathbf{r}), U_3(\mathbf{r})$, one each for channel Red, Green, and Blue, respectively.  Before we can begin to employ the solution in Eq.~\ref{eq:mle}, we must locate the barcodes within our image, normalize the intensities of the barcodes across the three channels, and project the barcodes down to a single dimension (See Figure \ref{fig:theoryBlockDiagram}). Each of these steps requires multiple sequential image manipulations which are described in detail in the next three sections. At the conclusion of the first, Section \ref{sec:projectDown}, we will  have one-dimensional 3-channel projections of our barcodes. Section \ref{sec:generateReferences} describes how the reference signals are generated. Finally, in Section \ref{sec:compareSignal2Ref} the barcodes are decoded by comparing the observed signals with the generated references  using Eq.~\ref{eq:mle}.
+To identify and decode our barcodes, we start with three conditioned images, $U_1(\mathbf{r}), U_2(\mathbf{r}), U_3(\mathbf{r})$, one each for channel Red, Green, and Blue, respectively.  Before we can begin to employ the solution in Eq.~\ref{eq:mle}, we must locate the barcodes within our image, normalize the intensities of the barcodes across the three channels, and project the barcodes down to a single dimension (See Figure \ref{fig:theoryBlockDiagram}). Each of these steps requires multiple sequential image manipulations which are described in detail in the next three sections. At the conclusion of the first, Section \ref{sec:projectDown}, we will  have one-dimensional 3-channel projections of our barcodes. Section \ref{sec:generateReferences} describes how the reference signals are generated. Finally, in Section \ref{sec:decoding} the barcodes are decoded by comparing the observed signals with the generated references  using Eq.~\ref{eq:mle}.
 
 \begin{figure}
 \begin{center}
@@ -351,7 +355,7 @@ Although there are only $6^3=216$ species of barcodes, the reference bank must b
 \item variation in the fluorophore spacings arising from the barcode manufacturing process, and
 \item bends in the DNA strand resulting in a mild U rather than a linear shape.
 \end{enumerate}
-These differences are accounted for by varying each barcode reference waveform in half-pixel increments, so that the observed profile $\mathbf{u}$ is compared to a bank of references encompassing each possible geometric microconfiguration. Excluding left/right mis-centerings, there are 48 variations that each of the 216 barcode species might adopt, for a total of 10,368 three-channel waveforms in the reference bank. Table~\ref{table:reference} lists the parameters that are allowed to vary, together with their ranges. 
+These differences are accounted for by varying each barcode reference waveform in half-pixel increments, so that the observed profile $\mathbf{u}$ is compared to a bank of references encompassing each possible geometric microconfiguration. Excluding left/right mis-centerings, there are 48 variations that each of the 216 barcode species might adopt, for a total of 10,368 three-channel waveforms in the reference bank. Table~\ref{table:reference} lists the parameters that are allowed to vary, together with their ranges.
 
 \begin{table}[htbp] 	
 \begin{center}
@@ -371,10 +375,13 @@ Number of Microconfigurations & 10,368 \\
 \end{center}
 \end{table}
 
-Left/right translations are handled by a circular convolution operation described in the following section. Finally, the bank of references is then used in the multiple hypothesis test to determine the most likely barcode corresponding to a given observed signal, as described below.
+Left/right translations are handled by a circular convolution operation described in the following section.  Note that we are not accounting for differences in fluorescence $a_j$ caused by inefficient labeling during manufacturing,  because that would be too computationally intensive. For now we instead pre-screen barcodes to ensure that they are properly labeled, as discussed in Section  \ref{sec:thoeryResults}. As DNA origami manufacturing techniques improves over time, this step will become unnecessary. 
+
+Once the bank of references is generated, it is then ready to be used in the multiple hypothesis test to determine the most likely barcode corresponding to a given observed signal, as described below. 
 
 
-\subsection{Decoding the Barcode}
+
+\subsection{Decoding the Barcode}\label{sec:decoding}
 The image processing steps described thus far have prepared the signals for their eventual decoding with a multiple hypothesis test, which is the main task of the software and which we now describe.  We test a given observed signal $\mathbf{u}$ composed of three one-dimensional traces as in Eq. 
 \ref{eq:projectDown}, against all 10,368 references, using Eq.~\ref{eq:mle} to identify the most likely one. Expanding this equation for the $i$th channel gives
 
@@ -406,7 +413,7 @@ Our model does not take into account stage drift that may cause slight misalignm
 \section{Software}
 The software consists of Matlab scripts used with MATLAB Version 7.11.0.584 (R2010b) \citep{matlab_version_2010}. The software calls functions from the following toolboxes: Image Processing Toolbox Version 7.1, Fuzzy Logic Toolbox Version 2.2.12 and Signal Processing Toolbox Version 6.14. The analysis software scripts are released under the GNU General Public License and is available to download from \url{http://github.com/aleifer/DNAbarcode}.
 
-\section{Results}
+\section{Results} \label{sec:thoeryResults}
 To test the system, we compared the software's identification of a pool of barcodes to that of a human. The human performed the identification and recorded the results before the software, so that the human was not influenced by the software's identifications. 
 
 \begin{figure}[htbp]
@@ -423,6 +430,12 @@ Although it was designed to operate on uniform, well-formed barcodes in a produc
 
 
 \section{Discussion}
+We have presented mathematical theory and software implementation to locate DNA origami barcodes in an image and decode them. 
+
+We locate the barcodes based on morphology, reduce the two-dimensional images of the barcodes down to one-dimensional profiles and then use Bayesian multiple hypothesis testing to decode the barcodes.  We show that a Bayesian multiple hypothesis test of a bank of matched filters is an optimal method of decoding the barcodes. We also model  such real-world imaging conditions as inhomogeneous illumination, camera offset and background fluorescence. 
+
+The software works very well at decoding barcodes that have been pre-screened to have uniform fluorescent labeling. While currently only a small percentage (\textasciitilde 15\%) of manufactured barcodes meet our criteria for uniform labeling, we are confident that in the coming years labeling efficiency will increase dramatically. One promising approaches is to add crosslinkers to the barcodes after they are fluorescently labeled to prevent fluorescent  DNA oligos from falling off.    
+
 
 
 \section{Manuscript Information}
