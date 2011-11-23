@@ -8,32 +8,58 @@ To cross the threshold from where we are to where we want to be, major conceptua
 
 \chapter{Introduction}
 
-\newthought{How do a collection of neurons} work together to receive information from the environment, encode that information, and then process it to generate  purposeful behavior?  This question motivated my thesis work and prompted me to develop new tools and techniques that use image processing, microscopy and optogenetics to probe the nervous system of the nematode \emph{C. elegans}. That work is covered in Chapters \ref{chapter:colbert}, \ref{chapter:proprioceptive} and  \ref{chapter:omegaTurn}. Along the way, I employed similar techniques  towards the development of  novel fluorescent reporter constructs for next generation microarray and lab-on a chip technologies. That work is discussed in Chapter \ref{chapter:DNAbarcode} and \ref{chapter:DNAbarcodeAnalysis}. The neuronal basis of behavior, however, remains the focus of this introduction.
+\newthought{How do a collection of neurons} work together to receive information from the environment, encode that information, and then process it to generate  purposeful behavior?  This question motivated my thesis work and prompted me to develop new tools and techniques that use image processing, microscopy and optogenetics to probe the nervous system of the nematode \emph{C. elegans}. That work is covered in Chapters \ref{chapter:colbert}, \ref{chapter:proprioceptive} and  \ref{chapter:omegaTurn}. Along the way, I employed similar techniques  towards the development of  novel fluorescent reporter constructs for next generation microarray and lab-on a chip technologies. That work is discussed in Chapter \ref{chapter:DNAbarcode} and \ref{chapter:DNAtheory}. The neuronal basis of behavior, however, remains the focus of this introduction.
 
-Neurons are the fundamental unit of the brain.  They are responsible for encoding information from an organism's environment and performing computations to transform that information into  behavior.  The field of systems neuroscience seeks to understand this chain of events from environmental input to motor output, and it seeks to do so at the level of an entire neural circuit or even an entire organism. Our understanding has thus far been limited in part by the lack of tools to probe and observe the activity of ensembles of neurons on a whole-organism scale. Recently, a confluence of advances now make this possible.
+\section{Background}
+Neurons are the fundamental unit of the brain.  They are responsible for encoding information from an organism's environment and performing computations to transform that information into  behavior.  The field of systems neuroscience seeks to understand this chain of events from environmental input to motor output, and it seeks to do so at the level of an entire neural circuit or even an entire organism. Our understanding has been limited in part by the lack of tools to probe and observe the activity of ensembles of neurons on a whole-organism scale. Recently, a confluence of advances now make this possible.
 
 
-\section{\textit{C. elegans} as a model organism}
--C. elegans is a natural tool to study systems neuroscience. 
--The nervous system is compact but tractable. 
--Wiring diagram is known.
--Optically transparent.
--Geneticaly malleable
--Well studied. Built around a large scientific community of resources (WormBase, CGC, WormWeb)
+\subsection{\textit{C. elegans} as a model organism}
+The nematode \textit{Caenorhabditis elegans} has emerged as a popular and robust model organism and a natural tool to study systems neuroscience. With only 302 neurons, its nervous system is compact, but tractable. The 1 mm long nematode exhibits a rich array of behaviors \citep{croll_components_1975}. It senses its environment,  navigates towards  food \cite{grewal_migration_1992}  and temperatures \cite{ryu_thermotaxis_2002} that it prefers,  avoids chemicals that it dislikes \citep{croll_behavoural_1975}, and responds to touch \citep{chalfie_neural_1985}. The worm can even learn to associate odors with food that makes it sick \citep{zhang_pathogenic_2005}. 
 
-Moreover, there is a long history of using model organisms for neuroscience discovery, including invertebrates such as Aplysia for learning, leech and lamprey for locomotion and Drosophila for a variety of applications.
+Starting in the 1970's White et al \citep{white_structure_1976, white_structure_1986}  mapped out the entire wiring diagram of the \textit{C. elegans} nervous system. The individual neurons are morphologically identifiable and their connectivity is stereotyped from one worm to the next. The  scientific community has thus been able to systematically study individual neurons and  used tools such as laser ablation and transgenics to identify which neurons are part of which neural circuits. 
 
-\section{Optogenetics}
-Emerging field that has seen explosive growth in the past six years. Builds off of the increadible advances in molecular genetics that allow one to easily clone genes and add them to organisms in a controlled way.
+Critically, \textit{C. elegans} is also a major platform for molecular genetics and genetic engineering. It was the first organism into which the fluorescent reporter gene GFP was cloned \citep{chalfie_green_1994}  and it was the first multicellular eukaryote to have its genome sequenced \citep{sulston_c._1992,_genome_1998}. The nematode is especially convenient for genetic engineering. The worms have a fast generation time-- a worm grows from egg to egg-laying adult at room temperature in about four days,  and they are naturally hermaphroditic and self reproduce  making it trivial to maintain isogenic lines. New genes can be added to the worm by injecting plasmids which are incorporated into an extrachromosomal array. The worms are then irradiated, and their DNA damage repair pathway incorporates the plasmids into their chromosomes to form stable transgenic lines.  In the hands of skilled collaborators, the whole process including outcrossing takes less than a month. 
 
-Give a Brief history of otogenetics, by citing the two main paper.s
+Importantly \textit{C. elegans} is also optically transparent and thus particularly amenable to advances in optical physiology and microscopy, which are the primary tools used in this thesis. 
+
+These attributes have made  \textit{C. elegans}  extremely well studied and as a result, there is a rich repository of knowledge and resources available to the \textit{C. elegans} research community, including:  WormBase, an online database of genes, phenotypes, and publications \citep{harris_wormbase:_2010}; WormAtlas, a comprehensive online anatomical resource providing details of every neuron and cell \citep{altun_wormatlas_2002}; WormBook, a curated collection of review articles and methods \citep{the_c._elegans_research_community_wormbook_2011}; WormWeb, an online interactive network of neural connectivity \citep{bhatla_c._2009};  and the \textit{Caenorhabditis} Genetics Center at the University of Minnesota which acts as a central repository and distributor for transgenic \textit{C. elegans} lines.
+
+
+There is a long history of using model organisms including invertebrates for neuroscience discovery. In the past \textit{Aplysia} has been used to study learning \citep{castellucci_neuronal_1970}, leech and lamprey for locomotion \citep{briggman_imaging_2006} and \textit{Drosophila} \citep{zhang_drosophila_2010} for a variety of nervous system functions. \textit{C. elegans}, with its compact nervous system, genetic tractability,  optical access and well-mapped neural circuitry is an ideal candidate for studying the neural dynamics underlying behavior.
+
+%OUTLINE NOTES:
+%-C. elegans is a natural tool to study systems neuroscience. 
+%-The nervous system is compact but tractable. 
+%-Wiring diagram is known.
+%-Optically transparent.
+%-Geneticaly malleable
+%-Well studied. Built around a large scientific community of resources (WormBase, CGC, WormWeb)
+%-Moreover, there is a long history of using model organisms for neuroscience discovery, including invertebrates such as Aplysia for learning, leech and lamprey for locomotion and Drosophila for a variety of applications.
+
+
+
+\subsection{Optical physiology}
+Traditional electrophysiology is challenging to perform in the nematode \textit{C. elegans} \citep{goodman_active_1998, schafer_neurophysiological_2006}. The worm's small size and pressurized contents make it difficult for electrodes to gain access to neurons.  As a result, electrophysiology experiments are  performed on worms that are partially dissected and immobilized which negates the ability to study how neural activity correlated to behavior. Advances in optogenetics and fluorescent reporters, however,  offer a viable alternative to electrophysiology and is the technology utilized here.
+
  
 
-\section{Optics & Microscopy}
+\subsubsection{Optogenetics}
+Optogenetics is an emerging field that refers to optical tools based on genetically encoded proteins that manipulate neural function. Karl Deisseroth and Ed Boyden founded the field of optogenetics with their joint development of Channelrhodopsin as an optical method for neural stimulation in  2005 \citep{boyden_millisecond-timescale_2005} and their simultaneous but independent development of Halorhodopsin as a method of neural silencing in 2007 \citep{zhang_multimodal_2007, han_multiple-color_2007}.  For a riveting historical account see \citep{boyden_history_2011}. Optogenetic proteins like Channelrhodopsin and Halorhodopsin are light-activated transmembrane ion channels that open in response to light stimuli at a particular wavelength \citep{nagel_channelrhodopsin-2_2003, yizhar_optogenetics_2011, fenno_development_2011}. These optogenetic proteins were immediately employed  in \textit{C. elegans} and early experiments show how shining light could evoke a touch-like response in the worm  \citep{nagel_light_2005}.  The field has seen explosive growth  just in the past five years. For a review of optogenetics in \textit{C. elegans}, including some of the work presented here see \citep{xu_early_2011}. In this work I use optogenetics as a tool to probe neural activity in a freely moving worm. 
+
+\subsubsection{Fluorescent Reporters of Neural Activity}
+Just as optogenetic proteins allow optical stimulation or inhibition of neural activity,  genetically encoded fluorescent reporters allow optical readouts of neural activity. The first class of these reporters were calcium indicators that functioned by altering their fluorescent properties in response to a cell's calcium levels. Often calcium in a neuron is a good proxy for its membrane potential, and as such calcium indicators serve as an indirect measurement of neural activity.   The first genetically encoded calcium indicator was cameleon \citep{miyawaki_fluorescent_1997} which was a calmodulin protein modified by the addition of a Forster Resonance Energy Transfer (FRET) pair of fluorophores. As the calcium levels increase, calmodulin contracts and pulling the two attached fluorescing proteins closer together which changes their fluorescence properties. In the past decade newer versions of cameleon have , including  
+
+
+
+\subsection{Optics and Microscopy}
 -Inexpensive lasers from china
 -Feedback loops and motorized stages
+-GCaMP3
+-Adam Cohen's Paper
+-Calmodulan
 
-\section{Real-Time Computer Vision} 
+\subsection{Real-Time Computer Vision} 
 To track moving worms, 
 
 computer vision
@@ -41,9 +67,11 @@ Advent of accessible real-time computer vision technologyk like OpenCV, generate
 
 also rely on signal processing and statistical techniques, alhtough in this thesis I delve into those most comprehensively ont eh chapter on DNA barcodes.
 
+\section{Outline}
+\subsection{Manipulating Neural Activity in a moving worm}
 
-
-
+\subsection{C. elegans Locomotion}
+In chapter BLAH we demonstrate how these technqies are combined 
 
 
 in the nervous system with single neuron resolution in awake unrestrained animlas. 
@@ -74,12 +102,7 @@ In this dissertation, I present work that harnesses advances in computer vision,
 
  In the past this question has been approached different ways and at different scales depending upon the tools at hand. 
 
-
-In the hands of the brilliant neuroanatomist Cajal, this was a question of morphology. Cajal prefected the use of the recently invented Golgi stain to label entire neurons 
-
-
 %http://books.google.com/ebooks/reader?id=nysaAAAAYAAJ&printsec=frontcover&output=reader&pg=GBS.PA25
-
 
 Circuit level analysis.
 The development of the multielectrode array \citep{meister_synchronous_1991} \citep{litke_retinal_1991}  led to a 
