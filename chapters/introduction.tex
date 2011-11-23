@@ -40,32 +40,34 @@ There is a long history of using model organisms including invertebrates for neu
 
 
 \subsection{Optical physiology}
-Traditional electrophysiology is challenging to perform in the nematode \textit{C. elegans} \citep{goodman_active_1998, schafer_neurophysiological_2006}. The worm's small size and pressurized contents make it difficult for electrodes to gain access to neurons.  As a result, electrophysiology experiments are  performed on worms that are partially dissected and immobilized which negates the ability to study how neural activity correlated to behavior. Advances in optogenetics and fluorescent reporters, however,  offer a viable alternative to electrophysiology and is the technology utilized here.
+Traditional electrophysiology is challenging to perform in the nematode \textit{C. elegans} \citep{goodman_active_1998, schafer_neurophysiological_2006}. The worm's small size and pressurized contents make it difficult for electrodes to gain access to neurons.  As a result, electrophysiology experiments are  performed on worms that are partially dissected and immobilized which negates their ability to elucidate how neural activity correlates to behavior. Advances in optogenetics and fluorescent reporters, however,  offer a viable alternative to electrophysiology and is the technology utilized here.
 
  
 
 \subsubsection{Optogenetics}
-Optogenetics is an emerging field that refers to optical tools based on genetically encoded proteins that manipulate neural function. Karl Deisseroth and Ed Boyden founded the field of optogenetics with their joint development of Channelrhodopsin as an optical method for neural stimulation in  2005 \citep{boyden_millisecond-timescale_2005} and their simultaneous but independent development of Halorhodopsin as a method of neural silencing in 2007 \citep{zhang_multimodal_2007, han_multiple-color_2007}.  For a riveting historical account see \citep{boyden_history_2011}. Optogenetic proteins like Channelrhodopsin and Halorhodopsin are light-activated transmembrane ion channels that open in response to light stimuli at a particular wavelength \citep{nagel_channelrhodopsin-2_2003, yizhar_optogenetics_2011, fenno_development_2011}. These optogenetic proteins were immediately employed  in \textit{C. elegans} and early experiments show how shining light could evoke a touch-like response in the worm  \citep{nagel_light_2005}.  The field has seen explosive growth  just in the past five years. For a review of optogenetics in \textit{C. elegans}, including some of the work presented here see \citep{xu_early_2011}. In this work I use optogenetics as a tool to probe neural activity in a freely moving worm. 
+Optogenetics is an emerging field that refers to optical tools based on genetically encoded proteins that manipulate neural function. Karl Deisseroth and Ed Boyden founded the field of optogenetics with their joint development of Channelrhodopsin as an optical method for neural stimulation in  2005 \citep{boyden_millisecond-timescale_2005} and their simultaneous but independent development of Halorhodopsin as a method of neural silencing in 2007 \citep{zhang_multimodal_2007, han_multiple-color_2007}.  For a riveting historical account see \citep{boyden_history_2011}. Optogenetic proteins like Channelrhodopsin and Halorhodopsin are light-activated transmembrane ion channels that open in response to light stimuli at a particular wavelength \citep{nagel_channelrhodopsin-2_2003, yizhar_optogenetics_2011, fenno_development_2011}. These optogenetic proteins were immediately employed  in \textit{C. elegans} and early experiments show how shining light could evoke a touch-like response in the worm  \citep{nagel_light_2005}.  The field has seen explosive growth  just in the past five years. For a review of optogenetics in \textit{C. elegans}, including some of the work presented here see \citep{xu_early_2011} and \citep{yizhar_optogenetics_2011}. In this work I use optogenetics as a tool to probe neural activity in a freely moving worm. 
 
 \subsubsection{Fluorescent Reporters of Neural Activity}
-Just as optogenetic proteins allow optical stimulation or inhibition of neural activity,  genetically encoded fluorescent reporters allow optical readouts of neural activity. The first class of these reporters were calcium indicators that functioned by altering their fluorescent properties in response to a cell's calcium levels. Often calcium in a neuron is a good proxy for its membrane potential, and as such calcium indicators serve as an indirect measurement of neural activity.   The first genetically encoded calcium indicator was cameleon \citep{miyawaki_fluorescent_1997} which was a calmodulin protein modified by the addition of a Forster Resonance Energy Transfer (FRET) pair of fluorophores. As the calcium levels increase, calmodulin contracts and pulling the two attached fluorescing proteins closer together which changes their fluorescence properties. In the past decade newer versions of cameleon have , including  
+Just as optogenetic proteins allow optical stimulation or inhibition of neural activity,  genetically encoded fluorescent reporters allow optical readouts of neural activity. The first class of these reporters were calcium indicators that functioned by altering their fluorescent properties in response to a cell's calcium levels. Often calcium in a neuron is a good proxy for its membrane potential and thus calcium indicators serve as an indirect measurement of neural activity.   The first genetically encoded calcium indicator was cameleon \citep{miyawaki_fluorescent_1997} which was a calmodulin protein modified by the addition of a Forster Resonance Energy Transfer (FRET) pair of fluorophores. As the calcium levels increase, calmodulin contracts pulling the two attached fluorescing proteins closer together which changes their fluorescence properties. The past decade has seen  steady improvement in genetically encoded calcium indicators \citep{miyawaki_innovations_2005,mank_genetically_2008,yamada_quantitative_2011} and in this work I use one of the most recent indicators, GCaMP3 \citep{tian_imaging_2009}. Of course, it would be ideal to observe the membrane potential directly instead of merely observing calcium levels and the development of true genetically encoded voltage indicators for \textit{C. elegans} is just around the corner \citep{kralj_electrical_2011}. 
+
+Both optogenetics and calcium indicators are non-invasive and thus in principal allows the worm to remain intact and unrestrained. Previously the Samuel lab was the first to manually track a worm and observe its calcium transients as it freely moved \citep{clark_temporal_2007}. In this thesis I develop an automated system to track the worm and either apply optogenetic stimuli or monitor calcium transients.
 
 
 
-\subsection{Optics and Microscopy}
--Inexpensive lasers from china
--Feedback loops and motorized stages
--GCaMP3
--Adam Cohen's Paper
--Calmodulan
+\subsection{Real-Time Computer Vision}
+In addition to the development of optogenetics and fluorescent indicators, the ever decreasing cost of computer power, the rise of inexpensive lasers and microelectromechanical systems (MEMS), and the development of powerful open source computer vision libraries have  all conspired to make the time ripe for an all-optical investigation of neural activity underlying behavior. In particular, computer hardware and open source libraries have just recently risen to the task of performing computer vision analysis in real-time. For example, the development of the OpenCV library \citep{bradski_opencv_2000,bradski_learning_2008}, used heavily in this thesis, was driven in part by the 2004-2007 DARPA grand challenge competitions where teams competed to create a self-driving autonomous vehicles \citep{stavens_learning_2011,buehler_stanley:_2007}.
 
-\subsection{Real-Time Computer Vision} 
-To track moving worms, 
 
-computer vision
-Advent of accessible real-time computer vision technologyk like OpenCV, generated in part by DARPA challenge http://ai.stanford.edu/~dstavens/
 
-also rely on signal processing and statistical techniques, alhtough in this thesis I delve into those most comprehensively ont eh chapter on DNA barcodes.
+\subsection{Applications to Behavioral Neuroscience}
+
+By employing the technologies discussed above, this thesis brings us  closer to being able to systematically perturb or monitor neural activity across an entire organism while it is behaving. In this work I employ develop tools explore  neural activity underlying \emph{C. elegans} locomotion. The worm has XXXX muscles, 302 neurons, that have to work together in a coordinated and coherent fashion to undergo locomotion. 
+
+
+
+There is immediately questions bout how this takes place. 
+
+
 
 \section{Outline}
 \subsection{Manipulating Neural Activity in a moving worm}
@@ -85,20 +87,9 @@ A major goal of this thesis is layhing ouj methods to perturb and record
 
 
 
- of networks of of neurons has been driven, in part, by technical developments that allow us to probe the nervous system in new ways. 
-
-The Golgi stain  enabled Ramon Y Cajal to first visualize the morphology of neurons and their connections at the turn of the 19th century. During the 20th century electrophysiology enabled scientists to record from stimulate and later patch individual neurons. In the latter part of the 20th century, 
 
 
 
-
-
-
-
-Neurons are the fundamental unit of the brain.  They are responsible for encoding information from an organism's environment and performing computations to transform that information into purposeful behavior.  The field of systems neuroscience seeks to understand how a network of neurons encodes sensory information and drives behavior on the level of an entire neural circuit or even an entire organism.
-
-
-In this dissertation, I present work that harnesses advances in computer vision, optics and the emerging field of optogenetics to study the neural basis of behavior in the nematode \emph{C. elegans}, an invertebrate model organism that is of itself another powerful tool of the neuroscientist. I put these tools to work studying n	 
 
  In the past this question has been approached different ways and at different scales depending upon the tools at hand. 
 
@@ -107,20 +98,7 @@ In this dissertation, I present work that harnesses advances in computer vision,
 Circuit level analysis.
 The development of the multielectrode array \citep{meister_synchronous_1991} \citep{litke_retinal_1991}  led to a 
 
-Later,  generations of electrophysiologists. 
-Kandel neurocircuits in applysia.
 
-
-
-Systems neuroscience posits that the appropriate level for analysis is the entire circuit. 
-Neuronal basis of behavior. 
-
-
-
-\subsection{Emerging technologies}
-Proin entire organism. 
-
-\subsubsection{Optogenetics}
 
 
 
