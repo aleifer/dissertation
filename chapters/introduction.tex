@@ -89,25 +89,16 @@ In particular, it has only been in the past decade that the field of real-time c
 \subsection{Applications to Behavioral Neuroscience}
 
 
-By building upon the technologies discussed above, 
-%list technologies: bringing to the model organism C. elegans, optogetenics, genetically encoded calcium indicatiors, real-time computer vision
-%At the time this thesis work began, i was the first to bring all of these elements together to study C. elegans
-this thesis brings us closer to being able to systematically perturb or monitor neural activity across an entire organism while it is behaving. I use the tools developed here to study  neural activity underlying \emph{C. elegans} locomotion. The worm crawls on its side and propels itself forward by propagating bending waves from its head to tail.  The worm has 95 muscles and 302 neurons. Of those 302 neurons, 113 are classified as motor neurons, meaning that they directly enervate muscles. For successful locomotion, all of these muscles and neurons must work together in a coordinated and coherent fashion. For an excellent review of the \textit{C. elegans}  motor circuit see \citep{von_stetina_motor_2006}. While it is fairly well understood which neurons  in \textit{C. elegans} are required for forward or backward locomotion, the dynamics of neural activity are largely unknown. In fact, many of the community's assumption derive from leech and lamprey experiments \citep{friesen_sensory_2001, karbowski_systems_2008} and it is unclear to what extend those findings apply to \textit{C. elegans}. Open questions included: Where are the oscillations that drive undulatory motion generated? Are the undulatory waves propagated through neurons or muscles? To what extent is  feedback from the animal's environment required for locomotion? 
+This work brings together advances in optogenetics and real-time computer vision to systematically perturb or monitor neural activity across an entire organism while it is behaving.  At the time this thesis work begin, this was the first instance of bringing these disparate strands together to study  neural activity in the nematode \textit{C. elegans}.
+
+I have used the tools developed here to study neural activity driving \emph{C. elegans} locomotion. The worm crawls on its side and propels itself forward by propagating bending waves from its head to tail.  The worm has 95 muscles and 302 neurons. Of those 302 neurons, 113 are classified as motor neurons, meaning that they directly enervate muscles. For successful locomotion, all of these muscles and neurons must work together in a coordinated and coherent fashion. For an excellent review of the \textit{C. elegans}  motor circuit see \citep{von_stetina_motor_2006}. While it is fairly well understood which neurons  in \textit{C. elegans} are required for forward or backward locomotion, the dynamics of neural activity are largely unknown. In fact, many of the community's assumptions derive from leech and lamprey experiments \citep{friesen_sensory_2001, karbowski_systems_2008} and it is unclear to what extend those findings apply to \textit{C. elegans}. Open questions include: Where are the oscillations that drive undulatory motion generated? Are the undulatory waves propagated through neurons or muscles? To what extent is  feedback from the animal's environment required for locomotion? 
 
 Chapters \ref{chapter:colbert} and \ref{chapter:proprioceptive} provide answers to some of these questions, and place strong experimental constrains on future models for \textit{C. elegans} locomotion.  Chapter \ref{chapter:omegaTurn} takes these questions to an even higher level, and asks how does the worm's nervous system transitions between forward and backward locomotion. 
 
 
 
-
-
-This was the main focus of my thesis work
-
-\subsection{Other applications of computer-vision for molecular biophysics and synthetic biology}
-The techniques that I have developed  can be applied to a wide variety of non-behavioral problems. This thesis includes another example. In chapters (C elegans) I report primarily on the interesting science. In this application to DNA barcodes, I include rigorous details of the software algorithm and the mathematical underpinnings, which is illustrative to how I approach the computer vision problems in the remaining chapters. 
-
-Chapters 1-3 focus on the scientific results and not the algorithms (those interested can see the software directly which is available )
-
-The numbjer of steps reflects the complexity and difficulty of analyzing biological systems that goes into every step of the 
+\subsection{Other applications of computer-vision for molecular biophysics}
+The computer-vision techniques that I have developed here can be applied to a wide variety of non-behavioral neuroscience problems. This thesis includes another example where I have employed similar computer-vision methods. In that instance I develop software to automatically locate and identify fluorescing DNA origami nanorod barcodes. See Chapters \ref{chapter:DNAbarcode} and \ref{chapter:DNAtheory}. Unlike in the chapters devoted to \text{C. elegans}, which focus primarily on the work in relation to \textit{C. elegans} neuroscience, in the  application to DNA barcodes, I include rigorous details of the software algorithms used and their mathematical underpinnings. (In all instances in this thesis any software described is freely available under an open-source license).   In general, the approach I take to analyze images of DNA barcodes is representative of how I approach the computer vision problems in the remaining chapters. In particular the number of steps in the algorithms in Chapter \ref{chapter:DNAtheory} accurately reflects the complexity and difficulty of analyzing biological systems. 
 
 
 %TRANSITION
@@ -116,7 +107,7 @@ The numbjer of steps reflects the complexity and difficulty of analyzing biologi
 % Talk to Ofer about the electrode array
 % Up until now, the system we know most about is the retina... draw analogies
 
-\subsectoin{Onwards}
-Systems neuroscience is approaching  a critical juncture. Arguably for the first time, the tools are falling into place that will enable the  completely characterization of how  neural activity of an entire organism drives behavior. Not only  do the tools presented here all the direct observation of neural activity but also the ability perturb neural activity-- and both while simultaneously observing behavior. We now turn to the work itself.
+\subsection{Onwards}
+Systems neuroscience is approaching  a critical juncture. Arguably for the first time, the tools are falling into place that will enable the  complete characterization of how  neural activity of an entire organism drives behavior. Not only  do the tools presented here allow for the direct observation of neural activity but also the ability perturb neural activity-- and both while simultaneously observing behavior. We now turn to the work itself.
 
 
