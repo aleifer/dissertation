@@ -62,53 +62,32 @@ These attributes have made  \textit{C. elegans}  extremely well studied, and as 
 %There is a long history of using model organisms including invertebrates for neuroscience discovery. In the past \textit{Aplysia} has been used to study learning \citep{castellucci_neuronal_1970}, leech and lamprey for locomotion \citep{briggman_imaging_2006} and \textit{Drosophila} \citep{zhang_drosophila_2010} for a variety of nervous system functions. 
 \textit{C. elegans}, with its compact nervous system, genetic tractability,  optical access and well-mapped neural circuitry is an ideal candidate for studying the neural dynamics underlying behavior.
 
-%OUTLINE NOTES:
-%-C. elegans is a natural tool to study systems neuroscience. 
-%-The nervous system is compact but tractable. 
-%-Wiring diagram is known.
-%-Optically transparent.
-%-Geneticaly malleable
-%-Well studied. Built around a large scientific community of resources (WormBase, CGC, WormWeb)
-%-Moreover, there is a long history of using model organisms for neuroscience discovery, including invertebrates such as Aplysia for learning, leech and lamprey for locomotion and Drosophila for a variety of applications.
-
-
-
 \subsection{Optical physiology}
-Traditional electrophysiology is challenging to perform in the nematode \textit{C. elegans} \citep{goodman_active_1998, schafer_neurophysiological_2006}. The worm's small size and pressurized fluid-filled body make it difficult for electrodes to gain access to neurons.  As a result, electrophysiology experiments are  performed on worms that are partially dissected and immobilized. These preparations make it extremely difficult to correlate neural activity with behavior.  Advances in optogenetics and fluorescent reporters, however,  offer a viable alternative to electrophysiology and is the technology utilized here.
+Traditional electrophysiology is challenging to perform in the nematode \textit{C. elegans} \citep{goodman_active_1998, schafer_neurophysiological_2006}. The worm's small size and pressurized fluid-filled body make it difficult for electrodes to gain access to neurons.  As a result, electrophysiology experiments are  performed on worms that are partially dissected and immobilized. These preparations make it extremely difficult to correlate neural activity with behavior.  Advances in optogenetics and fluorescent reporters, however,  offer a viable alternative to electrophysiology. When used with transparent organisms, optical techniques are entirely non-invasive and they are the technology utilized here. 
 
 \subsubsection{Optogenetics}
-Optogenetics is an emerging field that refers to optical tools based on genetically encoded proteins that manipulate neural function. Karl Deisseroth and Ed Boyden founded the field of optogenetics with their joint development of Channelrhodopsin as an optical method for neural stimulation in  2005 \citep{boyden_millisecond-timescale_2005} and their simultaneous but independent development of Halorhodopsin as a method of neural silencing in 2007 \citep{zhang_multimodal_2007, han_multiple-color_2007}.  For a riveting historical account, see \citep{boyden_history_2011}. Optogenetic proteins like Channelrhodopsin and Halorhodopsin are light-activated transmembrane ion channels that open in response to light stimuli at a particular wavelength \citep{nagel_channelrhodopsin-2_2003, yizhar_optogenetics_2011, fenno_development_2011}. These optogenetic proteins were immediately employed  in \textit{C. elegans}, and early an experiment showed how illuminating worms expressing Channelrhodopsin in their mechanosensory neurons evoked a touch-like response  \citep{nagel_light_2005}.  The field has seen explosive growth in the past five years. For a review of optogenetics in \textit{C. elegans}, including some of the work presented here, see \citep{xu_early_2011} and \citep{yizhar_optogenetics_2011}. In the present work, I use optogenetics as a tool to probe neural activity in a freely moving worm. 
+Optogenetics is an emerging field that refers to optical tools based on genetically encoded proteins that manipulate neural function. Karl Deisseroth and Ed Boyden founded the field of optogenetics with their joint development of Channelrhodopsin as an optical method for neural stimulation in  2005 \citep{boyden_millisecond-timescale_2005} and their simultaneous but independent development of Halorhodopsin as a method of neural silencing in 2007 \citep{zhang_multimodal_2007, han_multiple-color_2007}.  For a riveting historical account, see \citep{boyden_history_2011}. Optogenetic proteins like Channelrhodopsin and Halorhodopsin are light-activated transmembrane ion channels that open in response to light stimuli at a particular wavelength \citep{nagel_channelrhodopsin-2_2003, yizhar_optogenetics_2011, fenno_development_2011}. These optogenetic proteins were immediately employed  in \textit{C. elegans}, and an early experiment showed how illuminating worms expressing Channelrhodopsin in their mechanosensory neurons evoked a touch-like response  \citep{nagel_light_2005}.  The field has seen explosive growth in the past five years. For a review of optogenetics in \textit{C. elegans}, including some of the work presented here, see \citep{xu_early_2011} and \citep{yizhar_optogenetics_2011}. In the present work, I use optogenetics as a tool to probe neural activity in a freely moving worm. 
 
 \subsubsection{Fluorescent Reporters of Neural Activity}
-Just as optogenetic proteins allow optical stimulation or inhibition of neural activity,  genetically encoded fluorescent reporters provide optical readouts of neural activity.  The first class of genetically encoded reporters were calcium indicators that altered their fluorescent properties in response to the intracellular calcium levels. Calcium in a neuron is often used as a proxy for its membrane potential, and thus calcium indicators serve as an indirect measure of neural activity.   The first genetically encoded calcium indicator was cameleon \citep{miyawaki_fluorescent_1997}, which was a calmodulin protein modified by the addition of a Forster Resonance Energy Transfer (FRET) pair of fluorophores. As intracellular calcium levels increase, calmodulin component of the cameleon contracts pulling the two attached fluorescing proteins closer together, which changes their fluorescence properties. The past decade has seen  steady improvement in genetically encoded calcium indicators that are brighter, more sensitive, and have faster response times \citep{miyawaki_innovations_2005,mank_genetically_2008,yamada_quantitative_2011}. In this work I use one of the most recent indicators, GCaMP3 \citep{tian_imaging_2009}.
+Just as optogenetic proteins allow optical stimulation or inhibition of neural activity,  genetically encoded fluorescent reporters provide optical readouts of neural activity.  The first class of genetically encoded reporters were calcium indicators that altered their fluorescent properties in response to the intracellular calcium levels. Calcium in a neuron is often used as a proxy for its membrane potential, and thus calcium indicators serve as an indirect measure of neural activity.   The first genetically encoded calcium indicator was cameleon \citep{miyawaki_fluorescent_1997}, which was a calmodulin protein modified by the addition of a Forster Resonance Energy Transfer (FRET) pair of fluorophores. As intracellular calcium levels increase, the calmodulin component of  cameleon contracts pulling the two attached fluorescing proteins closer together, which changes their fluorescence properties. The past decade has seen  steady improvement in genetically encoded calcium indicators that are brighter, more sensitive, have a greater dynamic range and have faster response times \citep{miyawaki_innovations_2005,mank_genetically_2008,yamada_quantitative_2011}. In this work I use one of the most recent indicators, GCaMP3 \citep{tian_imaging_2009}.
  
 %Of course, it would be ideal to observe the membrane potential directly instead of merely observing calcium levels and the development of true genetically encoded voltage indicators for \textit{C. elegans} is just around the corner \citep{kralj_electrical_2011}. 
 
-Both optogenetics and calcium indicators are non-invasive and thus in principal allows the worm to remain intact and unrestrained. Previously the Samuel lab was the first to manually track a worm and observe its calcium transients as it freely moved \citep{clark_temporal_2007}. In this thesis I develop an automated system to track the worm and either apply optogenetic stimuli or monitor calcium transients.
+Both optogenetics and calcium indicators are non-invasive for transparent animals and thus in principal allows the worm to remain intact and unrestrained. Previously the Samuel lab was the first to manually track a worm and observe its calcium transients as it freely moved \citep{clark_temporal_2007}. In this thesis I develop an automated system to track the worm and either apply optogenetic stimuli or monitor calcium transients.
 
 
 
 \subsection{Real-Time Computer Vision}
 
-%Why do you need to 
-%This is necessary to follow a worm 
+Conducting optical physiology on a moving worm requires significant ancillary hardware and software to track the worm, keep up with its motion, identify targeted neurons within the worm, and precisely illuminate and image those neurons in real-time, while simultaneously recording the worm's macroscopic behavior. 
+A number of technological advancements now make this possible. In addition to the development of optogenetics and fluorescent indicators, the ever decreasing cost of computer power, the ready availability of high power CW lasers in all different wavelengths,  the advent of microelectromechanical systems (MEMS), and the development of powerful open source computer vision libraries, have  all conspired to make such a purely-optical system feasible for the first time. 
 
-In addition to the development of optogenetics and fluorescent indicators, the ever decreasing cost of computer power, the ready availability of high power CW lasers in all different wavelengths,  the advent of microelectromechanical systems (MEMS), and the development of powerful open source computer vision libraries, have  all conspired to make the time ripe for an purely-optical investigation of the neural activity that underlies behavior. In particular, computer hardware and open source libraries have recently become available that can performing computer vision analysis in real-time.
-
-
-Its only been in the last five years that real-time comptuer visoin algorithms have become readily available. 
-
-Fortuitously, the OpenCV library that was in part..... is 
-
-there is a universality of computer vision algorithms that cuts across fields.. advances in one field can readily translate. for example, the OpenCV library in this thesis was developed in large part for the DARPA challenge. 
-
-
-
- For example, the development of the OpenCV library \citep{bradski_opencv_2000,bradski_learning_2008}, used heavily in this thesis, was driven in part by the 2004-2007 DARPA grand challenge competitions where teams competed to create a self-driving autonomous vehicles \citep{stavens_learning_2011,buehler_stanley:_2007}.
+In particular, it has only been in the past decade that the field of real-time computer vision algorithms has advanced to the point that libraries are now readily accessible to  perform real-time video analysis using standard computer hardware. For example, this work utilizes hardware-optimized routines in the open-source OpenCV library \citep{bradski_opencv_2000,bradski_learning_2008}. That library had only recently been developed, in part, to address the DARPA grand challenge autonomous vehicle competition in 2004 and 2005  \citep{stavens_learning_2011,buehler_stanley:_2007}. Fortuitously, many closed-loop real-time image processing applications are similar, and this work builds upon prior work from the DARPA grand challenge and elsewhere.
 
 
 
 \subsection{Applications to Behavioral Neuroscience}
+
 
 By building upon the technologies discussed above, 
 %list technologies: bringing to the model organism C. elegans, optogetenics, genetically encoded calcium indicatiors, real-time computer vision
