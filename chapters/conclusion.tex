@@ -1,29 +1,21 @@
 %!TEX root = /Users/andy/Documents/Academics/Dissertation/thesis.tex
 
 \chapter{Conclusion}
-The development of new tools and techniques can drive scientific discovery when carefully applied. In this thesis I strove to develop instruments that address clear scientific needs in the field of systems neuroscience. Specifically, I developed a new instrument to non-invasively manipulate neural activity with single-neuron specificity  in an intact freely moving worm. At the time of its creation, this was the first instrument of its kind. I also developed a second instrument to record calcium transients from a moving worm while simultaneously recording the worm's gross behavior. I used these tools to gain  a better understanding of how the nervous system of the nematode \textit{C. elegans} propagates bending waves and how it transitions from forward to reverse locomotion.
+The development of new tools and techniques can drive scientific discovery when carefully applied. In this thesis I developed a new instrument to non-invasively manipulate neural activity with single-neuron specificity  in an intact freely moving worm. At the time of its creation, this was the first instrument of its kind. I also developed a second instrument to record calcium transients from a moving worm while simultaneously recording the worm's behavior. I used these tools to gain  a better understanding of how the nervous system of the nematode \textit{C. elegans} propagates bending waves and how it transitions from forward to reverse locomotion.
 
-Both of the tools presented here  rely on advances in the fields of optogenetics and computer vision. In particular, the recent accessibility of powerful computer vision libraries  has wide applications to quantitative biology. In this thesis I also applied computer vision techniques towards the automatic identification of  DNA origami nano-barcodes. DNA nano-barcodes are a promising platform for developing next generation DNA microarray and on-chip tools.  The software I developed to automatically identify and decode barcodes are a critical ingredient in this platform. 
+Both of the tools presented here  rely on advances in the fields of optogenetics and computer vision. In particular, the recent accessibility of powerful computer vision libraries  has wide applications to quantitative biology. In this thesis I also applied computer vision techniques towards the automatic identification of  DNA origami nano-barcodes. DNA nano-barcodes are a promising platform for developing next generation DNA microarray and on-chip tools.  The software I developed to automatically identify and decode barcodes provides a critical ingredient for future developments in this platform. 
 
-Both optogenetics and computer vision are technologies undergoing rapid development.
+Both  computer vision and optogenetics are technologies undergoing rapid development.
+For computer vision, Moore's law has provided ever increasing computational power at decreasing cost. Computational power alone will immediately improve both the spatial and temporal resolution of the two \textit{C. elegans} instruments presented here. Similarly, recent trends like augmented reality for consumers, and faster data connectivity standards like Intel's Thunderbolt, will make the low-latency high frame-rate video acquisition  required for the work presented here more affordable and accessible.
+
+
 In the realm of of optogenetics, the underlying technology is still nascent. The coming years will likely see the creation of a more diverse and robust optical toolkit that includes optogenetic proteins operating at new wavelengths, with greater sensitivity and with narrower spectra.  
 
 
-Genetically encoded reporters for  neural activity are also undergoing rapid development. GCaMP5, a successor to the GCaMP3 calcium indicator used here, that will likely appear in the literature shortly is rumored to  have better contrast, greater sensitivity and better expression levels \citep{hires_gcamp5_2011}. Moreover, other labs are already racing to develop true voltage sensing proteins that can be deployed in eukaryotes \citep{kralj_electrical_2011}. This would allow researchers to visualize neural activity directly instead of inferring activity through calcium transients. 
+Genetically encoded reporters for  neural activity are also undergoing rapid development. GCaMP5, a successor to the GCaMP3 calcium indicator used here, is rumored to  have better contrast, greater sensitivity and better expression levels \citep{hires_gcamp5_2011}. Moreover, other labs are already racing to develop true voltage sensing proteins that can be deployed in eukaryotes \citep{kralj_electrical_2011}. This would allow researchers to visualize neural activity directly instead of inferring activity through calcium transients. 
 
-
-% FIX ME!
-Optical techniques are here and are going to be play a critical role in neuroscience for the forseable future and, as result instrumentation of the sort develop here, is going to be ever more critical. 
-
-
-
-
-% As optogenetic proteins and indicators improve, the effectiveness of the instruments presented here will only increase.  VERY WEAK.
-
-
-
-
-Computer vision is going to improve and develop new capabilities and will make this field even better. Certainly computational power will improve which will immediately prove both spatial and teporal resolutions of my systems. (Data connections? Cameras? thunderbolt)
+	Optical neurophysiology is on its way to becoming a mainstay of neuroscience and will likely remain so for the foreseeable future. 
+As a result, instrumentation of the sort developed here is going to be ever more critical. 
 
 
 
@@ -31,52 +23,13 @@ Computer vision is going to improve and develop new capabilities and will make t
 \subsection*{Where to go from here?}
 With the tools presented here it is now possible to  create  quantitative datasets linking neural activity to behavior in \textit{C. elegans}.
 
-%Not only that, but we can do both perterbative and observational techniques to incontrovertably dissect individual contributions of neural activity (causally)
-
  The next step will be to use these datasets to  build data-driven mathematical models of neural circuits. The approach taken to study the vertebrate retina offers inspiration. The retina neuroscience community utilized decades of experimental data to  build  testable quantitative  models of microcircuits within the retina that account for individual computations, like motion detection and background motion suppression \citep{baccus_retinal_2008, gollisch_eye_2010}. In those cases, it was possible to treat collections of neurons as linear filters with quantifiable  impulse response functions. The models of the individual components could, when combined, accurately predict the larger behavior of the neural circuit. 
 
+The tools, techniques and data presented here are a first step towards towards bringing this data-driven  modeling approach to \textit{C. elegans}.
 
-The tools and techniques presented here are the first steps of this new approach.
-
-
-The approach a model for a new calss of neuroscience experiments. Both 
-
- The data shown in Chapter [omega turn] 
-With new tools, like the ones presented here,  the \textit{C. elegans} community could take the same experiment-driven modeling approach to elucidate microcircuits controlling \textit{C. elegans} locomotion and other behaviors.
+%The ultimate indication that we will have understand how a collection of neurons work together to receive information from the environment, encode that information, and then process it to generate  behavior will not be complete until 
 
 
-
-
-
-This trend of using quantative and computer science isn't just limited to neuroscience.
-The future of  biological siences including 
-
-DNA barcodes.
-
-
-
-\subsection*{END HERE?}
-
-The ultimate indication that we will have understand how a collection of neurons work together to receive information from the environment, encode that information, and then process it to generate  behavior will not be complete until 
-
-
-In particular, an open question in neuroscience is how  complex neural networks change states. For example, in this work we have begun to explore the neural activity that drives the worm's change of direction from forward to backwards locomotion. As the worm transition between these two motor programs, it must alter the programs of smaller subcircuits across the entire nervous system. How does this process go about? Do some subsets of the nervous system still operate on the old motor program while others get 
-
- get  The literature is scant with experimental insights.  
-
-
-
-
-
-
-
-The retina comunnity has been able to amass considerable taken advantage of the natural optical 
-
- of the retin
-
-Here the retina offers inspiration. The retinal already has optical stimuil and electronic readout in the form of htemulti-electrode array. By using those tools the the retina has been experimented to the point that microcircuits can be characterizd and the field is approachign the point of building quantitative data driven models for large portions of the retina. We can followq in those footsteps.
-
-Find microcircuits that can be described mathematicaly, and to slowly build up larger circuits until we have working, testable models of the \textit{C. elegans} nervous system.
 
  
 
@@ -84,4 +37,3 @@ Find microcircuits that can be described mathematicaly, and to slowly build up l
 
 
 
-In the balance of methods development versus scientific discover this work is tilted towards methods development. The author's background comes from physics and thus this work represents a close collaboration with biologists where the other often brought expertise in quantitive, computational or engineering methods. As the author has 
