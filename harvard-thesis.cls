@@ -110,6 +110,17 @@
 	\vspace*{\fill} \newpage \rm
 }
 
+
+%Andy's Alternative Creative Commons Licensing (NOTE this is non-traditional, but a good idea)
+% See: http://creativecommons.org/weblog/entry/12824 for other PhD students who release their work under creative commons
+\newcommand{\creativecommonspage}{
+	\newpage \thispagestyle{empty} \vspace*{\fill}
+	\noindent \copyright \degreeyear, \theauthor \\
+	Some rights reserved. (See Appendix [FILL IN APPENDIX HERE].)
+	\vspace*{\fill} \newpage \rm
+}
+
+
 \newcommand{\abstractpage}{
 	\newpage
 	\pagenumbering{roman}
@@ -132,7 +143,7 @@
 	\newpage \thispagestyle{fancy} \vspace*{\fill}
 	\sc \noindent \input{frontmatter/dedication}
 	\vspace*{\fill} \newpage \rm
-}
+	}
 
 \newcommand{\acknowledgments}{
 	\newpage \vspace*{\fill}
