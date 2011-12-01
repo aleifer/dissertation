@@ -9,19 +9,39 @@
 
 \chapter{Neural activity of the Omega Turn}
 
-\newthought{Navigation is a goal directed locomotion}, common to all animals, in which an organism must generate asymmetry in their motor program to steer toward or away from a cue.  At the neuronal level, navigation requires the temporal coordination of different motor programs.  How does an animal generate asymmetry in a locomotion program allowing it to steer and change direction?  \textit{C. elegans} navigation is regulated by ventrally or dorsally biased head swings (Iino and Yoshida, 2009) and deep ventral omega turns that reorient the worm in the opposite direction.  The neural circuit for the \textit{C. elegans} escape response employs mechanosensory neurons, command neurons and motor neurons to govern decision making, the coordination of motor programs and turning behavior. The escape response in \textit{C. elegans} provides a platform upon which to investigate how an animal's nervous system carries out a change in direction.  
-
-
-The escape response in \textit{C. elegans} can be elicited by gently touching the anterior of the worm. The escape response is very stereotyped. The worm first ceases its forward locomotion and stops exploratory head movements (Alkema et al., 2005), it then moves backward away from the stimulus (Chalfie et al., 1985), comes to a stop, and then bends its head ventrally and  exhibits a deep ventral turn before finally reinitiating forward locomotion.  The entire sequence is commonly referred to as an omega turn. 
-
-The analysis of the omega turn gives us the unique opportunity to identify the molecular and neuronal mechanisms  the nervous system employs to translate sensory information into navigational behavior. 
-
-
-In this chapter we present ongoing work to explore the neural activity underlying the omega turn.
-
 \section{Background}
 
-This circuit employs mechanosensory neurons, command neurons and motor neurons to govern decision making, the coordination of motor programs and turning behavior. 
+\newthought{Navigation is a goal directed locomotion}, common across species, in which an organism must generate asymmetry in their motor program to steer toward or away from a cue.  At the neuronal level, navigation requires the temporal coordination of different motor programs.  How does an animal generate asymmetry in a locomotion program allowing it to steer and change direction?  \textit{C. elegans} navigation is regulated by ventrally or dorsally biased head swings (Iino and Yoshida, 2009) and deep ventral omega turns that reorient the worm in the opposite direction.  The worm's escape response consists of this omega turn. The neural circuit for the \textit{C. elegans} escape response employs mechanosensory neurons, command neurons and motor neurons to govern decision making, the coordination of motor programs and turning behavior. The escape response in \textit{C. elegans} provides a platform upon which to investigate how an animal's nervous system carries out a change in direction.  
+
+
+
+
+The escape response in \textit{C. elegans} can be elicited by gently touching the anterior of the worm. The response is very stereotyped. The worm first ceases its forward locomotion and exploratory head movements (Alkema et al., 2005), it then moves backward away from the stimulus (Chalfie et al., 1985), comes to a stop, and then bends its head ventrally and  exhibits a deep ventral turn before finally reinitiating forward locomotion.  The entire sequence is commonly referred to as an omega turn. 
+
+The analysis of this stereotyped omega turn provides an opportunity to identify the molecular and neuronal mechanisms  the nervous system employs to translate sensory information into navigational behavior.  
+
+
+In this chapter we present ongoing work to explore the neural activity underlying the omega turn. A real-time tracking system was developed to record intracellular calcium transients in single neurons while simultaneously monitoring the macroscopic behavior of a freely moving worm as it undergoes an escape response.
+
+[CHECK THE RIM DATA] This work lays to rest some confusion in the field about the contribution of individual neurons to the escape response.  [TRUE?]
+
+ 
+
+\section{Dual-Magnification Calcium and Behavior Imaging}
+To study the neural activity of an omega turn we required a system to simultaneously observe neural activity in a single neuron and observe the worm's behavior. 
+
+built a microscope to simultaneously track a single target on a worm, record calcium transients and record macroscopic behavior. To do this 
+
+similar in principal to prior work [schaeffer, shawn lockery], but superior on a number of basis. First, it is the first worm tracker, to our knowledge, that uses a  spinning disk confocal microscope which provides crisp backgrounds. Second, it uses inexpensive USB camera to do the tracking, but leverages the real-time computer vision software from the CoLBeRT system to do very rapid feedback. Our feedback operates at 30 Hz, with latencies that are evidently low enough to sufficently track features on the worm, even when it reverses suddenly. 
+
+
+
+
+
+
+
+
+
 
 C. elegans crawls on its side in a sinusoidal pattern by propagating dorso-ventral flexures along the anterior-posterior axis of the body.  
 
@@ -32,11 +52,14 @@ C. elegans crawls on its side in a sinusoidal pattern by propagating dorso-ventr
 
 Gentle touch to the anterior of the worm induces an escape response where the animal stops exploratory head movements (Alkema et al., 2005) and moves backward away from the stimulus (Chalfie et al., 1985).  The escape response is initiated by mechanosensory neurons which transduce sensory information through locomotion command neurons to excitatory and inhibitory motor neurons that innervate the body wall muscles (Chalfie et al., 1985).  Reinitiation of forward locomotion is accompanied by a steep ventral head bend followed by a deep turn (omega turn) that redirects the worm away from the stimulus.  
 
-The analysis of the worm escape response gives us the unique opportunity to identify the molecular and neuronal mechanisms  the nervous system employs to translate sensory information into navigational behavior. 
+The analysis of the worm escape response gives us the  opportunity to identify the molecular and neuronal mechanisms  the nervous system employs to translate sensory information into navigational behavior. 
 
 Genetically encoded calcium indicators in combination with  computer vision worm tracking will be used to determine the activity patterns of mechanosensory neurons, locomotion command neurons, neck motor neurons and neck muscles during turning behavior.  
 
 Unraveling the neural circuitry required for turning behavior will lead to the understanding of the neural and molecular machinery that confers flexibility in the output of coordinated motor programs.
+
+
+
 \subsection{Methods}
 
 
