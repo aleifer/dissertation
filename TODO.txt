@@ -1,0 +1,8 @@
+Before Handing In:
+-Verify that there are no missing or unresolved references. E.g. no "??"
+-Add in Camille's Edits
+-Get Videos from Quan
+-Put all videos and supplementary material into a big zip folder
+-Update the introduction to reflect the style of the abstract
+-If time: fix the sigma(r) problem and update the data and figures
+
