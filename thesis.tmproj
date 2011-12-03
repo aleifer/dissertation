@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>currentDocument</key>
-	<string>frontmatter/thanks.tex</string>
+	<string>chapters/omegaTurn.tex</string>
 	<key>documents</key>
 	<array>
 		<dict>
@@ -117,6 +117,36 @@
 	<integer>200</integer>
 	<key>metaData</key>
 	<dict>
+		<key>chapters/colbert.tex</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>0</integer>
+				<key>line</key>
+				<integer>31</integer>
+			</dict>
+			<key>columnSelection</key>
+			<false/>
+			<key>firstVisibleColumn</key>
+			<integer>820</integer>
+			<key>firstVisibleLine</key>
+			<integer>23</integer>
+			<key>selectFrom</key>
+			<dict>
+				<key>column</key>
+				<integer>0</integer>
+				<key>line</key>
+				<integer>35</integer>
+			</dict>
+			<key>selectTo</key>
+			<dict>
+				<key>column</key>
+				<integer>0</integer>
+				<key>line</key>
+				<integer>31</integer>
+			</dict>
+		</dict>
 		<key>chapters/conclusion.tex</key>
 		<dict>
 			<key>caret</key>
@@ -154,12 +184,12 @@
 				<key>column</key>
 				<integer>0</integer>
 				<key>line</key>
-				<integer>22</integer>
+				<integer>113</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
-			<integer>343</integer>
+			<integer>247</integer>
 			<key>firstVisibleLine</key>
-			<integer>18</integer>
+			<integer>68</integer>
 		</dict>
 		<key>frontmatter/abstract.tex</key>
 		<dict>
@@ -187,9 +217,9 @@
 			<key>columnSelection</key>
 			<false/>
 			<key>firstVisibleColumn</key>
-			<integer>380</integer>
+			<integer>74</integer>
 			<key>firstVisibleLine</key>
-			<integer>21</integer>
+			<integer>14</integer>
 			<key>selectFrom</key>
 			<dict>
 				<key>column</key>
@@ -238,6 +268,7 @@
 	<array>
 		<string>thesis.tex</string>
 		<string>chapters/omegaTurn.tex</string>
+		<string>chapters/colbert.tex</string>
 		<string>frontmatter/abstract.tex</string>
 		<string>frontmatter/thanks.tex</string>
 		<string>harvard-thesis.cls</string>
@@ -245,6 +276,6 @@
 	<key>showFileHierarchyDrawer</key>
 	<false/>
 	<key>windowFrame</key>
-	<string>{{3, 4}, {658, 993}}</string>
+	<string>{{4, 4}, {658, 993}}</string>
 </dict>
 </plist>

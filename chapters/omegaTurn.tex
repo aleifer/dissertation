@@ -7,43 +7,75 @@
 	
 \end{comment}
 
-\chapter{Neural activity of the Omega Turn}\ref{chapter:omegaTurn}
+\chapter{Neural activity of the Omega Turn}\label{chapter:omegaTurn}
 
-\section{Background}
+\section{Motivation}
 
-\newthought{Navigation is a goal directed locomotion}, common across species, in which an organism must generate asymmetry in their motor program to steer toward or away from a cue.  At the neuronal level, navigation requires the temporal coordination of different motor programs.  How does an animal generate asymmetry in a locomotion program allowing it to steer and change direction?  \textit{C. elegans} navigation is regulated by ventrally or dorsally biased head swings (Iino and Yoshida, 2009) and deep ventral omega turns that reorient the worm in the opposite direction.  The worm's escape response consists of this omega turn. The neural circuit for the \textit{C. elegans} escape response employs mechanosensory neurons, command neurons and motor neurons to govern decision making, the coordination of motor programs and turning behavior. The escape response in \textit{C. elegans} provides a platform upon which to investigate how an animal's nervous system carries out a change in direction.  
+\newthought{Navigation is a goal directed locomotion}, common across species, in which an organism moves toward or away from a cue.  At the neuronal level, navigation requires the temporal coordination of different motor programs.  How does an animal's nervous system orchestrate the changes in locomotion required for navigation? The \textit{Caenorhabditis elegans} escape response provides a platform upon which to investigate how navigation is carried out by a simple nervous system.  
 
-
-
-
-The escape response in \textit{C. elegans} can be elicited by gently touching the anterior of the worm. The response is very stereotyped. The worm first ceases its forward locomotion and exploratory head movements (Alkema et al., 2005), it then moves backward away from the stimulus (Chalfie et al., 1985), comes to a stop, and then bends its head ventrally and  exhibits a deep ventral turn before finally reinitiating forward locomotion.  The entire sequence is commonly referred to as an omega turn. 
-
-The analysis of this stereotyped omega turn provides an opportunity to identify the molecular and neuronal mechanisms  the nervous system employs to translate sensory information into navigational behavior.  
+Navigation in  \textit{C. elegans} is regulated by ventrally or dorsally biased head swings (Iino and Yoshida, 2009) and deep ventral omega turns that reorient the worm in the opposite direction.  When the worm is touched on its anterior, it exhibits an escape response by pausing, reversing and turning ventrally in what is often called an omega turn.  The neural circuit for this escape response employs cells at all levels of the nervous system: mechanosensory neurons, command neurons, motor neurons, and muscle. The circuit plays an important role in the animal's decision making, the coordination of its motor programs and its turning behavior. 
+The analysis of this stereotyped omega turn provides an opportunity to identify the  neuronal mechanisms  the nervous system employs to translate sensory information into navigational behavior.  
 
 
 In this chapter we present ongoing work to explore the neural activity underlying the omega turn. A real-time tracking system was developed to record intracellular calcium transients in single neurons while simultaneously monitoring the macroscopic behavior of a freely moving worm as it undergoes an escape response.
 
 [CHECK THE RIM DATA] This work lays to rest some confusion in the field about the contribution of individual neurons to the escape response.  [TRUE?]
 
+
+
+
+
+
+
+
+
+
+
+
+
+
  
 
 \section{Dual-Magnification Calcium and Behavior Imaging}
-To study the neural activity of an omega turn we required a system to simultaneously observe neural activity in a single neuron and observe the worm's behavior. 
+To study the neural activity of an omega turn required a system that permitted simultaneously observation of neural activity and behavior in freely moving worms.  Toward this end, we built the a 
 
+
+ modified a spinnning disk confocal microscope to create 
 built a microscope to simultaneously track a single target on a worm, record calcium transients and record macroscopic behavior. To do this 
 
 similar in principal to prior work [schaeffer, shawn lockery], but superior on a number of basis. First, it is the first worm tracker, to our knowledge, that uses a  spinning disk confocal microscope which provides crisp backgrounds. Second, it uses inexpensive USB camera to do the tracking, but leverages the real-time computer vision software from the CoLBeRT system to do very rapid feedback. Our feedback operates at 30 Hz, with latencies that are evidently low enough to sufficently track features on the worm, even when it reverses suddenly. 
 
 
+\begin{figure} %Schematic of DualMag
+\includegraphics[width=\textwidth]{figures/omegaCalciumImagingSetup}
+\caption[DualMag system apparatus.]{Schematic of the DualMag setup, permitting simultaneous recording of intracellular calcium transients and behavior in freely moving \textit{C. elegans}.  A transgenic worm, expressing GCaMP3 and mCherry in targeted neurons, crawls freely on a motorized stage under infrared illumination. An inexpensive USB camera images the worm's motion at low magnification. Real-time computer vision software rapidly analyzes each low magnification image and identifies the location and orientation of the worm and the targeted neuron and adjust the stage to keep the targeted neuron centered beneath a 20x objective used for calcium imaging.  Blue and yellow laser light shine through the 20x objective to excite GCaMp3 and mCherry in the targeted neuron. The emitted green and red fluorescence  is imaged through a spinning-disk confocal microscope onto two halves of an electron multiplying CCD camera.  Comparing the fluorescence in the green and red  channel images gives the relative level of calcium in the neuron. Slanted dashed lines indicate dichroic mirrors. \label{fig:omegaSchematic}}
+\end{figure}
 
 
 
 
+
+
+
+\begin{figure}  %Sample Images of AVB 
+\includegraphics[width=\textwidth]{figures/omegaDualMagImagesWithScale}
+\caption[Example images from the DualMag setup.]{Example images of the DualMag setup. Transgenic worm expressing GCaMP3 and mCherry in the AVB interneuron is observed in the DualMag system. \textbf{(a)} Raw-image of worm behavior recorded by the low-magnification beam path is shown. Scale bar is 1mm.  \textbf{(b)} Real-time computer vision software identifies the outline of the worm, its head and tail, and identifies the position of AVB for tracking. Scale bar is 1mm. \textbf{(c)} The high magnification beam path images the yellow square region shown in \textbf{b}. Green channel (left) shows calcium-dependent GCaMP3 fluorescence. Red channel (right) shows calcium-independent mCherry fluorescence. Scale bar is 100 \textmu m.
+
+Schematic of the DualMag setup, permitting simultaneous recording of intracellular calcium transients and behavior in freely moving \textit{C. elegans}.  A transgenic worm, expressing GCaMP3 and mCherry in targeted neurons, crawls freely on a motorized stage under infrared illumination. An inexpensive USB camera images the worm's motion at low magnification. Real-time computer vision software rapidly analyzes each low magnification image and identifies the location and orientation of the worm and the targeted neuron and adjust the stage to keep the targeted neuron centered beneath a 20x objective used for calcium imaging.  Blue and yellow laser light shine through the 20x objective to excite GCaMp3 and mCherry in the targeted neuron. The emitted green and red fluorescence  is imaged through a spinning-disk confocal microscope onto two halves of an electron multiplying CCD camera.  Comparing the fluorescence in the green and red  channel images gives the relative level of calcium in the neuron. Slanted dashed lines indicate dichroic mirrors. \label{fig:omegaSampleImages}}
+\end{figure}
+
+
+\section{Neural Activity of the Escape Response}
+The escape response in \textit{C. elegans} can be elicited by gently touching the anterior of the worm. The response is  stereotyped: The worm first ceases its forward locomotion and exploratory head movements (Alkema et al., 2005), it then moves backward away from the stimulus (Chalfie et al., 1985), comes to a stop, and then bends its head ventrally to execute a deep ventral turn before finally reinitiating forward locomotion.  The entire sequence is commonly referred to as an omega turn. 
 
 
 
 
 C. elegans crawls on its side in a sinusoidal pattern by propagating dorso-ventral flexures along the anterior-posterior axis of the body.  
+
+
+
+
 
 
  The escape response is initiated by mechanosensory neurons which transduce sensory information through locomotion command neurons to excitatory and inhibitory motor neurons that innervate the body wall muscles (Chalfie et al., 1985)
@@ -60,21 +92,43 @@ Unraveling the neural circuitry required for turning behavior will lead to the u
 
 
 
-\subsection{Methods}
+\section{Methods}
 
 
-\subsubsection{Optogenetic Stimulation Apparatus}
+\subsection{Calcium Imaging in Moving Worm}
+\subsubsection{Optics}
+Custom made infrared illumination ring of 100 LED's at 850 nm. 
+Thorlabs FEL0750  750nm Longpass Filter.
 
 
 
-\subsubsection{Optogenetic Stimulation in Moving Worm}
+\subsubsection{Real-Time Tracking}
+MAC 6000 [ANDY GRAB ALL OF THIS FROM THE COLBERT SYSTEM] connected over USB, running Windows XP. 
+Imaging Source Camera [ANDY Look it up.]
+Modified version of the MindControl software, written in C using OpenCV open source computer vision library with hardware optimized Intel Integrated Performance Primitives [ANDY cite other chapter]. 
+
+In brief:
+Identifies the outline of the worm, finds the head tail, segments the worm into coordinates, then identifies the targeted neuron within the coordinate system. Finally, the software measures the distance of the targeted neuron from the center of the high magnification field of view and adjusts the stage velocity to glide the worm back towards the center. 
+
+[ANDY CLEAN UP HERE]
 
 
-\subsubsection{Calcium Imaging Apparatus}
-\subsubsection{Calcium Imaging in Moving Worm}
+The software is essentially the same as in [CITE BEFORE] with the following minor modifications, which were necessary to address poor lighting and the demands for more rapid tracking: When identifying the outline of the worm the software now performs a dilation on the image [CITE LEARNING OPENCV] which can compensate for ``holes'' that appear in the worm due to imaging through the agar plate. The newer version also allows the the outline of the worm to be smoothed directly, wheras the old version only allowed the underlying image to be smoothed. Finally the new version of the software provides finer control of the stage response to the feedback loop. 
+
+
+
+
+\subsubsection{Video Synchronization}
+The DualMag system records two independent video streams recorded at different frame rates on different computers. The two video streams are synchronized by shining synchronous pulses of LED light at the appropriate wavelength into both cameras. LEDs are controlled independently from the other software mentioned by a custom LabView program  interfaced with a LabJack digital to analog converter. [BLAH BLAH BLAH. ANDY Find LABJACK] The flashes of light are identified manually offline during post processing. 
+
+\subsubsection{Video Analysis}
+
+
+
+
 
 \section{Manuscript Information}
-The work presented here was done by Andrew M. Leifer in close collaboration with Christopher Clark and Mark Alkema of the Alkema Lab. Andrew Leifer built the hardware with Mason Klein. Christopher Clark and Andrew Leifer together performed all of the experiments. Christopher generated the worm strains. Andrew wrote all software and analyzed the data. Both Andrew and Christopher wrote the manuscript.
+The work presented here was done by Andrew M. Leifer in close collaboration with Christopher Clark and Mark Alkema of the Alkema Lab. Andrew Leifer built the hardware with Mason Klein. Christopher Clark and Andrew Leifer together performed all of the experiments. Christopher generated the worm strains. Andrew wrote all software and analyzed the data. Both Andrew and Christopher wrote the manuscript. Lauren Freeman built the video synchronization LED system. 
 
 
 
