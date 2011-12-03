@@ -9,26 +9,26 @@
 
 \chapter{Neural activity of the Omega Turn}\label{chapter:omegaTurn}
 
+
+
+\newthought{There has a been frenzy of investigations} by \textit{C. elegans} researchers around the globe to study changes in the neural activity of the motor circuit between  the worm's forward and reverse locomotion [CITE Schafer, Mei Zhen, Lockery, Piggot]. Three of these works were published only in the past few months. In the ongoing work presented here, we study the neural activity that underlies the omega turn, which also includes two such transitions between  forward and reverse locomotion. We confirm some of the results found by others,  clarify certain ambiguities in the literature and use our rich and detailed behavioral readout to probe more deeply at correlations between  neural activity and specific subtle behaviors critical for navigation.
+
+
 \section{Motivation}
 
-\newthought{Navigation is a goal directed locomotion}, common across species, in which an organism moves toward or away from a cue.  At the neuronal level, navigation requires the temporal coordination of different motor programs.  How does an animal's nervous system orchestrate the changes in locomotion required for navigation? The \textit{Caenorhabditis elegans} escape response provides a platform upon which to investigate how navigation is carried out by a simple nervous system.  
+Navigation is a goal directed locomotion, common across species, in which an organism moves toward or away from a cue.  At the neuronal level, navigation requires the temporal coordination of different motor programs.  How does an animal's nervous system orchestrate the changes in locomotion required for navigation? The \textit{Caenorhabditis elegans} escape response provides a platform upon which to investigate how navigation is carried out by a simple nervous system.  
 
 Navigation in  \textit{C. elegans} is regulated by ventrally or dorsally biased head swings (Iino and Yoshida, 2009) and deep ventral omega turns that reorient the worm in the opposite direction.  When the worm is touched on its anterior, it exhibits an escape response by pausing, reversing and turning ventrally in what is often called an omega turn.  The neural circuit for this escape response employs cells at all levels of the nervous system: mechanosensory neurons, command neurons, motor neurons, and muscle. The circuit plays an important role in the animal's decision making, the coordination of its motor programs and its turning behavior. 
-The analysis of this stereotyped omega turn provides an opportunity to identify the  neuronal mechanisms  the nervous system employs to translate sensory information into navigational behavior.  
+The analysis of this stereotyped omega turn provides an opportunity to identify the  neuronal mechanisms that the nervous system employs to translate sensory information into navigational behavior.  
 
 
 In this chapter we present ongoing work to explore the neural activity underlying the omega turn. A real-time tracking system was developed to record intracellular calcium transients in single neurons while simultaneously monitoring the macroscopic behavior of a freely moving worm as it undergoes an escape response.
 
-[CHECK THE RIM DATA] Importantly, this work lays to rest some confusion in the field about the contribution of the neuring RIM to the escape response.  [TRUE?]
-
-
-
-
-
+[CHECK THE RIM DATA] Importantly, this work lays to rest some confusion in the field about the contribution of the neuron RIM to the escape response.  [TRUE?]
 
  
-
-\section{Background}
+\section{Dual-Magnification Calcium and Behavior Imaging}
+\subsection{Background}
 To study the neural activity of an omega turn requires a system that permits simultaneous observation of neural activity and behavior in freely moving worms.  In particular, it is important to be able to correlate individual neural activity to rich details of the worm's behavior, such as changes in curvature or direction.
 
 
@@ -39,44 +39,17 @@ Calcium imaging is often performed at high magnification (20x or more)  to resol
 
 The Samuel Lab pioneered the first system to perform calcium imaging in a moving worm \citep{clark_temporal_2007}. In that system, the user manually adjusted a joystick to track the neuron AFD in the head of an unrestrained worm on a motorized stage. The worm was imaged with a high NA 20x objective. This system allowed the user to observe calcium transients in a worm as it moved. However, because the field of view only included a small portion of the worm, details of the worm's behavior like its curvature were not visible.  Additionally, manual tracking made it difficult to consistently track abrupt changes in the worm's  motion.
 
-The Schaeffer Group  operated at 7 Hz. Image processing identified the brightest fluorescent point. \citep{ben_arous_automated_2010}
+Since then, a number of groups have developed manual [cite Mei Zhen]  and automated  [cite Shawn lockery, Shafer, pigott]\citep{faumont_image-free_2011}
+ tracking systems for calcium imaging in moving worms, using a variety of home built [cite shafer, mei zhen, pigott] and commercial [shawn lockery] systems. 
+
+We have a developed a new tracking system that offers unique advantages. The system is built around a spinning disk confocal microscope which cuts down on background fluorescence and increases signal to noise. The system identifies target neurons from the worm's outline, rather than from their fluorescence which makes it well suited for transgenic animals that exhibit fluorescence in more then one neuron. Additionally, the system builds on our previous experience developing rich behavioral monitors and thus provides high spatiotemporal behavioral data including the worm's instantaneous curvature and orientation.  
 
 
-In the past month,  The Lockery Group used a commercial system  that contains two cameras and a quad photomultiplier tube. It operates with much lower lag and faster update. 
-
-Here we provide 
-
+\subsection{The DualMag System}
+A tracking microscope was built capable of recording calcium transients in a moving worm. The microscope operates at two magnification levels simultaneously, one beam path operates at high-magnification to resolve single neurons, while the other beam path operates at low  magnification to view the entire body of the worm. Real-time computer vision software monitors the position of the body of the worm from the low-magnification beam path and adjusts a motorized stage to keep targeted neurons in the high-magnification field of view. The entire system is called the DualMag.
 
 
-loop with an unknown lag. 
-\citep{faumont_image-free_2011}
-We present a system that has 
-In the past 12 months, two labs have developed solutions that allow for automated tracking of \textit{C. elegans} for calcium imaging. 
- 
-
-
-
-During the interv
-
-
-\section{Dual-Magnification Calcium and Behavior Imaging}
-To study the neural activity of an omega turn required a system that permitted simultaneous observation of neural activity and behavior in freely moving worms.  
-
-
-
-Toward this end, we built a tracking microscope capable of recording calcium transients in a moving worm. The microscope operates at two magnification levels simultaneously, one beam path operates at high-magnification to resolve single neurons, while the other beam path operates at low  magnification to view the entire body of the worm. Real-time computer vision software monitors the position of the body of the worm from the low-magnification beam path and adjusts a motorized stage to keep targeted neurons in the high-magnification field of view. The entire system is called the DualMag.
-
-
-
-The DualMag system is built around a Nikon [BLAH] upright spinning disk confocal microscope. The spinning disk  
-
-
-
-
- modified a spinnning disk confocal microscope to create 
-built a microscope to simultaneously track a single target on a worm, record calcium transients and record macroscopic behavior. To do this 
-
-similar in principal to prior work [schaeffer, shawn lockery], but superior on a number of basis. First, it is the first worm tracker, to our knowledge, that uses a  spinning disk confocal microscope which provides crisp backgrounds. Second, it uses inexpensive USB camera to do the tracking, but leverages the real-time computer vision software from the CoLBeRT system to do very rapid feedback. Our feedback operates at 30 Hz, with latencies that are evidently low enough to sufficently track features on the worm, even when it reverses suddenly. 
+The DualMag system is built around an upright Nikon [BLAH] microscope body with a spinning disk confocal unit [Andor blah balh and Yokagawa], a motorized stage and an additional low magnification imaging path. See Figure~\ref{fig:omegaSchematic}. 
 
 
 \begin{figure} %Schematic of DualMag
@@ -85,22 +58,54 @@ similar in principal to prior work [schaeffer, shawn lockery], but superior on a
 \end{figure}
 
 
-
-
-
+A transgenic animal  expressing GCaMP3 and mCherry in targeted neurons crawls freely on agar in a petri dish on a motorized stage under dark field infrared illumination. The high magnification beam path illuminates targeted neurons with  blue (445 nm) and yellow (561 nm) laser light though the spinning-disk confocal system, emitting fluorescence from GCaMP3 in the green and from mCherry in the red. Dichroic mirrors filter out the excitation light and pass only the emitted light to a DualView [CITE] unit which projects the red and green channels side-by-side onto the sensor of an  EMCCD camera. See Figure \ref{fig:omegaSampleImages}c. 
 
 
 \begin{figure}  %Sample Images of AVB 
 \includegraphics[width=\textwidth]{figures/omegaDualMagImagesWithScale}
 \caption[Example images from the DualMag setup.]{Example images of the DualMag setup. Transgenic worm expressing GCaMP3 and mCherry in the AVB interneuron is observed in the DualMag system. \textbf{(a)} Raw-image of worm behavior recorded by the low-magnification beam path is shown. Scale bar is 1mm.  \textbf{(b)} Real-time computer vision software identifies the outline of the worm, its head and tail, and identifies the position of AVB for tracking. Scale bar is 1mm. \textbf{(c)} The high magnification beam path images the yellow square region shown in \textbf{b}. Green channel (left) shows calcium-dependent GCaMP3 fluorescence. Red channel (right) shows calcium-independent mCherry fluorescence. Scale bar is 100 \textmu m.
-
-Schematic of the DualMag setup, permitting simultaneous recording of intracellular calcium transients and behavior in freely moving \textit{C. elegans}.  A transgenic worm, expressing GCaMP3 and mCherry in targeted neurons, crawls freely on a motorized stage under infrared illumination. An inexpensive USB camera images the worm's motion at low magnification. Real-time computer vision software rapidly analyzes each low magnification image and identifies the location and orientation of the worm and the targeted neuron and adjust the stage to keep the targeted neuron centered beneath a 20x objective used for calcium imaging.  Blue and yellow laser light shine through the 20x objective to excite GCaMp3 and mCherry in the targeted neuron. The emitted green and red fluorescence  is imaged through a spinning-disk confocal microscope onto two halves of an electron multiplying CCD camera.  Comparing the fluorescence in the green and red  channel images gives the relative level of calcium in the neuron. Slanted dashed lines indicate dichroic mirrors. \label{fig:omegaSampleImages}}
+\label{fig:omegaSampleImages}}
 \end{figure}
+
+A second beam path, beneath the microscope images the infrared light scattered by the worm at low magnification. An inexpensive USB CCD camera monitors the worm's position and orientation at 30 fps. See Figure \ref{fig:omegaSampleImages}a. Custom real-time computer vision software written in C identifies the worm's outline, its head and tail,  and the location of targeted neurons (Figure \ref{fig:omegaSampleImages}b) and instructs the motorized stage to adjust its stage velocity to compensate for the worm's motion and to keep the targeted neuron squarely in the center of the high-magnification field of view. The feedback loop operates at 30 Hz and is sufficient to compensate for the worm's movements. See Figures \ref{fig:omegaTimeLapse} and \ref{fig:omegaMontage}.
+
+
+\begin{figure}  %Time Lapse Image
+\includegraphics[width=\textwidth]{figures/omegaTimeLapse}
+\caption[Time lapse image of behavior from low magnification beam path.]{Time-lapse stroboscopic darkfield image of worm behavior from the low magnification beam path is shown. The DualMag system continually adjusts the stage's velocity to isolate motion in a region of the worm's head. A 28 ms exposure image was taken every 3 seconds for 1 minute. Scale bar is 1 mm.
+\label{fig:omegaTimeLapse}}
+\end{figure}
+
+
+
+
+While similar in principal to prior work [schaeffer, shawn lockery] this is the first system to our knowledge, that uses a  spinning disk confocal microscope which cuts down on background fluorescence. Second, it uses an inexpensive USB camera to do the tracking and  leverages the real-time computer vision software from the CoLBeRT system \citep{leifer_optogenetic_2011} to perform rapid feedback based on the worm's morphology, not individual neuron fluorescence.
+
+
+
+
+
+
+
+
+
+
+
+
+
+%Montage
+
+
 
 
 \section{Neural Activity of the Escape Response}
 The escape response in \textit{C. elegans} can be elicited by gently touching the anterior of the worm. The response is  stereotyped: The worm first ceases its forward locomotion and exploratory head movements (Alkema et al., 2005), it then moves backward away from the stimulus (Chalfie et al., 1985), comes to a stop, and then bends its head ventrally to execute a deep ventral turn before finally reinitiating forward locomotion.  The entire sequence is commonly referred to as an omega turn. 
 
+\begin{figure}  %Montage of an Omega Turn
+\includegraphics[width=\textwidth]{figures/omegaMontage}
+\caption[Video of worm escape response.]{Video of worm escape response is shown. The worm undergoes forward locomotion.  At 0 s, an electric toothbrush vibrates the worm's petri dish and the worm halts forward locomotion and begins a reversal. At 2.7 s the worm ceases reversing and begins a deep ventral bend. At 4.3 s the worm exhibits the omega shape that gives the omega turn its name. At 5.4 s the worm recommences forward locomotion. Scale bar is 100 \textmu m.
+\label{fig:omegaMontage}}
+\end{figure}
 
 
 
@@ -130,8 +135,17 @@ Unraveling the neural circuitry required for turning behavior will lead to the u
 
 \subsection{Calcium Imaging in Moving Worm}
 \subsubsection{Optics}
+
+Blue (445 nm) and yellow (561 nm) lasers are fiber-coupled into the spinning disk system. Using a 20x objective with a field of view  about 300 \textmu m wide, each laser  provides a maximum power output of 20mW/mm$^2$. An Andor Ion BLAH BLAH BLAH camera images fluorescence at 20Hz with an exposure time of 50ms. 
+
+The condensor lens was removed from the bottom of the microscope to make room for a second low-magnifcation beam path. A an IR prism mirror reflects infrared light into an optical train composed of a telescope and a long pass filter.  
+
+In the experiments described here, the blue laser was run at 3 mW/mm$^2$ and the yellow laser was run at 10 mW/mm$^2$ to avoid pohotobleaching. 
+
 Custom made infrared illumination ring of 100 LED's at 850 nm. 
 Thorlabs FEL0750  750nm Longpass Filter.
+
+
 
 
 
