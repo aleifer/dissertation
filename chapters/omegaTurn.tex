@@ -19,15 +19,7 @@ The analysis of this stereotyped omega turn provides an opportunity to identify 
 
 In this chapter we present ongoing work to explore the neural activity underlying the omega turn. A real-time tracking system was developed to record intracellular calcium transients in single neurons while simultaneously monitoring the macroscopic behavior of a freely moving worm as it undergoes an escape response.
 
-[CHECK THE RIM DATA] This work lays to rest some confusion in the field about the contribution of individual neurons to the escape response.  [TRUE?]
-
-
-
-
-
-
-
-
+[CHECK THE RIM DATA] Importantly, this work lays to rest some confusion in the field about the contribution of the neuring RIM to the escape response.  [TRUE?]
 
 
 
@@ -36,8 +28,49 @@ In this chapter we present ongoing work to explore the neural activity underlyin
 
  
 
+\section{Background}
+To study the neural activity of an omega turn requires a system that permits simultaneous observation of neural activity and behavior in freely moving worms.  In particular, it is important to be able to correlate individual neural activity to rich details of the worm's behavior, such as changes in curvature or direction.
+
+
+Genetically encoded fluorescent calcium indicators such as Cameleon [CITE ME!!!] and GCaMP [CITE ME!] are the primary tools available for optical neurophysiology in \textit{C. elegans}.  The fluorescence of these indicators change with the level of intracellular calcium present. Calcium is often a good indicator of neural activity. As a result, the fluorescent levels can be monitored and neural activity can be inferred.
+
+
+Calcium imaging is often performed at high magnification (20x or more)  to resolve individual neurons and with high numerical aperture (NA) objectives to collect large numbers of photons. As a result, calcium imaging had traditionally been  performed on immobilized  [ANDY: CITE A SAMUEL LAB PAPER] or partially restrained animals  [ANDY: CITE A SAMUEL LAB PAPER], where it is possible to keep the neurons of interest in a small field of view for an extended period of time. 
+
+The Samuel Lab pioneered the first system to perform calcium imaging in a moving worm \citep{clark_temporal_2007}. In that system, the user manually adjusted a joystick to track the neuron AFD in the head of an unrestrained worm on a motorized stage. The worm was imaged with a high NA 20x objective. This system allowed the user to observe calcium transients in a worm as it moved. However, because the field of view only included a small portion of the worm, details of the worm's behavior like its curvature were not visible.  Additionally, manual tracking made it difficult to consistently track abrupt changes in the worm's  motion.
+
+The Schaeffer Group  operated at 7 Hz. Image processing identified the brightest fluorescent point. \citep{ben_arous_automated_2010}
+
+
+In the past month,  The Lockery Group used a commercial system  that contains two cameras and a quad photomultiplier tube. It operates with much lower lag and faster update. 
+
+Here we provide 
+
+
+
+loop with an unknown lag. 
+\citep{faumont_image-free_2011}
+We present a system that has 
+In the past 12 months, two labs have developed solutions that allow for automated tracking of \textit{C. elegans} for calcium imaging. 
+ 
+
+
+
+During the interv
+
+
 \section{Dual-Magnification Calcium and Behavior Imaging}
-To study the neural activity of an omega turn required a system that permitted simultaneously observation of neural activity and behavior in freely moving worms.  Toward this end, we built the a 
+To study the neural activity of an omega turn required a system that permitted simultaneous observation of neural activity and behavior in freely moving worms.  
+
+
+
+Toward this end, we built a tracking microscope capable of recording calcium transients in a moving worm. The microscope operates at two magnification levels simultaneously, one beam path operates at high-magnification to resolve single neurons, while the other beam path operates at low  magnification to view the entire body of the worm. Real-time computer vision software monitors the position of the body of the worm from the low-magnification beam path and adjusts a motorized stage to keep targeted neurons in the high-magnification field of view. The entire system is called the DualMag.
+
+
+
+The DualMag system is built around a Nikon [BLAH] upright spinning disk confocal microscope. The spinning disk  
+
+
 
 
  modified a spinnning disk confocal microscope to create 
