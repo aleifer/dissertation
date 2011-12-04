@@ -151,12 +151,22 @@ Custom made infrared illumination ring of 100 LED's at 850 nm.
 Thorlabs FEL0750  750nm Longpass Filter.
 
 
+Nikon Eclpse LV 100 microscope
+CSU22 Confocal Scanning nit from Yokogawa, 500 rpm, 50 ms exposure
 
+DV2 MAG Biosystems using the DV2-Cube T565lpxr
+
+Andor iXon+
+Andor iQ 1.1.3
+Ander Laser Combiner system 5000
+Andor Precision Control Unit 100
 
 
 \subsubsection{Real-Time Tracking} \label{sec:omegaSoftware}
-MAC 6000 [ANDY GRAB ALL OF THIS FROM THE COLBERT SYSTEM] connected over USB, running Windows XP. 
-Imaging Source Camera [ANDY Look it up.]
+MAC 6000 [ANDY GRAB ALL OF THIS FROM THE COLBERT SYSTEM] connected over USB, running Windows XP.  Ludl Electronic Products Ltd
+
+96S100-LE Ludl Bioprecisions2 Stage
+The Imaging Source, DMK 31BUO3  30fps, 1024 x 768 px
 Modified version of the MindControl software, written in C using OpenCV open source computer vision library with hardware optimized Intel Integrated Performance Primitives [ANDY cite other chapter]. 
 
 In brief:
@@ -172,6 +182,8 @@ The software is essentially the same as in [CITE BEFORE] with the following mino
 
 \subsubsection{Video Synchronization}
 The DualMag system records two independent video streams recorded at different frame rates on different computers. The two video streams are synchronized by shining synchronous pulses of LED light at the appropriate wavelength into both cameras. LEDs are controlled independently from the other software mentioned by a custom LabView program  interfaced with a LabJack digital to analog converter. [BLAH BLAH BLAH. ANDY Find LABJACK] The flashes of light are identified manually offline during post processing. 
+
+LabJack U3-HV
 
 \subsubsection{Video Analysis}
 
