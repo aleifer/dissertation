@@ -11,3 +11,10 @@ After Handing In:
 -In the Omega Turn Chapter redo the first few figures to have a bigger worm. 
 -Replace the figures showing calcium imaging with a worm that's actually bright. The one in the image looks really crummy, especially when we have so many that look really realy good:for example F:\DualMag\20111109\111109lgc55gc3_4_2_20111204_41640 PM\111109lgc55gc3_4_2_t2215.tif
 -Get RIM data. 
+
+Improvements to Omega Turn Project
+Three Areas Working On:
+-Streamline the analysis aspect: Instead of clicking on each neuron, have the software propose three or four top potential locations to click. Then the user can hit enter to default to the first choice, can type in a number to choose another choice, and only as a last resort, can click on the image.
+-Do a better job of keeping track of data. Its getting unweildy
+-Improve the tracking. find out where the delays are. Lookin into screen capture. Maybe ask Tom or someone who works for a gaming company how to get direct access to the screen on Windows XP.
+
