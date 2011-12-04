@@ -6,3 +6,8 @@ Before Handing In:
 -Update the introduction to reflect the style of the abstract
 -If time: fix the sigma(r) problem and update the data and figures
 
+
+After Handing In:
+-In the Omega Turn Chapter redo the first few figures to have a bigger worm. 
+-Replace the figures showing calcium imaging with a worm that's actually bright. The one in the image looks really crummy, especially when we have so many that look really realy good:for example F:\DualMag\20111109\111109lgc55gc3_4_2_20111204_41640 PM\111109lgc55gc3_4_2_t2215.tif
+-Get RIM data. 
