@@ -99,7 +99,8 @@ The escape response in \textit{C. elegans} can be elicited by gently touching th
 \end{figure}
 
 \section{Results}
-
+\subsection{AVA}
+AVA is a command interneuron involved in backward locomotion.  A P\textit{lgc-55::mCherry::SL2::GCaMP3} transgenic worm, expressing mCherry and GCaMP3 in AVA is stimulated to undergo an escape response by transiently vibrating an electric toothbrush against the side of the agar plate containing the worm for less than half of a second.  As the worm freely crawls on the agar, its behavior and calcium transients are recorded. A representative sequence is shown in Figure \ref{fig:omegaAVArep}.  After vibration, calcium levels in AVA begin to rise as the worm reverses. The worm ceases backward locomotion, and undergoes a deep bend, visible as a large downward spike in the curvature diagram. Its body then forms a symmetric omega-like shape and the worm begins forward locomotion in a new direction, evident by the jump in  orientation. 
 
 
 \begin{FPfigure}  %AVA representative results
@@ -108,16 +109,58 @@ The escape response in \textit{C. elegans} can be elicited by gently touching th
 \end{FPfigure}
 
 
+The fluorescence ratio is the ratio of the of intensities,  above background, of the pixels of AVA in the green to the red channel. Where presented, fluorescence ratio is plotted as the ratio above a baseline. The baseline is defined as the mean fluorescence ratio during a period from the beginning of a behavior sequence to the application of stimulus. Here, a behavior sequence is a defined as a region of behavior exhibiting only forward locomotion punctuated by exactly one omega turn in response to a stimuli. 
+
+Where presented, velocity is the velocity of the worm's bending waves along its body, in units of worm length. Curvature is the curvature of the worm's centerline in a region 10 to 80 percent along its centerline from the anterior of the worm. A gap in the fluorescence trace indicates either an instance where the worm moves its head out of plane and the microscope transiently loses focus, or an instance when the tracking software incorrectly segments the worm and the neuron leaves the field of view.  A gap in behavior data reflects an instance when the software is unable to correctly identify the worm's head and tail, as occurs when the worm curls up in the omega shape. 
+
+
+Neural activity and behavior have modest variation across trials and worms, but is overall stereotyped. The calcium transients in AVA of seven runs from four worms are shown in Figure \ref{fig:omegaAVA_aggregate}. The worm's velocity, curvature and orientation corresponding to these traces are shown in Figures \ref{fig:omegaAVA_velocity}, \ref{fig:omegaAVA_curvature} and \ref{fig:omegaAVA_orientation}, respectively. 
+
+
+
+
+\begin{figure}  %AVA aggregated activity
+\includegraphics[width=\textwidth]{figures/omegaAVA_aggregate}
+\caption[Neural activity of AVA for seven sequences from four worms.]{Calcium transients of AVA for seven behavior sequences from four worms.  A P\textit{lgc-55::mCherry::SL2::GCaMP3} transgenic worm, expressing mCherry and GCaMP3 in its AVA interneuron, is stimulated at time 0 s by vibrating its agar plate. The fluorescence ratio is the ratio of the of intensities,  above background, of the pixels of AVA in the green to the red channel, plotted here as the ratio above baseline.  Corresponding velocity, curvature and orientation are shown in Figures \ref{fig:omegaAVA_velocity}, \ref{fig:omegaAVA_curvature} and \ref{fig:omegaAVA_orientation}, respectively. 
+ \label{fig:omegaAVA_aggregate}}
+\end{figure}
+
+
+
+\begin{figure}  %AVA aggregated velocity
+\includegraphics[width=\textwidth]{figures/omegaAVA_velocity}
+\caption[Corresponding velocity for seven sequences from four worms.]{Velocity traces corresponding to AVA calcium traces shown in Figure \ref{fig:omegaAVA_aggregate}. A P\textit{lgc-55::mCherry::SL2::GCaMP3} transgenic worm, is stimulated at time 0 s by vibrating its agar plate. Sustained negative dips correspond to reversals. Velocity, here, is the velocity at which the bending waves propagate along the worm's centerline.  The worm's corresponding curvature and orientation are shown in Figures \ref{fig:omegaAVA_curvature} and \ref{fig:omegaAVA_orientation}, respectively. \label{fig:omegaAVA_velocity}}
+\end{figure}
+
+
+
+\begin{figure}  %AVA aggregated curvature
+\includegraphics[width=\textwidth]{figures/omegaAVA_curvature}
+\caption[Corresponding curvature for seven sequences from four worms.]{The worm's curvature ,corresponding to AVA calcium traces shown in Figure \ref{fig:omegaAVA_aggregate}. A P\textit{lgc-55::mCherry::SL2::GCaMP3} transgenic worm is stimulated at time 0 s by vibrating its agar plate. A large spike or dip following the end of the worm's reversal (pink diamond) corresponds to a deep ventral bend. Here, curvature is the mean curvature of the worm's centerline in a region from 10\% to 80\% along its centerline. 
+Velocity and orientation corresponding to these traces are shown in Figures \ref{fig:omegaAVA_velocity} and \ref{fig:omegaAVA_orientation}, respectively.  \label{fig:omegaAVA_curvature}}
+\end{figure}
+
+
+\begin{figure}  %AVA aggregated orientation
+\includegraphics[width=\textwidth]{figures/omegaAVA_orientation}
+\caption[Corresponding orientation for seven sequences from four worms.]{The worm's orientation, corresponding to AVA calcium traces shown in Figure \ref{fig:omegaAVA_aggregate}. A P\textit{lgc-55::mCherry::SL2::GCaMP3} transgenic worm is stimulated at time 0 s by vibrating its agar plate. A discontinuous jump around the time of omega-turn (pink circle) corresponds to an abrupt change in direction of motion. Here, orientation is the vector between the worm's neck and mid-region (5\%  and 40\%  along the from worm's centerlin anterior from its  head ). Velocity and curvature corresponding to these traces are shown in Figures \ref{fig:omegaAVA_velocity} and \ref{fig:omegaAVA_curvature}, respectively.  \label{fig:omegaAVA_orientation}}
+\end{figure}
+
+\subsection{AVB}
+AVB is a command interneuron reported to be involved in forward locomotion. 
+
+
+
+
 \section{Discussion}
 
 
+Confirm existing results. Preliminary results look like AVB may be involved in a sprinting activity, and is not persistantly active during forward locomotion. 
 
+Also in the process of looking at RIM, where there is currently some controversy about whether it becomes active or inactive during a reversal.
 
-A sequence is a defined as a region of behavior exhibiting only forward locomotion punctuated by exactly one omega turn in response to a stimuli. 
-
-
-
-Discontinuities before and after the omega turn indicate the change in orientation.
+\section{Future}
+Continue to analyze calcium transients of different neurons in their relation to behavior. Then develop a picture of which neurons turn on and off when. Then use the pertabative tools afforded by the CoLBeRT system (Chapter BLAH) to interrogate the individual contributions that silencing or stimulating each neuron gives to behavior. This will be a long-term project, but we have laid the groundwork here. 
 
 
 
