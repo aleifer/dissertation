@@ -6,6 +6,7 @@ Before Handing In:
 -Update the introduction to reflect the style of the abstract
 -If time: fix the sigma(r) problem and update the data and figures
 
+-Add in Chenxiang's single missing equation
 
 After Handing In:
 -In the Omega Turn Chapter redo the first few figures to have a bigger worm. 
