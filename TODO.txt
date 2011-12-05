@@ -13,6 +13,12 @@ After Handing In:
 -Replace the figures showing calcium imaging with a worm that's actually bright. The one in the image looks really crummy, especially when we have so many that look really realy good:for example F:\DualMag\20111109\111109lgc55gc3_4_2_20111204_41640 PM\111109lgc55gc3_4_2_t2215.tif
 -Get RIM data. 
 
+
+Add In Other Colbert Related Experiments That are Intersting:
+-Worm steering experiment with Quan
+-AVA Optogenetic Stimulation
+
+
 Improvements to Omega Turn Project
 Three Areas Working On:
 -Streamline the analysis aspect: Instead of clicking on each neuron, have the software propose three or four top potential locations to click. Then the user can hit enter to default to the first choice, can type in a number to choose another choice, and only as a last resort, can click on the image.
