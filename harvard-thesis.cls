@@ -113,13 +113,6 @@
 
 %Andy's Alternative Creative Commons Licensing (NOTE this is non-traditional, but a good idea)
 % See: http://creativecommons.org/weblog/entry/12824 for other PhD students who release their work under creative commons
-\newcommand{\creativecommonspage}{
-	\newpage \thispagestyle{empty} \vspace*{\fill}
-	\noindent \copyright \degreeyear, \theauthor \\
-	Some rights reserved. (See Appendix [FILL IN APPENDIX HERE].)
-	\vspace*{\fill} \newpage \rm
-}
-
 
 \newcommand{\abstractpage}{
 	\newpage
@@ -145,6 +138,15 @@
 	\vspace*{\fill} \newpage \rm
 	}
 
+	\newcommand{\authorlist}{
+		\pagestyle{fancy}
+\thispagestyle{fancy} 
+		\section*{Author List}
+		\noindent \input{frontmatter/authorlist}
+		\newpage \rm
+		}
+
+
 \newcommand{\acknowledgments}{
 	\newpage \vspace*{\fill}
 	\section*{Acknowledgments}
@@ -152,7 +154,10 @@
 	\input{frontmatter/thanks}
 	\vspace*{\fill} \newpage
 	\setcounter{page}{1}
-	\pagenumbering{arabic}}
+	\pagenumbering{arabic}
+	}
+
+
 	
 % An environment for paragraph-style section
 
