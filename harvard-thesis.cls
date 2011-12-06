@@ -40,12 +40,11 @@
 \nobibliography*        
 %End Andy's package additions
 
-%these can stay here
 \RequirePackage{lettrine}%big letter at start of chapter
 \RequirePackage[width=5in, letterpaper]{geometry}
 
 
-\RequirePackage{fancyhdr} % This should be set AFTER setting up the page geometry
+\RequirePackage{fancyhdr} 
 \pagestyle{plain} % options: empty , plain , fancy
 \RequirePackage[palatino]{quotchap}
 \RequirePackage{titling}
