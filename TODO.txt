@@ -1,18 +1,16 @@
 Before Handing In:
--Cite the authors of each chapter at the beginning of the work? Maybe? If time?
--Add in Camille's Edits
--Get Videos from Quan
--Put all videos and supplementary material into a big zip folder
 -Update the introduction to reflect the style of the abstract
 -If time: fix the sigma(r) problem and update the data and figures
 
 -Add in Chenxiang's single missing equation
+
 
 After Handing In:
 -In the Omega Turn Chapter redo the first few figures to have a bigger worm. 
 -Replace the figures showing calcium imaging with a worm that's actually bright. The one in the image looks really crummy, especially when we have so many that look really realy good:for example F:\DualMag\20111109\111109lgc55gc3_4_2_20111204_41640 PM\111109lgc55gc3_4_2_t2215.tif
 -Get RIM data. 
 
+-Add in software
 
 Add In Other Colbert Related Experiments That are Intersting:
 -Worm steering experiment with Quan

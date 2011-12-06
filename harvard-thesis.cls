@@ -60,7 +60,7 @@
 
 
 
-% Instead of using default latex for math fonts, we can be fancy and try to adapt Chaparral Pro..
+% Instead of using default latex for math fonts, we can be fancy and try to adapt Chaparral Pro.. --ANDY
 \setmathsfont(Digits,Latin,Greek)[Numbers={OldStyle,Proportional}]{Chaparral Pro}
 \setmathrm{Chaparral Pro}  %I added this to handle \mathbf
 
@@ -148,14 +148,13 @@
 
 
 \newcommand{\acknowledgments}{
-	\newpage \vspace*{\fill}
+%	\vspace*{\fill} %This has to be removed, otherwise you get an additional empty page
 	\section*{Acknowledgments}
 	\noindent
 	\input{frontmatter/thanks}
 	\vspace*{\fill} \newpage
 	\setcounter{page}{1}
-	\pagenumbering{arabic}
-	}
+	\pagenumbering{arabic}}
 
 
 	
