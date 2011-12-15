@@ -298,7 +298,7 @@ Max Area &  Mean of Area of Blobs in $B_i$ \\
 \end{center}
 \end{table}
 
-The resulting conditioned and normalized image (Figure \ref{fig:blobs}f) has barcodes with pixel intensities such that the brightest pixel in an average barcode in any channel will have an intensity of one.  Together with information about the locations of the barcodes (Section \ref{sec:locatingBarcodes}), this normalized and conditioned image can be used to create one0dimensional barcode intensity profiles (Section \ref{sec:locatingBarcodes}) that can then be decoded using the framework described in Section \ref{sec:simpleModel}.
+The resulting conditioned and normalized image (Figure \ref{fig:blobs}f) has barcodes with pixel intensities such that the brightest pixel in an average barcode in any channel will have an intensity of one.  Together with information about the locations of the barcodes (Section \ref{sec:locatingBarcodes}), this normalized and conditioned image can be used to create one-dimensional barcode intensity profiles (Section \ref{sec:locatingBarcodes}) that can then be decoded using the framework described in Section \ref{sec:simpleModel}.
 
 \subsection{Inspecting the Background}
 The decoding framework described in Section \ref{sec:simpleModel} is designed to operate with zero-mean Gaussian background noise. We verify the nature of the noise by masking away the prospective barcodes using the inverse of the binary mask $B_{\cup}$ from Section \ref{sec:locatingBarcodes}.  The intensity histogram of the background, shown in Figure \ref{fig:noisePlots}, demonstrates that the noise is close to zero mean. The same data plotted on normal probability axes shows that over 90\% of the noise pixels fit a Gaussian distribution. The remainder have lower intensities than expected, so treating them as Gaussian is conservative in the sense that they are unlikely to cause false positives by masquerading as fluorescent markers. The background noise is thus well described by a zero mean Gaussian distribution, and is therefore consistent with the assumptions in our model.
@@ -318,7 +318,7 @@ The decoding framework described in Section \ref{sec:simpleModel} is designed to
 	\begin{figure}[htbp]
 	\begin{center}
 		\includegraphics[width=\textwidth]{figures/theoryProjectBarcode}
-		\caption{Two-dimensional barcode images are projected down to a single dimension. 1 px $\approx$ 71.4nm. \textbf{(a)}  A single barcode is shown. From top to bottom, the Red, Green,  Blue and a composite image are shown.These images have already been conditioned and normalized. \textbf{(b)} The one-dimensional projections of the images in \textbf{a} are shown. \label{fig:projectDown}}
+		\caption{Two-dimensional barcode images are projected down to a single dimension. 1 px $\approx$ 71.4nm. \textbf{(a)}  A single barcode is shown. From top to bottom, the Red, Green,  Blue and a composite image are shown. These images have already been conditioned and normalized. \textbf{(b)} The one-dimensional projections of the images in \textbf{a} are shown. \label{fig:projectDown}}
 	\end{center}	
 	\end{figure}
 
@@ -351,7 +351,7 @@ Eq. \ref{eq:projectDown} provides us with three one-dimensional projections of t
 The last ingredient needed for detection and identification is a bank of reference barcodes to compare against the observed signal. Each reference barcode consists of three one-dimensional traces containing  Gaussian peaks of height unity (Eq.~\ref{eq:psf}) superposed at the predicted locations of the fluorescent spots. 
 
 
-Although there are only $6^3=216$ species of barcodes, the reference bank must be larger to accomodate the many differences in geometry, or microconfigurations, that the barcode can adopt, including:
+Although there are only $6^3=216$ species of barcodes, the reference bank must be larger to accommodate the many differences in geometry, or microconfigurations, that the barcode can adopt, including:
 \begin{enumerate}
 \item left/right reflections, that is, the small gap can lie to the left or to the right,
 \item left/right mis-centering within the rectangular window,
