@@ -1,3 +1,4 @@
+%!TEX root = /Users/andy/Documents/Academics/Dissertation/thesis.tex
 % -------------------------------------------------------------------
 %  @LaTeX-class-file{
 %     filename        = "harvard-thesis.cls",
@@ -31,7 +32,7 @@
 
 %Begin Andy's package additions
 \usepackage{pdfsync} %do pdf synchronization [andy]
-\usepackage[closeFloats]{fltpage}
+\usepackage[closeFloats, noSeparatorLine]{packages/fltpage} %use the custom modified fltpage package
 
 \synctex=1 % turn synctex on automatically to sync between pdf viewer [andy]
 
