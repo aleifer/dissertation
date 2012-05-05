@@ -147,7 +147,7 @@
 \ProcessOptions*
 \relax
 \newcommand{\FP@floatBegin}[1]{%
-  \clearpage
+  \clearpage %Added to clear the page  -- Andrew Leifer 2012
   \gdef\@captype{#1}%
   \global\let\FP@savedCaptionCommand\caption%
   \global\let\FP@savedLabelCommand\label%
@@ -176,7 +176,7 @@
                 {}{\FP@savedLabelCommand{\expandafter\protect\FP@LabelText}}%
           \end{\@captype}}
            {\addtocounter{\@captype}{-1}}
-           {\begin{\@captype}[p!]%
+           {\begin{\@captype}[p!]% %Changed from b to p! Thanks to Eddie. --- Andrew Leifer
              \ifthenelse{\equal{\FP@guide}{\@empty}}%
                {}{\ifthenelse{\equal{\@captype}{figure}}%
                    {\renewcommand{\fnum@figure}{\old@Fnum\ {\FP@guide}}}%
