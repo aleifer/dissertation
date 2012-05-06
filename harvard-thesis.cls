@@ -59,7 +59,6 @@
 \RequirePackage{mathspec}
 
 
-
 % Instead of using default latex for math fonts, we can be fancy and try to adapt Chaparral Pro.. --ANDY
 \setmathsfont(Digits,Latin,Greek)[Numbers={OldStyle,Proportional}]{Chaparral Pro}
 \setmathrm{Chaparral Pro}  %I added this to handle \mathbf
