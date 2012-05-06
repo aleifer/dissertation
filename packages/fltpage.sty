@@ -146,49 +146,61 @@
 \ExecuteOptions{oneside}
 \ProcessOptions*
 \relax
+
+% This code gets dropped into place for the \begin{Figure} command
 \newcommand{\FP@floatBegin}[1]{%
   \clearpage %Added to clear the page  -- Andrew Leifer 2012
   \gdef\@captype{#1}%
-  \global\let\FP@savedCaptionCommand\caption%
+  \global\let\FP@savedCaptionCommand\caption %Caption command before it gets redefined!!
   \global\let\FP@savedLabelCommand\label%
-  \ifthenelse{\equal{\@captype}{figure}}
+  \ifthenelse{\equal{\@captype}{figure}} %Set \old@Fnum to be either figure or table
      {\global\let\old@Fnum\fnum@figure}%
      {\global\let\old@Fnum\fnum@table}%
-  \let\FP@LabelText\@empty%
-  \let\FP@CaptionText\@empty%
-  \let\FP@optionalCaptionText\@empty%
-  \renewcommand\label[1]{\gdef\FP@LabelText{##1}}%
-  \renewcommand\caption[2][]{\gdef\FP@optionalCaptionText{##1}\gdef\FP@CaptionText{##2}}%
+  \let\FP@LabelText\@empty %set the label text as empty
+  \let\FP@CaptionText\@empty % set the caption text as empty
+  \let\FP@optionalCaptionText\@empty %set the optional caption text as empty 
+  \renewcommand\label[1]{\gdef\FP@LabelText{##1}}%set the label text
+
+%Redefine the caption function with new parameters (I Think?)
+\renewcommand\caption[2][]{\gdef\FP@optionalCaptionText{##1}\gdef\FP@CaptionText{##2}}%
   \begin{lrbox}{\FP@floatCorpusBOX}%
 	%Text at this position shows up right before the figure
-}%
+}
+
+
 \newcommand{\FP@floatEnd}{%
-  \end{lrbox}%
+  \end{lrbox} %This closes the end of the  lrbox that was opened when the calling .tex file invoked the "\caption" command
   \global\setbox\FP@floatCorpusBOX=\box\FP@floatCorpusBOX
   \stepcounter{FP@\@captype C}%
   \FP@savedLabelCommand{\FP@positionLabel}%
   \FP@helpNote{\@captype}{\FP@positionLabel}%
-  \FP@float{\FP@positionLabel}% location label test
-          {\begin{\@captype}[p!]  %clearpage
-             \usebox{\FP@floatCorpusBOX}%
-             \refstepcounter{\@captype}%
-             \ifthenelse{\equal{\FP@LabelText}{\@empty}}
+  \FP@float{\FP@positionLabel} % location label test
+          {\begin{\@captype}[p!] %Begin figure!
+			%I Believe the continued caption goes here
+			%\FP@savedCaptionCommand{(continued)}	
+             \usebox{\FP@floatCorpusBOX}%this must be handle to the float box 
+             \refstepcounter{\@captype}%increment the counter and set the reference?
+             \ifthenelse{\equal{\FP@LabelText}{\@empty}}%if the label text is empty do something
                 {}{\FP@savedLabelCommand{\expandafter\protect\FP@LabelText}}%
           \end{\@captype}}
-           {\addtocounter{\@captype}{-1}}
-           {\begin{\@captype}[p!]% %Changed from b to p! Thanks to Eddie. --- Andrew Leifer
+			%This should end the figure and the continued caption!
+           {\addtocounter{\@captype}{-1}} %Subtract off one from the counter?
+           {\begin{\@captype}[p!]% %Changed from b to p! Thanks to Eddie. --- Andrew Leifer  	%Start another figure!
              \ifthenelse{\equal{\FP@guide}{\@empty}}%
                {}{\ifthenelse{\equal{\@captype}{figure}}%
                    {\renewcommand{\fnum@figure}{\old@Fnum\ {\FP@guide}}}%
                    {\renewcommand{\fnum@table}{\old@Fnum\ {\FP@guide}}}}%
              \setlength{\abovecaptionskip}{2pt plus2pt minus 1pt} % length above caption
              \setlength{\belowcaptionskip}{2pt plus2pt minus 1pt} % length above caption
-             \FP@separatorCaption%
+             \FP@separatorCaption %I Believe this is the first caption
              \ifthenelse{\equal{\FP@optionalCaptionText}{\@empty}}%
-               {\FP@savedCaptionCommand{\expandafter\protect\FP@CaptionText}}%
-               {\FP@savedCaptionCommand[\expandafter\protect\FP@optionalCaptionText]{\expandafter\protect\FP@CaptionText}}%
+               {\FP@savedCaptionCommand{\expandafter\protect\FP@CaptionText}}%here is the saved caption command
+{\FP@savedCaptionCommand[\expandafter\protect\FP@optionalCaptionText]{\expandafter\protect\FP@CaptionText}}%
            \end{\@captype}}%
 }%
+
+
+%I believe this command means: go through and find all instances of \begin{FPFigure} in the calling .tex file and repalce it with the first argument, and \end{FPFigure} gets replaced with the secoind argument 
 \newenvironment{FPfigure}{\FP@floatBegin{figure}}{\FP@floatEnd}
 \newenvironment{FPtable}{\FP@floatBegin{table}}{\FP@floatEnd}
 \endinput
