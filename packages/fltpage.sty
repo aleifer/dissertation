@@ -1,4 +1,16 @@
 %!TEX root = /Users/andy/Documents/Academics/Dissertation/thesis.tex
+%% 
+%% This is the fltpage package for full page figures. 
+%% It has been heavily commented and lightly modified by Andrew Leifer 
+%% to bring into compliance with Harvard University's thesis guidelines. 
+%% Specifically, captions preceeding full page captions now appear
+%% on their own lines. Thanks to Eddie Schlafly for initial guidance here.
+%%
+%%  -- Andrew Leifer
+%%      leifer@fas.harvard.edu
+%%      leifer@princeton.edu
+%%      5 May 2012
+%%
 %%
 %% This is file `fltpage.sty',
 %% generated with the docstrip utility.
@@ -13,10 +25,6 @@
 %% This file is part of the fltpage package
 %% 
 %%
-%% Modified by Andrew Leifer to bring into compliance with Harvard University's 
-%% thesis guidelines. Specifically, captions preceeding full page captions now appear
-%% on their own lines. Thanks to Eddie Schlafly for guidance here.
-%% -- leifer@fas.harvard.edu
 %% 
 %%
 %% IMPORTANT NOTICE:
@@ -160,6 +168,8 @@
   \let\FP@CaptionText\@empty % set the caption text as empty
   \let\FP@optionalCaptionText\@empty %set the optional caption text as empty 
   
+  
+
   %Redefinie the \label command to save the value placed there in this special LabelText variable
   \renewcommand\label[1]{\gdef\FP@LabelText{##1}}
 
@@ -180,13 +190,12 @@
   \FP@helpNote{\@captype}{\FP@positionLabel}%
   \FP@float{\FP@positionLabel} % location label test %I believe this is the float
           {\begin{\@captype}[p!] \ContinuedFloat %Begin figure! % NEW<---------- 
+			 \stepcounter{\@captype}%increment the counter 
 			\FP@savedCaptionCommand{(continued)} % NEW<----------
              \usebox{\FP@floatCorpusBOX}%this must be handle to the float box?
-             \refstepcounter{\@captype}%increment the counter and set the reference?
-			 %if the label text is NOT empty,  display the label command
+             %if the label text is NOT empty,  display the label command
              \ifthenelse{\equal{\FP@LabelText}{\@empty}}
                 {}{\FP@savedLabelCommand{\expandafter\protect\FP@LabelText}}%
-				%I Believe the continued caption goes here
           \end{\@captype}}
            {\addtocounter{\@captype}{-1}} %Subtract off one from the counter?
            {\begin{\@captype}[p!]% %Changed from b to p! Thanks to Eddie. --- Andrew Leifer  	%Start another figure!
