@@ -201,12 +201,12 @@ The spinning disk system is a CSU22 Confocal Scanning unit from Yokogawa that op
 
 To image behavior, a custom made illumination ring of 100 850nm LED's was used to create dark field illumination by shining light  perpendicular to the main optical path. 
 
-The condenser lens was removed from the bottom of the microscope to make room for a second low-magnifcation beam path to record the dark field imaging. An infrared prism mirror reflects infrared light into an optical train composed of a telescope and a 750nm long pass filter (Thorlabs, FEL0750).  An inexpensive USB CCD camera, DMK 31BUO3 from The Imaging Source,  was used to monitor the worm's behavior.  
+The condenser lens was removed from the bottom of the microscope to make room for a second low-magnification beam path to record the dark field imaging. An infrared prism mirror reflects infrared light into an optical train composed of a telescope and a 750nm long pass filter (Thorlabs, FEL0750).  An inexpensive USB CCD camera, DMK 31BUO3 from The Imaging Source,  was used to monitor the worm's behavior.  
 
 The microscope stage was controlled by a Ludl Bioprecision2 XY motorized stage and MAC 6000 stage-controller. The worm was kept centered by a  feedback loop implemented by the real-time tracking software (see below).
 
 \subsubsection{Real-Time Tracking} \label{sec:omegaSoftware}
-Real-time tracking was performed by monitoring the image of the worm through the low-magnification dark field beam path and adjusting the velocity of a motorized stage. 1024 x 768 px grayscale images were acquiredfrom a USB camera 30 fps. A modified version of the MindControl software (Chapter \ref{chapter:colbert}) was used to track the worm and keep targeted neurons centered in the field of view of the high magnification beam path. In brief, the software identifies the outline of the worm, finds the head tail, segments the worm into coordinates, then identifies the targeted neuron within the coordinate system. Finally, the software measures the distance of the targeted neuron from the center of the high magnification field of view and adjusts the stage velocity to glide the worm back towards the center.
+Real-time tracking was performed by monitoring the image of the worm through the low-magnification dark field beam path and adjusting the velocity of a motorized stage. 1024 x 768 px grayscale images were acquired from a USB camera 30 fps. A modified version of the MindControl software (Chapter \ref{chapter:colbert}) was used to track the worm and keep targeted neurons centered in the field of view of the high magnification beam path. In brief, the software identifies the outline of the worm, finds the head tail, segments the worm into coordinates, then identifies the targeted neuron within the coordinate system. Finally, the software measures the distance of the targeted neuron from the center of the high magnification field of view and adjusts the stage velocity to glide the worm back towards the center.
 
 The software is essentially the same as in Chapter \ref{chapter:colbert} with the following minor modifications, which were necessary to address poor lighting and the demands for more rapid tracking: When identifying the outline of the worm the software now performs a dilation on the image \citep{bradski_learning_2008} which can compensate for ``holes'' that appear in the worm due to lighting limitations. The newer version also allows the the outline of the worm to be smoothed directly, whereas the old version only allowed the underlying image be smoothed. Finally the new version of the software provides finer control of the stage response to the feedback loop. 
 
@@ -224,8 +224,8 @@ Fluorescent ratios are calculated as the ratio of the pixel intensities of the r
 Fluorescent images are recorded at 20 fps. Time-series traces of the fluorescent ratios were smoothed by linearly interpolating over any gaps and convolution with a Gaussian of $\sigma$=5 frames (\textasciitilde 250 ms) with padding of the end-point values. Finally points that had previously been interpolated were removed.
 
 
-\subsubsection{Benavioral Analysis}
-Behavior analysis was performed using a modified version of the MindControl Analysis scripts (Chapter \ref{chapter:colbert}), written in MATLAB \citep{matlab_version_2010}. Velocity is defined as before. in Chapter \ref{chapter:colbert}. Curvature here, is defined as the mean curvature of the worm's body as defined in Chapter \ref{chapter:colbert}, but averaged over the region of the worm's centerline from 10\%  to 80\% down from the anterior. Orientation is the arctangent of the vector defined by the points along the worm centerline 5\% and 40\% along the centerline from the anterior.
+\subsubsection{Behavioral Analysis}
+Behavior analysis was performed using a modified version of the MindControl Analysis scripts (Chapter \ref{chapter:colbert}), written in MATLAB \citep{matlab_version_2010}. Velocity is defined as in Chapter \ref{chapter:colbert}. Curvature here, is defined as the mean curvature of the worm's body as defined in Chapter \ref{chapter:colbert}, but averaged over the region of the worm's centerline from 10\%  to 80\% down from the anterior. Orientation is the arctangent of the vector defined by the points along the worm centerline 5\% and 40\% along the centerline from the anterior.
 
 
 Time-series behavioral data was smoothed by linearly interpolating over any gaps and convolution with a Gaussian of $\sigma$=5 frames (\textasciitilde 170 ms) with padding of the end-point values. Finally points that had previously been interpolated were removed.
@@ -234,7 +234,7 @@ Time-series behavioral data was smoothed by linearly interpolating over any gaps
 
 \section{Manuscript Information}
 \subsection{Author Contributions}
-The work presented here was done by Andrew M. Leifer in close collaboration with Christopher Clark and Mark Alkema of the Alkema Lab. Andrew Leifer built the hardware with Mason Klein. Christopher Clark and Andrew Leifer together performed all of the experiments. Christopher generated the worm strains. Andrew wrote all software and analyzed the data. Lauren Freeman built the video synchronization LED system. 
+The work presented here was done by Andrew M. Leifer with Christopher Clark and Mark Alkema of the Alkema Lab. Andrew Leifer built the hardware with Mason Klein. Christopher Clark and Andrew Leifer together performed all of the experiments. Christopher generated all worm strains. Andrew wrote all software and analyzed the data. Lauren Freeman built the video synchronization LED system. 
 
 Both Andrew and Christopher wrote the manuscript. Mark Alkema contributed Figure \ref{fig:omegaCircuitDiagram}.
 
