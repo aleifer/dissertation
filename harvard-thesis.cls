@@ -30,9 +30,12 @@
 \RequirePackage{verbatim}
 \RequirePackage{url}
 
+
 %Begin Andy's package additions
 \usepackage{pdfsync} %do pdf synchronization [andy]
 \usepackage[closeFloats, noSeparatorLine]{packages/fltpage} %use the custom modified fltpage package
+\RequirePackage{afterpage}
+
 
 \synctex=1 % turn synctex on automatically to sync between pdf viewer [andy]
 
