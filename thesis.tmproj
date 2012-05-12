@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>currentDocument</key>
-	<string>chapters/omegaTurn.tex</string>
+	<string>frontmatter/abstract.tex</string>
 	<key>documents</key>
 	<array>
 		<dict>
@@ -52,7 +52,7 @@
 			<key>filename</key>
 			<string>harvard-thesis.cls</string>
 			<key>lastUsed</key>
-			<date>2011-11-30T20:22:45Z</date>
+			<date>2012-05-10T20:52:38Z</date>
 		</dict>
 		<dict>
 			<key>name</key>
@@ -72,7 +72,7 @@
 			<key>filename</key>
 			<string>references.bib</string>
 			<key>lastUsed</key>
-			<date>2011-04-06T05:13:12Z</date>
+			<date>2012-05-10T15:36:19Z</date>
 		</dict>
 		<dict>
 			<key>name</key>
@@ -110,13 +110,27 @@
 			<key>filename</key>
 			<string>thesis.tex</string>
 			<key>lastUsed</key>
-			<date>2011-11-30T23:23:36Z</date>
+			<date>2012-05-10T20:26:46Z</date>
 		</dict>
 	</array>
 	<key>fileHierarchyDrawerWidth</key>
 	<integer>200</integer>
 	<key>metaData</key>
 	<dict>
+		<key>chapters/barcode.tex</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>0</integer>
+				<key>line</key>
+				<integer>103</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>75</integer>
+		</dict>
 		<key>chapters/colbert.tex</key>
 		<dict>
 			<key>caret</key>
@@ -124,28 +138,12 @@
 				<key>column</key>
 				<integer>0</integer>
 				<key>line</key>
-				<integer>31</integer>
+				<integer>7</integer>
 			</dict>
-			<key>columnSelection</key>
-			<false/>
 			<key>firstVisibleColumn</key>
-			<integer>820</integer>
+			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>23</integer>
-			<key>selectFrom</key>
-			<dict>
-				<key>column</key>
-				<integer>0</integer>
-				<key>line</key>
-				<integer>35</integer>
-			</dict>
-			<key>selectTo</key>
-			<dict>
-				<key>column</key>
-				<integer>0</integer>
-				<key>line</key>
-				<integer>31</integer>
-			</dict>
+			<integer>0</integer>
 		</dict>
 		<key>chapters/conclusion.tex</key>
 		<dict>
@@ -159,9 +157,9 @@
 			<key>columnSelection</key>
 			<false/>
 			<key>firstVisibleColumn</key>
-			<integer>0</integer>
+			<integer>174</integer>
 			<key>firstVisibleLine</key>
-			<integer>0</integer>
+			<integer>8</integer>
 			<key>selectFrom</key>
 			<dict>
 				<key>column</key>
@@ -177,19 +175,63 @@
 				<integer>0</integer>
 			</dict>
 		</dict>
-		<key>chapters/omegaTurn.tex</key>
+		<key>chapters/introduction.tex</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
 				<integer>0</integer>
 				<key>line</key>
-				<integer>113</integer>
+				<integer>1</integer>
+			</dict>
+			<key>columnSelection</key>
+			<false/>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>0</integer>
+			<key>selectFrom</key>
+			<dict>
+				<key>column</key>
+				<integer>15</integer>
+				<key>line</key>
+				<integer>4</integer>
+			</dict>
+			<key>selectTo</key>
+			<dict>
+				<key>column</key>
+				<integer>0</integer>
+				<key>line</key>
+				<integer>1</integer>
+			</dict>
+		</dict>
+		<key>chapters/omegaTurn.tex</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>69</integer>
+				<key>line</key>
+				<integer>203</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
-			<integer>247</integer>
+			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>68</integer>
+			<integer>179</integer>
+		</dict>
+		<key>chapters/proprioceptive.tex</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>187</integer>
+				<key>line</key>
+				<integer>509</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>492</integer>
 		</dict>
 		<key>frontmatter/abstract.tex</key>
 		<dict>
@@ -198,41 +240,27 @@
 				<key>column</key>
 				<integer>0</integer>
 				<key>line</key>
-				<integer>0</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>8</integer>
-		</dict>
-		<key>frontmatter/thanks.tex</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>287</integer>
-				<key>line</key>
-				<integer>30</integer>
+				<integer>11</integer>
 			</dict>
 			<key>columnSelection</key>
 			<false/>
 			<key>firstVisibleColumn</key>
-			<integer>74</integer>
+			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>14</integer>
+			<integer>0</integer>
 			<key>selectFrom</key>
 			<dict>
 				<key>column</key>
-				<integer>281</integer>
+				<integer>166</integer>
 				<key>line</key>
-				<integer>30</integer>
+				<integer>22</integer>
 			</dict>
 			<key>selectTo</key>
 			<dict>
 				<key>column</key>
-				<integer>287</integer>
+				<integer>0</integer>
 				<key>line</key>
-				<integer>30</integer>
+				<integer>11</integer>
 			</dict>
 		</dict>
 		<key>harvard-thesis.cls</key>
@@ -240,14 +268,28 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>27</integer>
+				<integer>20</integer>
 				<key>line</key>
-				<integer>144</integer>
+				<integer>195</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>101</integer>
+			<integer>143</integer>
+		</dict>
+		<key>references.bib</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>15</integer>
+				<key>line</key>
+				<integer>810</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>1596</integer>
 		</dict>
 		<key>thesis.tex</key>
 		<dict>
@@ -256,7 +298,7 @@
 				<key>column</key>
 				<integer>0</integer>
 				<key>line</key>
-				<integer>23</integer>
+				<integer>4</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
@@ -267,15 +309,19 @@
 	<key>openDocuments</key>
 	<array>
 		<string>thesis.tex</string>
-		<string>chapters/omegaTurn.tex</string>
-		<string>chapters/colbert.tex</string>
+		<string>chapters/proprioceptive.tex</string>
 		<string>frontmatter/abstract.tex</string>
-		<string>frontmatter/thanks.tex</string>
+		<string>chapters/barcode.tex</string>
 		<string>harvard-thesis.cls</string>
+		<string>chapters/introduction.tex</string>
+		<string>chapters/colbert.tex</string>
+		<string>chapters/omegaTurn.tex</string>
+		<string>references.bib</string>
+		<string>chapters/conclusion.tex</string>
 	</array>
 	<key>showFileHierarchyDrawer</key>
 	<false/>
 	<key>windowFrame</key>
-	<string>{{4, 4}, {658, 993}}</string>
+	<string>{{-18, 12}, {811, 990}}</string>
 </dict>
 </plist>

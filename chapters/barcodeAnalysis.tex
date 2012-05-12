@@ -258,7 +258,8 @@ as in Figure \ref{fig:blobs}d. $B_\cup$ consists of many small discontiguous isl
 
 Some barcodes lie entirely within one blob, while others are represented by two or more nearby but distinct blobs--so we must first  group together adjacent but distinct blobs.  To do this, we dilate the binary mask using standard image processing routines \citep{matlab_version_2010} so that closely spaced blobs run together into single larger blobs. We can label the larger blobs and use them to group together their constituent blobs, so that if a barcode is made up of two nearby blobs in $B_\cup$, they both will be labeled together as one blob ensemble.
 
-Each blob ensemble is examined to determine if it represents a barcode. To qualify as a barcode, the area of a blob ensemble must lie in an acceptable range, the major and minor axis of the ellipse that fits its second moment must lie in a range consistent with that of a barcode and the ellipse must be sufficiently elongated or eccentric. Table~\ref{table:morphCriteria} lists the pertinent numerical criteria. 
+
+\afterpage{\clearpage}
 
 \begin{table}[htbp] 
 \begin{center}
@@ -275,6 +276,11 @@ Min Eccentricity &0.75\\
 \end{center}
 \caption{Morphological criteria for barcode. Scale: 1 px $\approx$ 71.4 nm.\label{table:morphCriteria}}
 \end{table}
+\afterpage{\clearpage}
+
+Each blob ensemble is examined to determine if it represents a barcode. To qualify as a barcode, the area of a blob ensemble must lie in an acceptable range, the major and minor axis of the ellipse that fits its second moment must lie in a range consistent with that of a barcode and the ellipse must be sufficiently elongated or eccentric. Table~\ref{table:morphCriteria} lists the pertinent numerical criteria. 
+
+
 The software also records the centroid and the angle of the barcode major axis, which will be used in Section \ref{sec:projectDown} to rotate the barcode and project it to one dimension. 
 
 
