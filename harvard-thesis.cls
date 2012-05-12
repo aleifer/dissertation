@@ -135,7 +135,9 @@
 	\vspace{20pt}
 	\sc Abstract \\ \rm
 	\end{center}
+	\begin{doublespace} %Harvard registrar requests that abstract is double spaced
 	\input{frontmatter/abstract}
+	\end{doublespace}
 	\newpage \lhead{} \rhead{}
 	\cfoot{\thepage}
 }
